@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+
+<html lang="vi">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Hóa đơn bán hàng - PharmaAssist</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f7f7; }
+        @media print {
+            body { background-color: white !important; }
+            .no-print { display: none !important; }
+            .print-only { display: block !important; }
+        }
+    </style>
+</head>
+<body class="w-screen h-screen flex overflow-hidden">
+<!-- Sidebar -->
+    <!-- SIDEBAR BÊN TRÁI (DESKTOP) -->
+        <!-- SIDEBAR BÊN TRÁI (DESKTOP) -->
+    <aside class="hidden md:flex w-64 bg-white border-r border-[#e8e8e8] flex-col shrink-0 h-full">
+        <div class="flex flex-col h-full overflow-hidden">
+            <!-- Logo -->
+            <div class="p-5 border-b border-[#e8e8e8] flex items-center gap-3 shrink-0">
+                <div class="bg-[#024ad8] text-white p-2 rounded-[8px] shadow-md shadow-[#024ad8]/20 shrink-0">
+                    <i data-lucide="sparkles" class="w-5 h-5"></i>
+                </div>
+                <div class="leading-tight">
+                    <span class="text-base font-extrabold tracking-tight text-[#1a1a1a]">Pharma<span class="text-[#024ad8]">Assist</span></span>
+                    <span class="block text-[9px] text-[#636363] font-bold uppercase tracking-wider">Hệ thống thông minh</span>
+                </div>
+            </div>
+            <!-- User Info -->
+            <div class="px-4 py-3 border-b border-[#e8e8e8] flex items-center gap-3 shrink-0 bg-[#f7f7f7]">
+                <div class="w-9 h-9 rounded-[8px] bg-[#c9e0fc] text-[#024ad8] font-bold flex items-center justify-center text-sm shrink-0">AD</div>
+                <div class="leading-tight flex-1 min-w-0">
+                    <p class="text-xs font-bold text-[#1a1a1a] truncate">Admin Hệ Thống</p>
+                    <p class="text-[10px] text-[#636363] truncate">Admin / Chủ nhà thuốc</p>
+                </div>
+            </div>
+            <!-- Navigation -->
+            <nav class="py-3 px-3 space-y-0.5 flex-1 overflow-y-auto">
+                <a href="../dashboard/dashboard.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="layout-dashboard"></i> Dashboard</a>
+                <a href="../medicine/medicine_management.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="pill"></i> Quản lý thuốc</a>
+                <a href="../medicine/category_management.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="layers"></i> Danh mục thuốc</a>
+                <a href="../inventory/inventory.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="package"></i> Kho thuốc</a>
+                <a href="../inventory/import-create.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="arrow-down-left"></i> Nhập thuốc</a>
+                <a href="../inventory/import-history.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="history"></i> Lịch sử nhập</a>
+                <a href="../inventory/suppliers.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="building-2"></i> Nhà cung cấp</a>
+                <a href="../pos/pos.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="shopping-cart"></i> Bán thuốc</a>
+                <a href="../pos/order-history.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="receipt-text"></i> Lịch sử bán</a>
+                <a href="../customers/customers.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="users"></i> Khách hàng</a>
+                <a href="../reports/reports.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="bar-chart-3"></i> Báo cáo</a>
+                <div class="h-px bg-[#e8e8e8] my-1.5"></div>
+                <a href="../admin/users.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="user-cog"></i> Người dùng</a>
+                <a href="../admin/roles.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="shield"></i> Phân quyền</a>
+                <a href="../admin/notification-center.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="bell"></i> Thông báo</a>
+                <a href="../admin/pharmacy-profile.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="store"></i> Hồ sơ nhà thuốc</a>
+                <a href="../admin/system-audit-log.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="clipboard-list"></i> Nhật ký hệ thống</a>
+                <a href="../admin/settings.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="settings"></i> Cài đặt</a>
+                <a href="../admin/backup-export-data.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="database"></i> Sao lưu dữ liệu</a>
+                <div class="h-px bg-[#e8e8e8] my-1.5"></div>
+                <a href="../ai/ai-copilot.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="bot"></i> AI Copilot</a>
+                <a href="../ai/ai-audit-log.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="file-text"></i> Nhật ký AI</a>
+                <a href="../ai/graph-explorer.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="network"></i> Graph Explorer</a>
+                <a href="../profile/profile.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="user"></i> Hồ sơ</a>
+                <div class="h-px bg-[#e8e8e8] my-1.5"></div>
+                <a href="../demo/demo-scenario.html" class="flex items-center gap-3 bg-[#c9e0fc]/30 text-[#024ad8] px-3 py-2.5 rounded-[8px] text-sm font-bold transition-all border-l-2 border-[#024ad8]"><i class="w-4 h-4 shrink-0 text-[#024ad8]" data-lucide="play-circle"></i> Kịch bản demo</a>
+                <a href="../auth/login.html" class="flex items-center gap-3 hover:bg-red-50 text-[#b3262b] px-3 py-2.5 rounded-[8px] text-sm font-bold transition-all"><i class="w-4 h-4 shrink-0 text-[#b3262b]" data-lucide="log-out"></i> Đăng xuất</a>
+            </nav>
+        </div>
+        <!-- Footer -->
+        <a href="../profile/profile.html" class="p-4 border-t border-[#e8e8e8] flex items-center gap-3 hover:bg-[#f7f7f7] transition-all shrink-0">
+            <div class="w-8 h-8 rounded-[8px] bg-[#c9e0fc] text-[#024ad8] font-bold flex items-center justify-center text-xs shrink-0">AD</div>
+            <div class="leading-tight truncate flex-1">
+                <p class="text-xs font-bold text-[#1a1a1a] truncate">Quản trị viên</p>
+                <p class="text-[9px] text-[#636363] font-medium truncate">admin@pharmaassist.com</p>
+            </div>
+            <i data-lucide="settings" class="w-4 h-4 text-[#636363] shrink-0"></i>
+        </a>
+    </aside>
+
+
+<!-- Main Content -->
+<main class="flex-1 flex flex-col h-screen overflow-hidden">
+<!-- Mobile Header -->
+<header class="md:hidden h-14 bg-white border-b border-[#e8e8e8] px-4 flex items-center justify-between shrink-0 sticky top-0 z-30 no-print">
+<div class="flex items-center gap-3">
+<a class="p-2 -ml-2 text-[#1a1a1a] hover:bg-[#f7f7f7] rounded-[4px]" href="../pos/order-detail.html">
+<i class="w-5 h-5" data-lucide="arrow-left"></i>
+</a>
+<h1 class="text-base font-extrabold text-[#1a1a1a]">Hóa đơn</h1>
+</div>
+<button class="p-2 -mr-2 text-[#1a1a1a] hover:bg-[#f7f7f7] rounded-[4px]">
+<i class="w-5 h-5" data-lucide="more-vertical"></i>
+</button>
+</header>
+<!-- Desktop Header -->
+<header class="hidden md:flex h-16 bg-white border-b border-[#e8e8e8] flex items-center justify-between px-8 shrink-0 no-print">
+<div class="flex items-center gap-4">
+<h1 class="text-xl font-extrabold text-[#1a1a1a]">Chi tiết hóa đơn</h1>
+</div>
+<div class="flex items-center gap-3">
+<a class="px-4 py-2 text-sm font-bold border border-[#c2c2c2] text-[#3d3d3d] rounded-[4px] hover:bg-[#f7f7f7] transition-all uppercase" href="../pos/order-detail.html">QUAY LẠI</a>
+<a class="px-4 py-2 text-sm font-bold text-[#636363] hover:text-[#1a1a1a] transition-colors uppercase" href="../pos/pos.html">QUAY LẠI BÁN HÀNG</a>
+<button class="px-4 py-2 border border-[#c2c2c2] bg-white rounded-[6px] font-bold text-sm text-[#3d3d3d] hover:bg-[#f7f7f7] transition-colors uppercase flex items-center gap-2" onclick="openSendModal()">
+<i class="w-4 h-4" data-lucide="send"></i> Gửi Hóa Đơn
+                </button>
+<button class="px-4 py-2 border border-[#c2c2c2] bg-white rounded-[6px] font-bold text-sm text-[#3d3d3d] hover:bg-[#f7f7f7] transition-colors uppercase flex items-center gap-2" onclick="showToast('Tải hóa đơn thành công', 'success')">
+<i class="w-4 h-4" data-lucide="download"></i> Tải PDF
+                </button>
+<button class="px-4 py-2 bg-[#024ad8] text-white rounded-[6px] font-bold text-sm hover:bg-[#0e3191] transition-all shadow-[0_2px_8px_rgba(2,74,216,0.25)] uppercase flex items-center gap-2" onclick="showToast('Đang gửi lệnh in', 'info')">
+<i class="w-4 h-4" data-lucide="printer"></i> In Hóa Đơn
+                </button>
+</div>
+</header>
+<!-- Container Center -->
+<div class="flex-1 overflow-auto p-0 md:p-8 pb-24 md:pb-8 flex justify-center items-start bg-[#f7f7f7]">
+<!-- Card Hóa đơn -->
+<div class="w-full max-w-[800px] bg-white rounded-none md:rounded-[16px] shadow-sm md:shadow-[0_4px_12px_rgba(26,26,26,0.08)] border-y md:border border-[#e8e8e8] p-5 md:p-10 print:shadow-none print:border-none print:w-full print:max-w-none print:p-0">
+<!-- Hóa đơn Header -->
+<div class="flex flex-col md:flex-row justify-between items-start border-b border-[#e8e8e8] pb-4 md:pb-6 mb-4 md:mb-6 gap-4 md:gap-0">
+<div>
+<div class="flex items-center gap-2 text-[#024ad8] mb-2">
+<i class="w-6 h-6" data-lucide="cross"></i>
+<span class="text-2xl font-black tracking-tight">PharmaAssist</span>
+</div>
+<h2 class="text-sm font-bold text-[#1a1a1a]">Nhà thuốc Demo</h2>
+<p class="text-sm text-[#636363] mt-1">Địa chỉ: 123 Đường Demo, TP.HCM</p>
+<p class="text-sm text-[#636363]">Số điện thoại: 0900 000 000</p>
+</div>
+<div class="text-left md:text-right">
+<h1 class="text-3xl font-black text-[#1a1a1a] uppercase tracking-wider mb-2">Hóa đơn</h1>
+<p class="text-sm text-[#636363] mb-1">Mã hóa đơn: <span class="font-bold text-[#1a1a1a]">INV0001</span></p>
+<p class="text-sm text-[#636363]">Ngày bán: <span class="font-bold text-[#1a1a1a]">30/05/2026</span></p>
+</div>
+</div>
+<!-- Thông tin KH & Nhân viên -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 mb-6 md:mb-8">
+<div>
+<p class="text-xs font-bold text-[#636363] uppercase tracking-wider mb-2">Thông tin khách hàng</p>
+<p class="font-bold text-[#1a1a1a]">Nguyễn Văn Minh</p>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<p class="text-xs font-bold text-[#636363] uppercase tracking-wider mb-2">Nhân viên bán</p>
+<p class="font-bold text-[#1a1a1a]">Trần Thị B</p>
+</div>
+<div>
+<p class="text-xs font-bold text-[#636363] uppercase tracking-wider mb-2">Thanh toán</p>
+<p class="font-bold text-[#1a1a1a]">Tiền mặt</p>
+</div>
+</div>
+</div>
+<!-- Bảng sản phẩm -->
+<!-- Mobile Medicine List -->
+<div class="md:hidden flex flex-col gap-3 mb-6 border-b border-[#e8e8e8] pb-4">
+<p class="text-xs font-bold text-[#636363] uppercase tracking-wider mb-1">Danh sách thuốc</p>
+<div class="flex justify-between items-center text-sm">
+<div>
+<span class="font-bold text-[#1a1a1a]">Paracetamol 500mg</span>
+<span class="text-[#636363] ml-2">| SL 2 | 25.000đ</span>
+</div>
+<span class="font-bold text-[#024ad8]">50.000đ</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<div>
+<span class="font-bold text-[#1a1a1a]">Ibuprofen 400mg</span>
+<span class="text-[#636363] ml-2">| SL 1 | 32.000đ</span>
+</div>
+<span class="font-bold text-[#024ad8]">32.000đ</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<div>
+<span class="font-bold text-[#1a1a1a]">Warfarin 5mg</span>
+<span class="text-[#636363] ml-2">| SL 1 | 48.000đ</span>
+</div>
+<span class="font-bold text-[#024ad8]">48.000đ</span>
+</div>
+</div>
+<table class="hidden md:table w-full text-left border-collapse mb-8 print:table">
+<thead class="bg-[#f7f7f7] border-y border-[#e8e8e8]">
+<tr>
+<th class="py-3 px-4 text-xs font-bold text-[#1a1a1a] w-12 text-center">STT</th>
+<th class="py-3 px-4 text-xs font-bold text-[#1a1a1a]">Tên thuốc</th>
+<th class="py-3 px-4 text-xs font-bold text-[#1a1a1a] text-center w-24">Số lượng</th>
+<th class="py-3 px-4 text-xs font-bold text-[#1a1a1a] text-right w-32">Đơn giá</th>
+<th class="py-3 px-4 text-xs font-bold text-[#1a1a1a] text-right w-36">Thành tiền</th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-b border-[#e8e8e8]">
+<td class="py-4 px-4 text-sm text-center text-[#636363]">1</td>
+<td class="py-4 px-4">
+<p class="text-sm font-bold text-[#1a1a1a]">Paracetamol 500mg</p>
+</td>
+<td class="py-4 px-4 text-sm text-center font-medium">2</td>
+<td class="py-4 px-4 text-sm text-right text-[#636363]">25.000đ</td>
+<td class="py-4 px-4 text-sm text-right font-bold text-[#1a1a1a]">50.000đ</td>
+</tr>
+<tr class="border-b border-[#e8e8e8]">
+<td class="py-4 px-4 text-sm text-center text-[#636363]">2</td>
+<td class="py-4 px-4">
+<p class="text-sm font-bold text-[#1a1a1a]">Ibuprofen 400mg</p>
+</td>
+<td class="py-4 px-4 text-sm text-center font-medium">1</td>
+<td class="py-4 px-4 text-sm text-right text-[#636363]">32.000đ</td>
+<td class="py-4 px-4 text-sm text-right font-bold text-[#1a1a1a]">32.000đ</td>
+</tr>
+<tr class="border-b border-[#e8e8e8]">
+<td class="py-4 px-4 text-sm text-center text-[#636363]">3</td>
+<td class="py-4 px-4">
+<p class="text-sm font-bold text-[#1a1a1a]">Warfarin 5mg</p>
+</td>
+<td class="py-4 px-4 text-sm text-center font-medium">1</td>
+<td class="py-4 px-4 text-sm text-right text-[#636363]">48.000đ</td>
+<td class="py-4 px-4 text-sm text-right font-bold text-[#1a1a1a]">48.000đ</td>
+</tr>
+</tbody>
+</table>
+<!-- Tổng kết & Ghi chú -->
+<div class="flex flex-col-reverse md:flex-row justify-between items-start gap-6 md:gap-0">
+<!-- Ghi chú -->
+<div class="w-full md:w-1/2 md:pr-8">
+<div class="bg-amber-50 border border-amber-200 rounded-[8px] p-4 flex gap-3">
+<i class="w-5 h-5 text-amber-600 shrink-0" data-lucide="alert-triangle"></i>
+<div>
+<p class="text-xs font-bold text-amber-900 mb-1">Ghi chú an toàn y khoa:</p>
+<ul class="text-[11px] text-amber-800 list-disc pl-4 space-y-1">
+<li>Đã ghi nhận cảnh báo tương tác thuốc trong đơn hàng.</li>
+<li>Thông tin cảnh báo chỉ mang tính tham khảo, không thay thế tư vấn của dược sĩ, bác sĩ hoặc chuyên gia y tế.</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Tổng tiền -->
+<div class="w-full md:w-[320px] bg-[#f7f7f7] rounded-[12px] p-4 md:p-5 border border-[#e8e8e8]">
+<div class="flex justify-between items-center text-sm mb-3">
+<span class="text-[#636363] font-medium">Tạm tính</span>
+<span class="font-bold text-[#1a1a1a]">130.000đ</span>
+</div>
+<div class="flex justify-between items-center text-sm mb-4">
+<span class="text-[#636363] font-medium">Giảm giá</span>
+<span class="font-bold text-rose-600">-0đ</span>
+</div>
+<div class="h-[1px] bg-[#e8e8e8] w-full mb-4"></div>
+<div class="flex justify-between items-end">
+<span class="text-sm font-bold text-[#1a1a1a] mb-1">Tổng tiền</span>
+<span class="text-3xl font-black text-[#024ad8]">130.000đ</span>
+</div>
+</div>
+</div>
+<div class="mt-12 text-center text-sm text-[#636363] italic border-t border-[#e8e8e8] pt-6">
+                    Cảm ơn quý khách đã mua sắm tại PharmaAssist!
+                </div>
+</div>
+</div>
+<!-- Mobile Sticky Footer Actions -->
+<div class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-[#e8e8e8] p-4 flex gap-3 pb-safe z-40 shadow-[0_-4px_20px_rgba(0,0,0,0.05)] no-print">
+<button class="flex-1 py-3 text-xs font-bold border border-[#c2c2c2] text-[#3d3d3d] bg-white rounded-[4px] uppercase flex justify-center items-center gap-2" onclick="showToast('Tải hóa đơn thành công', 'success')">
+<i class="w-4 h-4" data-lucide="download"></i> Tải PDF
+            </button>
+<button class="flex-1 py-3 text-xs font-bold bg-[#024ad8] text-white rounded-[4px] uppercase shadow-sm flex justify-center items-center gap-2" onclick="showToast('Đang gửi lệnh in', 'info')">
+<i class="w-4 h-4" data-lucide="printer"></i> In hóa đơn
+            </button>
+</div>
+</main>
+<!-- Modal Gửi Hóa Đơn -->
+<div class="fixed inset-0 bg-[#1a1a1a]/60 backdrop-blur-sm z-50 hidden items-center justify-center no-print" id="sendModalOverlay" onclick="closeSendModal(event)">
+<div class="bg-white rounded-[16px] w-[400px] shadow-2xl overflow-hidden hidden flex-col" id="sendModalContent">
+<div class="px-6 py-5 border-b border-[#e8e8e8] flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-[#024ad8]">
+<i class="w-5 h-5" data-lucide="send"></i>
+</div>
+<h2 class="text-lg font-extrabold text-[#1a1a1a]">Gửi hóa đơn</h2>
+</div>
+<button class="text-[#636363] hover:text-[#1a1a1a] transition-colors p-1" onclick="closeSendModal()">
+<i class="w-5 h-5" data-lucide="x"></i>
+</button>
+</div>
+<div class="p-6 space-y-4">
+<p class="text-[#3d3d3d] text-sm">Gửi hóa đơn <strong>INV0001</strong> cho khách hàng.</p>
+<div class="flex flex-col gap-1.5">
+<label class="text-[10px] font-bold text-[#636363] uppercase tracking-wider">Email hoặc Số điện thoại</label>
+<input class="w-full border border-[#c2c2c2] rounded-[4px] px-3 py-2 text-sm focus:outline-none focus:border-[#024ad8]" id="sendInput" placeholder="Nhập email hoặc SĐT..." type="text"/>
+</div>
+</div>
+<div class="p-5 bg-[#f7f7f7] border-t border-[#e8e8e8] flex justify-end gap-3">
+<button class="px-5 py-2.5 text-sm font-bold border border-[#c2c2c2] text-[#3d3d3d] bg-white rounded-[4px] hover:bg-[#f7f7f7] transition-all uppercase" onclick="closeSendModal()">
+                    HỦY
+                </button>
+<button class="px-5 py-2.5 text-sm font-bold bg-[#024ad8] text-white rounded-[4px] hover:bg-[#0e3191] transition-all shadow-sm uppercase" onclick="confirmSend()">
+                    GỬI
+                </button>
+</div>
+</div>
+</div>
+<!-- Toast Container -->
+<div class="fixed top-6 right-6 z-50 flex flex-col gap-3 no-print" id="toast-container"></div>
+<script>
+        lucide.createIcons();
+
+        // Modal Logic
+        const sendOverlay = document.getElementById('sendModalOverlay');
+        const sendContent = document.getElementById('sendModalContent');
+
+        function openSendModal() {
+            sendOverlay.classList.remove('hidden');
+            sendOverlay.classList.add('flex', 'backdrop-enter');
+            sendContent.classList.remove('hidden');
+            sendContent.classList.add('flex', 'modal-enter');
+        }
+
+        function closeSendModal(e) {
+            if(e && e.target !== sendOverlay && e.currentTarget !== e.target && e.target.closest('button') === null) return;
+            
+            sendOverlay.classList.remove('backdrop-enter');
+            sendOverlay.classList.add('backdrop-leave');
+            sendContent.classList.remove('modal-enter');
+            sendContent.classList.add('modal-leave');
+            
+            setTimeout(() => {
+                sendOverlay.classList.add('hidden');
+                sendOverlay.classList.remove('flex');
+                sendContent.classList.add('hidden');
+                sendContent.classList.remove('flex');
+            }, 300);
+        }
+
+        function confirmSend() {
+            const val = document.getElementById('sendInput').value.trim();
+            if (!val) {
+                showToast('Vui lòng nhập email hoặc số điện thoại.', 'error');
+                return;
+            }
+            closeSendModal();
+            setTimeout(() => {
+                showToast('Đã gửi hóa đơn thành công.', 'success');
+            }, 300);
+        }
+
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            let icon = 'check-circle';
+            let colorClass = 'border-emerald-500 text-emerald-700 bg-emerald-50';
+
+            if (type === 'info') {
+                icon = 'info';
+                colorClass = 'border-blue-500 text-blue-700 bg-blue-50';
+            }
+
+            toast.className = `flex items-center gap-3 px-4 py-3 rounded-[8px] border shadow-lg animate-in slide-in-from-right-full duration-300 ${colorClass}`;
+            toast.innerHTML = `
+                <i data-lucide="${icon}" class="w-5 h-5"></i>
+                <span class="font-bold text-sm">${message}</span>
+            `;
+            
+            document.getElementById('toast-container').appendChild(toast);
+            lucide.createIcons();
+
+            setTimeout(() => {
+                toast.classList.replace('animate-in', 'animate-out');
+                toast.classList.add('fade-out', 'slide-out-to-right-full');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+    </script>
+<script src="../global_ui.js"></script>
+</body>
+</html>

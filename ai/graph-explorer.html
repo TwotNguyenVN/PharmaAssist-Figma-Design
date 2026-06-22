@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+
+<html lang="vi">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Graph Explorer - PharmaAssist</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f7f7; }
+        
+        /* Node styles for mock graph */
+        .graph-node {
+            position: absolute;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 2px solid white;
+        }
+        .graph-node:hover { transform: scale(1.1); z-index: 10; }
+        .node-drug { background-color: #024ad8; color: white; width: 80px; height: 80px; }
+        .node-ingredient { background-color: #16a34a; color: white; width: 70px; height: 70px; }
+        .node-group { background-color: #ca8a04; color: white; width: 90px; height: 90px; }
+        .node-interaction { background-color: #dc2626; color: white; width: 60px; height: 60px; }
+        .node-selected { border: 3px solid #facc15; box-shadow: 0 0 0 4px rgba(250, 204, 21, 0.3); z-index: 20; }
+
+        /* Edges */
+        .graph-edge {
+            position: absolute;
+            background-color: #cbd5e1;
+            transform-origin: 0 50%;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .edge-label {
+            background-color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 8px;
+            font-weight: 700;
+            color: #64748b;
+            border: 1px solid #e2e8f0;
+            transform: translateY(-10px);
+            white-space: nowrap;
+        }
+        .edge-interaction { background-color: #fca5a5; }
+    </style>
+</head>
+<body class="w-screen h-screen flex overflow-hidden">
+<!-- Sidebar -->
+    <!-- SIDEBAR BÊN TRÁI (DESKTOP) -->
+        <!-- SIDEBAR BÊN TRÁI (DESKTOP) -->
+    <aside class="hidden md:flex w-64 bg-white border-r border-[#e8e8e8] flex-col shrink-0 h-full">
+        <div class="flex flex-col h-full overflow-hidden">
+            <!-- Logo -->
+            <div class="p-5 border-b border-[#e8e8e8] flex items-center gap-3 shrink-0">
+                <div class="bg-[#024ad8] text-white p-2 rounded-[8px] shadow-md shadow-[#024ad8]/20 shrink-0">
+                    <i data-lucide="sparkles" class="w-5 h-5"></i>
+                </div>
+                <div class="leading-tight">
+                    <span class="text-base font-extrabold tracking-tight text-[#1a1a1a]">Pharma<span class="text-[#024ad8]">Assist</span></span>
+                    <span class="block text-[9px] text-[#636363] font-bold uppercase tracking-wider">Hệ thống thông minh</span>
+                </div>
+            </div>
+            <!-- User Info -->
+            <div class="px-4 py-3 border-b border-[#e8e8e8] flex items-center gap-3 shrink-0 bg-[#f7f7f7]">
+                <div class="w-9 h-9 rounded-[8px] bg-[#c9e0fc] text-[#024ad8] font-bold flex items-center justify-center text-sm shrink-0">AD</div>
+                <div class="leading-tight flex-1 min-w-0">
+                    <p class="text-xs font-bold text-[#1a1a1a] truncate">Admin Hệ Thống</p>
+                    <p class="text-[10px] text-[#636363] truncate">Admin / Chủ nhà thuốc</p>
+                </div>
+            </div>
+            <!-- Navigation -->
+            <nav class="py-3 px-3 space-y-0.5 flex-1 overflow-y-auto">
+                <a href="../dashboard/dashboard.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="layout-dashboard"></i> Dashboard</a>
+                <a href="../medicine/medicine_management.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="pill"></i> Quản lý thuốc</a>
+                <a href="../medicine/category_management.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="layers"></i> Danh mục thuốc</a>
+                <a href="../inventory/inventory.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="package"></i> Kho thuốc</a>
+                <a href="../inventory/import-create.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="arrow-down-left"></i> Nhập thuốc</a>
+                <a href="../inventory/import-history.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="history"></i> Lịch sử nhập</a>
+                <a href="../inventory/suppliers.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="building-2"></i> Nhà cung cấp</a>
+                <a href="../pos/pos.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="shopping-cart"></i> Bán thuốc</a>
+                <a href="../pos/order-history.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="receipt-text"></i> Lịch sử bán</a>
+                <a href="../customers/customers.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="users"></i> Khách hàng</a>
+                <a href="../reports/reports.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="bar-chart-3"></i> Báo cáo</a>
+                <div class="h-px bg-[#e8e8e8] my-1.5"></div>
+                <a href="../admin/users.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="user-cog"></i> Người dùng</a>
+                <a href="../admin/roles.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="shield"></i> Phân quyền</a>
+                <a href="../admin/notification-center.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="bell"></i> Thông báo</a>
+                <a href="../admin/pharmacy-profile.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="store"></i> Hồ sơ nhà thuốc</a>
+                <a href="../admin/system-audit-log.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="clipboard-list"></i> Nhật ký hệ thống</a>
+                <a href="../admin/settings.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="settings"></i> Cài đặt</a>
+                <a href="../admin/backup-export-data.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="database"></i> Sao lưu dữ liệu</a>
+                <div class="h-px bg-[#e8e8e8] my-1.5"></div>
+                <a href="../ai/ai-copilot.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="bot"></i> AI Copilot</a>
+                <a href="../ai/ai-audit-log.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="file-text"></i> Nhật ký AI</a>
+                <a href="../ai/graph-explorer.html" class="flex items-center gap-3 px-3 py-2.5 rounded-[8px] text-sm font-bold transition-all bg-[#024ad8] text-white"><i class="w-4 h-4 shrink-0 text-white" data-lucide="network"></i> Graph Explorer</a>
+                <a href="../profile/profile.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="user"></i> Hồ sơ</a>
+                <div class="h-px bg-[#e8e8e8] my-1.5"></div>
+                <a href="../demo/demo-scenario.html" class="flex items-center gap-3 bg-[#c9e0fc]/30 text-[#024ad8] px-3 py-2.5 rounded-[8px] text-sm font-bold transition-all border-l-2 border-[#024ad8]"><i class="w-4 h-4 shrink-0 text-[#024ad8]" data-lucide="play-circle"></i> Kịch bản demo</a>
+                <a href="../auth/login.html" class="flex items-center gap-3 hover:bg-red-50 text-[#b3262b] px-3 py-2.5 rounded-[8px] text-sm font-bold transition-all"><i class="w-4 h-4 shrink-0 text-[#b3262b]" data-lucide="log-out"></i> Đăng xuất</a>
+            </nav>
+        </div>
+        <!-- Footer -->
+        <a href="../profile/profile.html" class="p-4 border-t border-[#e8e8e8] flex items-center gap-3 hover:bg-[#f7f7f7] transition-all shrink-0">
+            <div class="w-8 h-8 rounded-[8px] bg-[#c9e0fc] text-[#024ad8] font-bold flex items-center justify-center text-xs shrink-0">AD</div>
+            <div class="leading-tight truncate flex-1">
+                <p class="text-xs font-bold text-[#1a1a1a] truncate">Quản trị viên</p>
+                <p class="text-[9px] text-[#636363] font-medium truncate">admin@pharmaassist.com</p>
+            </div>
+            <i data-lucide="settings" class="w-4 h-4 text-[#636363] shrink-0"></i>
+        </a>
+    </aside>
+
+
+<!-- Main Content -->
+<main class="flex-1 flex flex-col h-screen overflow-hidden">
+<!-- Header -->
+<header class="h-16 bg-white border-b border-[#e8e8e8] flex items-center justify-between px-8 shrink-0">
+<div class="flex items-center gap-3">
+<h1 class="text-xl font-extrabold text-[#1a1a1a]">Graph Explorer</h1>
+<span class="px-2 py-0.5 text-[10px] font-bold bg-[#e8e8e8] text-[#3d3d3d] rounded-[4px] uppercase tracking-wider">Demo Data</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-[#024ad8] font-bold text-sm">
+                    AD
+                </div>
+</div>
+</header>
+<!-- Container -->
+<div class="flex-1 overflow-hidden p-6 flex gap-6">
+<!-- Cột trái: Bộ lọc và tìm kiếm -->
+<div class="w-[320px] flex flex-col gap-6 shrink-0 overflow-y-auto">
+<!-- Card 1: Tìm kiếm -->
+<div class="bg-white rounded-[16px] shadow-sm border border-[#e8e8e8] p-5">
+<h3 class="text-sm font-extrabold text-[#1a1a1a] uppercase tracking-wider mb-4">Tìm kiếm &amp; Lọc</h3>
+<div class="flex flex-col gap-4">
+<div class="relative">
+<i class="w-4 h-4 text-[#636363] absolute left-3 top-1/2 -translate-y-1/2" data-lucide="search"></i>
+<input class="w-full pl-9 pr-4 py-2 text-sm border border-[#c2c2c2] rounded-[6px] focus:outline-none focus:border-[#024ad8]" placeholder="Tìm thuốc, hoạt chất..." type="text"/>
+</div>
+<select class="w-full border border-[#c2c2c2] rounded-[6px] px-3 py-2 text-sm text-[#3d3d3d] focus:outline-none focus:border-[#024ad8] bg-white">
+<option value="">Tất cả loại node</option>
+<option value="drug">Thuốc</option>
+<option value="ingredient">Hoạt chất</option>
+<option value="group">Nhóm thuốc</option>
+<option value="interaction">Tương tác</option>
+</select>
+<button class="w-full py-2.5 text-sm font-bold text-white bg-[#024ad8] rounded-[6px] hover:bg-[#0e3191] transition-all shadow-[0_2px_8px_rgba(2,74,216,0.25)] uppercase flex items-center justify-center gap-2">
+<i class="w-4 h-4" data-lucide="search"></i> Tìm kiếm
+                        </button>
+</div>
+</div>
+<!-- Card 2: Node đang chọn -->
+<div class="bg-white rounded-[16px] shadow-sm border border-[#e8e8e8] overflow-hidden flex flex-col min-h-[300px]">
+<div class="p-4 border-b border-[#e8e8e8] bg-[#f7f7f7] flex items-center gap-2">
+<i class="w-4 h-4 text-[#024ad8]" data-lucide="target"></i>
+<h3 class="text-sm font-extrabold text-[#1a1a1a] uppercase tracking-wider">Node đang chọn</h3>
+</div>
+<div class="p-5 flex-1 flex flex-col gap-4" id="selected-node-panel">
+<!-- Default Empty State -->
+<div class="flex-1 flex flex-col items-center justify-center text-center">
+<div class="w-12 h-12 rounded-full bg-[#f7f7f7] flex items-center justify-center text-[#c2c2c2] mb-3">
+<i class="w-6 h-6" data-lucide="mouse-pointer-click"></i>
+</div>
+<p class="text-sm text-[#636363]">Click vào một node trên graph để xem chi tiết.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Cột phải: Khu vực graph lớn -->
+<div class="flex-1 bg-white rounded-[16px] shadow-sm border border-[#e8e8e8] flex flex-col overflow-hidden relative">
+<!-- Graph Toolbar -->
+<div class="absolute top-4 left-4 z-30 flex gap-2">
+<button class="w-8 h-8 bg-white border border-[#c2c2c2] rounded-[6px] flex items-center justify-center text-[#3d3d3d] hover:bg-[#f7f7f7] shadow-sm">
+<i class="w-4 h-4" data-lucide="zoom-in"></i>
+</button>
+<button class="w-8 h-8 bg-white border border-[#c2c2c2] rounded-[6px] flex items-center justify-center text-[#3d3d3d] hover:bg-[#f7f7f7] shadow-sm">
+<i class="w-4 h-4" data-lucide="zoom-out"></i>
+</button>
+<button class="w-8 h-8 bg-white border border-[#c2c2c2] rounded-[6px] flex items-center justify-center text-[#3d3d3d] hover:bg-[#f7f7f7] shadow-sm">
+<i class="w-4 h-4" data-lucide="maximize"></i>
+</button>
+</div>
+<!-- Legend -->
+<div class="absolute top-4 right-4 z-30 bg-white/90 backdrop-blur border border-[#e8e8e8] p-3 rounded-[8px] shadow-sm">
+<p class="text-[10px] font-bold text-[#1a1a1a] uppercase tracking-wider mb-2">Chú giải</p>
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-[#024ad8]"></div><span class="text-xs text-[#636363]">Thuốc</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-[#16a34a]"></div><span class="text-xs text-[#636363]">Hoạt chất</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-[#ca8a04]"></div><span class="text-xs text-[#636363]">Nhóm thuốc</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-[#dc2626]"></div><span class="text-xs text-[#636363]">Tương tác</span>
+</div>
+</div>
+</div>
+<!-- Graph Canvas (Mock) -->
+<div class="flex-1 relative overflow-hidden bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+CjxyZWN0IHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgZmlsbD0ibm9uZSI+PC9yZWN0Pgo8Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIxIiBmaWxsPSIjZThlOGU4Ij48L2NpcmNsZT4KPC9zdmc+')]">
+<!-- Edges (Hardcoded for demo) -->
+<div class="graph-edge" style="width: 150px; height: 2px; left: 300px; top: 200px; transform: rotate(20deg);"><span class="edge-label">THUỘC_NHÓM</span></div>
+<div class="graph-edge" style="width: 180px; height: 2px; left: 300px; top: 200px; transform: rotate(160deg);"><span class="edge-label">CÓ_HOẠT_CHẤT</span></div>
+<div class="graph-edge edge-interaction" style="width: 200px; height: 3px; left: 300px; top: 200px; transform: rotate(90deg);"><span class="edge-label text-rose-600 border-rose-200">TƯƠNG_TÁC_VỚI</span></div>
+<div class="graph-edge" style="width: 120px; height: 2px; left: 300px; top: 400px; transform: rotate(0deg);"><span class="edge-label">LIÊN_QUAN</span></div>
+<div class="graph-edge edge-interaction" style="width: 160px; height: 3px; left: 120px; top: 260px; transform: rotate(45deg);"><span class="edge-label text-rose-600 border-rose-200">TƯƠNG_TÁC_VỚI</span></div>
+<!-- Nodes -->
+<!-- Central Node -->
+<div class="graph-node node-drug" id="node-ibuprofen" onclick="selectNode('Ibuprofen')" style="left: 260px; top: 160px;">
+                        Ibuprofen<br/>400mg
+                    </div>
+<!-- Connected Nodes -->
+<div class="graph-node node-group" onclick="selectNode('Group')" style="left: 400px; top: 200px;">
+                        Nhóm<br/>Giảm đau
+                    </div>
+<div class="graph-node node-ingredient" onclick="selectNode('Ingredient')" style="left: 100px; top: 230px;">
+                        Hoạt chất<br/>Ibuprofen
+                    </div>
+<div class="graph-node node-drug" onclick="selectNode('Warfarin')" style="left: 260px; top: 380px;">
+                        Warfarin
+                    </div>
+<div class="graph-node node-interaction" onclick="selectNode('Interaction')" style="left: 200px; top: 300px;">
+                        Tương tác<br/>Cao
+                    </div>
+<div class="graph-node node-drug" onclick="selectNode('Paracetamol')" style="left: 400px; top: 380px;">
+                        Paracetamol
+                    </div>
+</div>
+<!-- Panel dưới graph -->
+<div class="h-[200px] border-t border-[#e8e8e8] bg-white flex flex-col shrink-0">
+<div class="px-4 py-2 border-b border-[#e8e8e8] bg-[#f7f7f7] flex items-center justify-between">
+<h3 class="text-xs font-extrabold text-[#1a1a1a] uppercase tracking-wider">Bảng quan hệ liên quan</h3>
+<span class="text-[10px] text-[#636363] font-medium" id="relation-count">0 kết quả</span>
+</div>
+<div class="flex-1 overflow-y-auto">
+<table class="w-full text-left border-collapse text-sm">
+<thead class="bg-white sticky top-0 border-b border-[#e8e8e8] z-10">
+<tr>
+<th class="py-2 px-4 text-[10px] font-bold text-[#636363] uppercase tracking-wider">Nguồn</th>
+<th class="py-2 px-4 text-[10px] font-bold text-[#636363] uppercase tracking-wider">Quan hệ</th>
+<th class="py-2 px-4 text-[10px] font-bold text-[#636363] uppercase tracking-wider">Đích</th>
+<th class="py-2 px-4 text-[10px] font-bold text-[#636363] uppercase tracking-wider">Mức độ</th>
+<th class="py-2 px-4 text-[10px] font-bold text-[#636363] uppercase tracking-wider">Mô tả</th>
+</tr>
+</thead>
+<tbody id="relation-table-body">
+<tr>
+<td class="py-8 text-center text-[#636363] text-sm" colspan="5">Chọn một node để xem các quan hệ.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Drawer: Chi tiết tương tác -->
+<div class="fixed inset-0 bg-[#1a1a1a]/60 backdrop-blur-sm z-40 hidden transition-opacity opacity-0" id="drawer-overlay" onclick="closeDrawer()"></div>
+<div class="fixed top-0 right-0 h-full w-[500px] bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col rounded-l-[16px] border-l border-[#e8e8e8]" id="detail-drawer">
+<div class="p-5 border-b border-[#e8e8e8] flex items-center justify-between bg-[#f7f7f7] shrink-0 rounded-tl-[16px]">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-[#024ad8]">
+<i class="w-5 h-5" data-lucide="info"></i>
+</div>
+<h2 class="text-lg font-extrabold text-[#1a1a1a]">Chi tiết node</h2>
+</div>
+<button class="p-2 hover:bg-[#e8e8e8] rounded-full transition-colors text-[#636363]" onclick="closeDrawer()">
+<i class="w-5 h-5" data-lucide="x"></i>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto p-6" id="drawer-content">
+<!-- Content will be injected -->
+</div>
+<div class="p-5 border-t border-[#e8e8e8] bg-white flex justify-end gap-3 shrink-0 rounded-bl-[16px]">
+<button class="px-5 py-2.5 text-sm font-bold text-[#3d3d3d] border border-[#c2c2c2] bg-white rounded-[6px] hover:bg-[#e8e8e8] transition-colors uppercase" onclick="closeDrawer()">
+                Đóng
+            </button>
+</div>
+</div>
+<script>
+        const nodeData = {
+            'Ibuprofen': {
+                name: 'Ibuprofen 400mg',
+                type: 'Thuốc',
+                ingredient: 'Ibuprofen',
+                group: 'Giảm đau, kháng viêm',
+                interactions: 2,
+                relations: [
+                    { source: 'Ibuprofen 400mg', rel: 'THUỘC_NHÓM', target: 'Nhóm Giảm đau', level: '-', desc: 'Thuốc thuộc nhóm giảm đau NSAID' },
+                    { source: 'Ibuprofen 400mg', rel: 'CÓ_HOẠT_CHẤT', target: 'Hoạt chất Ibuprofen', level: '-', desc: 'Hàm lượng 400mg' },
+                    { source: 'Ibuprofen 400mg', rel: 'TƯƠNG_TÁC_VỚI', target: 'Warfarin', level: 'Cao', desc: 'Tăng nguy cơ xuất huyết tiêu hóa' }
+                ]
+            },
+            'Warfarin': {
+                name: 'Warfarin',
+                type: 'Thuốc',
+                ingredient: 'Warfarin Sodium',
+                group: 'Chống đông máu',
+                interactions: 5,
+                relations: [
+                    { source: 'Warfarin', rel: 'TƯƠNG_TÁC_VỚI', target: 'Ibuprofen 400mg', level: 'Cao', desc: 'Tăng nguy cơ chảy máu do ức chế ngưng tập tiểu cầu' }
+                ]
+            }
+        };
+
+        function selectNode(nodeId) {
+            // Reset all styles
+            document.querySelectorAll('.graph-node').forEach(el => el.classList.remove('node-selected'));
+            
+            // Apply selected style
+            const targetEl = document.getElementById(nodeId === 'Ibuprofen' ? 'node-ibuprofen' : '');
+            if(targetEl) targetEl.classList.add('node-selected');
+
+            const data = nodeData[nodeId] || nodeData['Ibuprofen']; // Fallback for demo
+            
+            // Update Panel
+            document.getElementById('selected-node-panel').innerHTML = `
+                <h4 class="text-lg font-black text-[#1a1a1a] mb-2">${data.name}</h4>
+                <div class="space-y-3 flex-1">
+                    <div class="flex justify-between items-center pb-2 border-b border-[#f7f7f7]">
+                        <span class="text-xs font-bold text-[#636363] uppercase">Loại</span>
+                        <span class="text-sm font-bold text-[#1a1a1a]">${data.type}</span>
+                    </div>
+                    <div class="flex justify-between items-center pb-2 border-b border-[#f7f7f7]">
+                        <span class="text-xs font-bold text-[#636363] uppercase">Hoạt chất</span>
+                        <span class="text-sm font-medium text-[#1a1a1a]">${data.ingredient}</span>
+                    </div>
+                    <div class="flex justify-between items-center pb-2 border-b border-[#f7f7f7]">
+                        <span class="text-xs font-bold text-[#636363] uppercase">Nhóm</span>
+                        <span class="text-sm font-medium text-[#1a1a1a]">${data.group}</span>
+                    </div>
+                    <div class="flex justify-between items-center pb-2 border-b border-[#f7f7f7]">
+                        <span class="text-xs font-bold text-[#636363] uppercase">Tương tác mẫu</span>
+                        <span class="text-sm font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded">${data.interactions}</span>
+                    </div>
+                </div>
+                <button onclick="openDrawer('${data.name}')" class="w-full py-2.5 text-xs font-bold text-[#024ad8] border border-[#024ad8] bg-white rounded-[6px] hover:bg-blue-50 transition-colors uppercase mt-auto">
+                    Xem chi tiết
+                </button>
+            `;
+
+            // Update Table
+            const tbody = document.getElementById('relation-table-body');
+            tbody.innerHTML = '';
+            document.getElementById('relation-count').textContent = `${data.relations.length} kết quả`;
+
+            data.relations.forEach(r => {
+                let levelHtml = r.level === 'Cao' ? `<span class="text-rose-600 font-bold bg-rose-50 px-2 py-0.5 rounded text-xs">${r.level}</span>` : `<span class="text-[#636363]">-</span>`;
+                let relHtml = r.rel.includes('TƯƠNG_TÁC') ? `<span class="text-rose-600 font-mono text-xs font-bold bg-rose-50 px-1 rounded">${r.rel}</span>` : `<span class="text-blue-600 font-mono text-xs font-bold bg-blue-50 px-1 rounded">${r.rel}</span>`;
+                
+                tbody.innerHTML += `
+                    <tr class="border-b border-[#f7f7f7] hover:bg-[#f7f7f7]">
+                        <td class="py-2 px-4 font-bold text-[#1a1a1a]">${r.source}</td>
+                        <td class="py-2 px-4">${relHtml}</td>
+                        <td class="py-2 px-4 font-bold text-[#1a1a1a]">${r.target}</td>
+                        <td class="py-2 px-4">${levelHtml}</td>
+                        <td class="py-2 px-4 text-[#3d3d3d] truncate max-w-[200px]" title="${r.desc}">${r.desc}</td>
+                    </tr>
+                `;
+            });
+        }
+
+        function openDrawer(name) {
+            const overlay = document.getElementById('drawer-overlay');
+            const drawer = document.getElementById('detail-drawer');
+            
+            document.getElementById('drawer-content').innerHTML = `
+                <div class="mb-6">
+                    <h3 class="text-xl font-black text-[#1a1a1a] mb-2">${name}</h3>
+                    <p class="text-sm text-[#636363] leading-relaxed">Thông tin chi tiết về thuốc và các quan hệ trên Graph Database.</p>
+                </div>
+                <div class="bg-[#f7f7f7] border border-[#e8e8e8] rounded-[8px] p-4 font-mono text-xs text-[#3d3d3d] mb-4 overflow-x-auto">
+                    MATCH (d:Drug {name: "${name}"})-[r]->(n)<br>
+                    RETURN d, r, n<br>
+                    LIMIT 25
+                </div>
+                <div class="bg-rose-50 border border-rose-200 rounded-[8px] p-4">
+                    <h4 class="font-bold text-rose-800 flex items-center gap-2 mb-2">
+                        <i data-lucide="alert-triangle" class="w-4 h-4"></i> Cảnh báo tương tác nghiêm trọng
+                    </h4>
+                    <p class="text-sm text-rose-700">Tránh sử dụng chung với Warfarin do nguy cơ tăng tác dụng chống đông và xuất huyết.</p>
+                </div>
+            `;
+            lucide.createIcons();
+
+            overlay.classList.remove('hidden');
+            setTimeout(() => {
+                overlay.classList.remove('opacity-0');
+                drawer.classList.remove('translate-x-full');
+            }, 10);
+        }
+
+        function closeDrawer() {
+            const overlay = document.getElementById('drawer-overlay');
+            const drawer = document.getElementById('detail-drawer');
+            
+            overlay.classList.add('opacity-0');
+            drawer.classList.add('translate-x-full');
+            
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+            }, 300);
+        }
+
+        // Init
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            // Automatically select Ibuprofen for demo purposes
+            selectNode('Ibuprofen');
+        });
+    </script>
+<script src="../global_ui.js"></script>
+</body>
+</html>

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PharmaAssist — Danh sách màn hình</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; background: #f7f7f7; }
+        .group:hover .screen-badge { background: #c9e0fc; color: #024ad8; }
+    </style>
+</head>
+<body class="min-h-screen p-6 md:p-10">
+    <div class="max-w-7xl mx-auto space-y-10">
+
+        <!-- Header -->
+        <div class="bg-white rounded-[16px] shadow-[0_2px_8px_rgba(26,26,26,0.08)] border border-[#e8e8e8] p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-4">
+            <div class="flex items-center gap-4 flex-1">
+                <div class="bg-[#024ad8] text-white p-3 rounded-[12px] shadow-md shadow-[#024ad8]/20 shrink-0">
+                    <i data-lucide="sparkles" class="w-7 h-7"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-extrabold text-[#1a1a1a] tracking-tight">Pharma<span class="text-[#024ad8]">Assist</span> — Tất cả màn hình</h1>
+                    <p class="text-sm text-[#636363] mt-0.5">41 màn hình · Tổ chức theo nghiệp vụ · Click để mở từng màn hình</p>
+                </div>
+            </div>
+            <a href="dashboard/dashboard.html" class="shrink-0 flex items-center gap-2 px-5 py-2.5 bg-[#024ad8] text-white text-sm font-bold uppercase tracking-wide rounded-[4px] hover:bg-[#0e3191] transition-all shadow-sm">
+                <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Vào Dashboard
+            </a>
+        </div>
+
+        <!-- Quick flow -->
+        <div class="bg-white rounded-[16px] shadow-[0_2px_8px_rgba(26,26,26,0.08)] border border-[#e8e8e8] p-5">
+            <h2 class="text-xs font-bold text-[#636363] uppercase tracking-wider mb-3 flex items-center gap-2"><i data-lucide="play-circle" class="w-4 h-4 text-[#024ad8]"></i> Luồng Demo chính (Admin)</h2>
+            <div class="flex flex-wrap items-center gap-2 text-xs font-medium">
+                <a href="auth/login.html" class="px-3 py-1.5 bg-[#f7f7f7] hover:bg-[#c9e0fc] hover:text-[#024ad8] border border-[#e8e8e8] rounded-[4px] transition-all">Login</a>
+                <i data-lucide="arrow-right" class="w-3 h-3 text-[#636363] shrink-0"></i>
+                <a href="dashboard/dashboard.html" class="px-3 py-1.5 bg-[#f7f7f7] hover:bg-[#c9e0fc] hover:text-[#024ad8] border border-[#e8e8e8] rounded-[4px] transition-all">Dashboard</a>
+                <i data-lucide="arrow-right" class="w-3 h-3 text-[#636363] shrink-0"></i>
+                <a href="pos/pos.html" class="px-3 py-1.5 bg-[#f7f7f7] hover:bg-[#c9e0fc] hover:text-[#024ad8] border border-[#e8e8e8] rounded-[4px] transition-all">Bán thuốc POS</a>
+                <i data-lucide="arrow-right" class="w-3 h-3 text-[#636363] shrink-0"></i>
+                <a href="pos/payment.html" class="px-3 py-1.5 bg-[#f7f7f7] hover:bg-[#c9e0fc] hover:text-[#024ad8] border border-[#e8e8e8] rounded-[4px] transition-all">Thanh toán</a>
+                <i data-lucide="arrow-right" class="w-3 h-3 text-[#636363] shrink-0"></i>
+                <a href="pos/invoice.html" class="px-3 py-1.5 bg-[#f7f7f7] hover:bg-[#c9e0fc] hover:text-[#024ad8] border border-[#e8e8e8] rounded-[4px] transition-all">Hóa đơn</a>
+                <i data-lucide="arrow-right" class="w-3 h-3 text-[#636363] shrink-0"></i>
+                <a href="ai/ai-copilot.html" class="px-3 py-1.5 bg-[#f7f7f7] hover:bg-[#c9e0fc] hover:text-[#024ad8] border border-[#e8e8e8] rounded-[4px] transition-all">AI Copilot</a>
+                <i data-lucide="arrow-right" class="w-3 h-3 text-[#636363] shrink-0"></i>
+                <a href="reports/reports.html" class="px-3 py-1.5 bg-[#f7f7f7] hover:bg-[#c9e0fc] hover:text-[#024ad8] border border-[#e8e8e8] rounded-[4px] transition-all">Báo cáo</a>
+            </div>
+        </div>
+
+        <!-- Groups -->
+
+        <!-- Auth -->
+        <section class="space-y-3">
+            <h2 class="flex items-center gap-2 text-sm font-extrabold text-[#1a1a1a] uppercase tracking-wider">
+                <span class="w-6 h-6 bg-[#1a1a1a] text-white rounded-[4px] flex items-center justify-center"><i data-lucide="lock" class="w-3 h-3"></i></span>
+                Xác thực (auth/)
+            </h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                <a href="auth/login.html" target="_blank" class="group bg-white border border-[#e8e8e8] rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="log-in" class="w-5 h-5 text-[#636363] group-hover:text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8]">Đăng nhập</span>
+                    <span class="screen-badge text-[9px] font-mono bg-[#f7f7f7] text-[#636363] px-1.5 py-0.5 rounded inline-block transition-all">login.html</span>
+                </a>
+                <a href="auth/forgot-password.html" target="_blank" class="group bg-white border border-[#e8e8e8] rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="key-round" class="w-5 h-5 text-[#636363] group-hover:text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8]">Quên mật khẩu</span>
+                    <span class="screen-badge text-[9px] font-mono bg-[#f7f7f7] text-[#636363] px-1.5 py-0.5 rounded inline-block transition-all">forgot-password.html</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Dashboard -->
+        <section class="space-y-3">
+            <h2 class="flex items-center gap-2 text-sm font-extrabold text-[#1a1a1a] uppercase tracking-wider">
+                <span class="w-6 h-6 bg-[#024ad8] text-white rounded-[4px] flex items-center justify-center"><i data-lucide="layout-dashboard" class="w-3 h-3"></i></span>
+                Tổng quan (dashboard/)
+            </h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                <a href="dashboard/dashboard.html" target="_blank" class="group bg-white border border-[#024ad8] rounded-[12px] p-4 shadow-md hover:shadow-lg transition-all flex flex-col gap-2">
+                    <i data-lucide="layout-dashboard" class="w-5 h-5 text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#024ad8]">Dashboard</span>
+                    <span class="text-[9px] font-mono bg-[#c9e0fc] text-[#024ad8] px-1.5 py-0.5 rounded inline-block">dashboard.html</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Medicine -->
+        <section class="space-y-3">
+            <h2 class="flex items-center gap-2 text-sm font-extrabold text-[#1a1a1a] uppercase tracking-wider">
+                <span class="w-6 h-6 bg-emerald-600 text-white rounded-[4px] flex items-center justify-center"><i data-lucide="pill" class="w-3 h-3"></i></span>
+                Quản lý thuốc (medicine/)
+            </h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                <a href="medicine/medicine_management.html" target="_blank" class="group bg-white border border-[#e8e8e8] rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="list" class="w-5 h-5 text-[#636363] group-hover:text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8]">DS Thuốc</span>
+                    <span class="screen-badge text-[9px] font-mono bg-[#f7f7f7] text-[#636363] px-1.5 py-0.5 rounded inline-block transition-all">medicine_management</span>
+                </a>
+                <a href="medicine/medicine_detail.html" target="_blank" class="group bg-white border border-[#e8e8e8] rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="file-text" class="w-5 h-5 text-[#636363] group-hover:text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8]">Chi tiết thuốc</span>
+                    <span class="screen-badge text-[9px] font-mono bg-[#f7f7f7] text-[#636363] px-1.5 py-0.5 rounded inline-block transition-all">medicine_detail</span>
+                </a>
+                <a href="medicine/medicine_form.html" target="_blank" class="group bg-white border border-[#e8e8e8] rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="plus-circle" class="w-5 h-5 text-[#636363] group-hover:text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8]">Thêm/Sửa thuốc</span>
+                    <span class="screen-badge text-[9px] font-mono bg-[#f7f7f7] text-[#636363] px-1.5 py-0.5 rounded inline-block transition-all">medicine_form</span>
+                </a>
+                <a href="medicine/category_management.html" target="_blank" class="group bg-white border border-[#e8e8e8] rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="layers" class="w-5 h-5 text-[#636363] group-hover:text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8]">Danh mục thuốc</span>
+                    <span class="screen-badge text-[9px] font-mono bg-[#f7f7f7] text-[#636363] px-1.5 py-0.5 rounded inline-block transition-all">category_management</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Inventory -->
+        <section class="space-y-3">
+            <h2 class="flex items-center gap-2 text-sm font-extrabold text-[#1a1a1a] uppercase tracking-wider">
+                <span class="w-6 h-6 bg-amber-600 text-white rounded-[4px] flex items-center justify-center"><i data-lucide="package" class="w-3 h-3"></i></span>
+                Kho thuốc (inventory/)
+            </h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                <a href="inventory/inventory.html" target="_blank" class="group bg-white border border-[#e8e8e8] rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="warehouse" class="w-5 h-5 text-[#636363] group-hover:text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8]">Tồn kho</span>
+                    <span class="screen-badge text-[9px] font-mono bg-[#f7f7f7] text-[#636363] px-1.5 py-0.5 rounded inline-block transition-all">inventory</span>
+                </a>
+                <a href="inventory/import-create.html" target="_blank" class="group bg-white border border-[#e8e8e8] rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="arrow-down-left" class="w-5 h-5 text-[#636363] group-hover:text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8]">Tạo phiếu nhập</span>
+                    <span class="screen-badge text-[9px] font-mono bg-[#f7f7f7] text-[#636363] px-1.5 py-0.5 rounded inline-block transition-all">import-create</span>
+                </a>
+                <a href="inventory/import-history.html" target="_blank" class="group bg-white border border-[#e8e8e8] rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="history" class="w-5 h-5 text-[#636363] group-hover:text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8]">Lịch sử nhập</span>
+                    <span class="screen-badge text-[9px] font-mono bg-[#f7f7f7] text-[#636363] px-1.5 py-0.5 rounded inline-block transition-all">import-history</span>
+                </a>
+                <a href="inventory/import-detail.html" target="_blank" class="group bg-white border border-[#e8e8e8] rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="clipboard-list" class="w-5 h-5 text-[#636363] group-hover:text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8]">Chi tiết phiếu nhập</span>
+                    <span class="screen-badge text-[9px] font-mono bg-[#f7f7f7] text-[#636363] px-1.5 py-0.5 rounded inline-block transition-all">import-detail</span>
+                </a>
+                <a href="inventory/stock-adjustment.html" target="_blank" class="group bg-white border border-[#e8e8e8] rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="sliders-horizontal" class="w-5 h-5 text-[#636363] group-hover:text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8]">Điều chỉnh kho</span>
+                    <span class="screen-badge text-[9px] font-mono bg-[#f7f7f7] text-[#636363] px-1.5 py-0.5 rounded inline-block transition-all">stock-adjustment</span>
+                </a>
+                <a href="inventory/batch_lot_detail.html" target="_blank" class="group bg-white border border-[#e8e8e8] rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="box" class="w-5 h-5 text-[#636363] group-hover:text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8]">Chi tiết lô hàng</span>
+                    <span class="screen-badge text-[9px] font-mono bg-[#f7f7f7] text-[#636363] px-1.5 py-0.5 rounded inline-block transition-all">batch_lot_detail</span>
+                </a>
+                <a href="inventory/suppliers.html" target="_blank" class="group bg-white border border-[#e8e8e8] rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="building-2" class="w-5 h-5 text-[#636363] group-hover:text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8]">Nhà cung cấp</span>
+                    <span class="screen-badge text-[9px] font-mono bg-[#f7f7f7] text-[#636363] px-1.5 py-0.5 rounded inline-block transition-all">suppliers</span>
+                </a>
+                <a href="inventory/supplier_detail.html" target="_blank" class="group bg-white border border-[#e8e8e8] rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="building" class="w-5 h-5 text-[#636363] group-hover:text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8]">Chi tiết NCC</span>
+                    <span class="screen-badge text-[9px] font-mono bg-[#f7f7f7] text-[#636363] px-1.5 py-0.5 rounded inline-block transition-all">supplier_detail</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- POS -->
+        <section class="space-y-3">
+            <h2 class="flex items-center gap-2 text-sm font-extrabold text-[#1a1a1a] uppercase tracking-wider">
+                <span class="w-6 h-6 bg-[#024ad8] text-white rounded-[4px] flex items-center justify-center"><i data-lucide="shopping-cart" class="w-3 h-3"></i></span>
+                Bán thuốc &amp; Hóa đơn (pos/)
+            </h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                <a href="pos/pos.html" target="_blank" class="group bg-white border border-[#e8e8e8] rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="shopping-cart" class="w-5 h-5 text-[#636363] group-hover:text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8]">Bán thuốc POS</span>
+                    <span class="screen-badge text-[9px] font-mono bg-[#f7f7f7] text-[#636363] px-1.5 py-0.5 rounded inline-block transition-all">pos</span>
+                </a>
+                <a href="pos/payment.html" target="_blank" class="group bg-white border border-[#e8e8e8] rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="credit-card" class="w-5 h-5 text-[#636363] group-hover:text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8]">Thanh toán</span>
+                    <span class="screen-badge text-[9px] font-mono bg-[#f7f7f7] text-[#636363] px-1.5 py-0.5 rounded inline-block transition-all">payment</span>
+                </a>
+                <a href="pos/invoice.html" target="_blank" class="group bg-white border border-[#e8e8e8] rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="receipt" class="w-5 h-5 text-[#636363] group-hover:text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8]">Hóa đơn</span>
+                    <span class="screen-badge text-[9px] font-mono bg-[#f7f7f7] text-[#636363] px-1.5 py-0.5 rounded inline-block transition-all">invoice</span>
+                </a>
+                <a href="pos/order-history.html" target="_blank" class="group bg-white border border-[#e8e8e8] rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="receipt-text" class="w-5 h-5 text-[#636363] group-hover:text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8]">Lịch sử bán</span>
+                    <span class="screen-badge text-[9px] font-mono bg-[#f7f7f7] text-[#636363] px-1.5 py-0.5 rounded inline-block transition-all">order-history</span>
+                </a>
+                <a href="pos/order-detail.html" target="_blank" class="group bg-white border border-[#e8e8e8] rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="file-search" class="w-5 h-5 text-[#636363] group-hover:text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8]">Chi tiết đơn</span>
+                    <span class="screen-badge text-[9px] font-mono bg-[#f7f7f7] text-[#636363] px-1.5 py-0.5 rounded inline-block transition-all">order-detail</span>
+                </a>
+                <a href="pos/invoice-history.html" target="_blank" class="group bg-white border border-[#e8e8e8] rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="files" class="w-5 h-5 text-[#636363] group-hover:text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8]">Lịch sử hóa đơn</span>
+                    <span class="screen-badge text-[9px] font-mono bg-[#f7f7f7] text-[#636363] px-1.5 py-0.5 rounded inline-block transition-all">invoice-history</span>
+                </a>
+                <a href="pos/payment-history.html" target="_blank" class="group bg-white border border-[#e8e8e8] rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="clock" class="w-5 h-5 text-[#636363] group-hover:text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8]">Lịch sử TT</span>
+                    <span class="screen-badge text-[9px] font-mono bg-[#f7f7f7] text-[#636363] px-1.5 py-0.5 rounded inline-block transition-all">payment-history</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Customers -->
+        <section class="space-y-3">
+            <h2 class="flex items-center gap-2 text-sm font-extrabold text-[#1a1a1a] uppercase tracking-wider">
+                <span class="w-6 h-6 bg-violet-600 text-white rounded-[4px] flex items-center justify-center"><i data-lucide="users" class="w-3 h-3"></i></span>
+                Khách hàng (customers/)
+            </h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                <a href="customers/customers.html" target="_blank" class="group bg-white border border-[#e8e8e8] rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="users" class="w-5 h-5 text-[#636363] group-hover:text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8]">DS Khách hàng</span>
+                    <span class="screen-badge text-[9px] font-mono bg-[#f7f7f7] text-[#636363] px-1.5 py-0.5 rounded inline-block transition-all">customers</span>
+                </a>
+                <a href="customers/customer_detail.html" target="_blank" class="group bg-white border border-[#e8e8e8] rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="user" class="w-5 h-5 text-[#636363] group-hover:text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8]">Chi tiết KH</span>
+                    <span class="screen-badge text-[9px] font-mono bg-[#f7f7f7] text-[#636363] px-1.5 py-0.5 rounded inline-block transition-all">customer_detail</span>
+                </a>
+                <a href="customers/customer-purchase-history.html" target="_blank" class="group bg-white border border-[#e8e8e8] rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="shopping-bag" class="w-5 h-5 text-[#636363] group-hover:text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8]">Lịch sử mua</span>
+                    <span class="screen-badge text-[9px] font-mono bg-[#f7f7f7] text-[#636363] px-1.5 py-0.5 rounded inline-block transition-all">purchase-history</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Reports -->
+        <section class="space-y-3">
+            <h2 class="flex items-center gap-2 text-sm font-extrabold text-[#1a1a1a] uppercase tracking-wider">
+                <span class="w-6 h-6 bg-teal-600 text-white rounded-[4px] flex items-center justify-center"><i data-lucide="bar-chart-3" class="w-3 h-3"></i></span>
+                Báo cáo (reports/)
+            </h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                <a href="reports/reports.html" target="_blank" class="group bg-white border border-[#e8e8e8] rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="bar-chart-3" class="w-5 h-5 text-[#636363] group-hover:text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8]">Báo cáo &amp; Thống kê</span>
+                    <span class="screen-badge text-[9px] font-mono bg-[#f7f7f7] text-[#636363] px-1.5 py-0.5 rounded inline-block transition-all">reports</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Admin -->
+        <section class="space-y-3">
+            <h2 class="flex items-center gap-2 text-sm font-extrabold text-[#1a1a1a] uppercase tracking-wider">
+                <span class="w-6 h-6 bg-[#1a1a1a] text-white rounded-[4px] flex items-center justify-center"><i data-lucide="shield" class="w-3 h-3"></i></span>
+                Quản trị hệ thống (admin/)
+            </h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                <a href="admin/users.html" target="_blank" class="group bg-white border border-[#e8e8e8] rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="user-cog" class="w-5 h-5 text-[#636363] group-hover:text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8]">Người dùng</span>
+                    <span class="screen-badge text-[9px] font-mono bg-[#f7f7f7] text-[#636363] px-1.5 py-0.5 rounded inline-block transition-all">users</span>
+                </a>
+                <a href="admin/roles.html" target="_blank" class="group bg-white border border-[#e8e8e8] rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="shield" class="w-5 h-5 text-[#636363] group-hover:text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8]">Phân quyền</span>
+                    <span class="screen-badge text-[9px] font-mono bg-[#f7f7f7] text-[#636363] px-1.5 py-0.5 rounded inline-block transition-all">roles</span>
+                </a>
+                <a href="admin/settings.html" target="_blank" class="group bg-white border border-[#e8e8e8] rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="settings" class="w-5 h-5 text-[#636363] group-hover:text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8]">Cài đặt</span>
+                    <span class="screen-badge text-[9px] font-mono bg-[#f7f7f7] text-[#636363] px-1.5 py-0.5 rounded inline-block transition-all">settings</span>
+                </a>
+                <a href="admin/pharmacy-profile.html" target="_blank" class="group bg-white border border-[#e8e8e8] rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="store" class="w-5 h-5 text-[#636363] group-hover:text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8]">Hồ sơ nhà thuốc</span>
+                    <span class="screen-badge text-[9px] font-mono bg-[#f7f7f7] text-[#636363] px-1.5 py-0.5 rounded inline-block transition-all">pharmacy-profile</span>
+                </a>
+                <a href="admin/backup-export-data.html" target="_blank" class="group bg-white border border-[#e8e8e8] rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="database" class="w-5 h-5 text-[#636363] group-hover:text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8]">Sao lưu dữ liệu</span>
+                    <span class="screen-badge text-[9px] font-mono bg-[#f7f7f7] text-[#636363] px-1.5 py-0.5 rounded inline-block transition-all">backup-export</span>
+                </a>
+                <a href="admin/notification-center.html" target="_blank" class="group bg-white border border-[#e8e8e8] rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="bell" class="w-5 h-5 text-[#636363] group-hover:text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8]">Thông báo</span>
+                    <span class="screen-badge text-[9px] font-mono bg-[#f7f7f7] text-[#636363] px-1.5 py-0.5 rounded inline-block transition-all">notification-center</span>
+                </a>
+                <a href="admin/system-audit-log.html" target="_blank" class="group bg-white border border-[#e8e8e8] rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="clipboard-list" class="w-5 h-5 text-[#636363] group-hover:text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8]">Nhật ký hệ thống</span>
+                    <span class="screen-badge text-[9px] font-mono bg-[#f7f7f7] text-[#636363] px-1.5 py-0.5 rounded inline-block transition-all">system-audit-log</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- AI -->
+        <section class="space-y-3">
+            <h2 class="flex items-center gap-2 text-sm font-extrabold text-[#1a1a1a] uppercase tracking-wider">
+                <span class="w-6 h-6 bg-purple-600 text-white rounded-[4px] flex items-center justify-center"><i data-lucide="bot" class="w-3 h-3"></i></span>
+                AI &amp; Graph Explorer (ai/)
+            </h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                <a href="ai/ai-copilot.html" target="_blank" class="group bg-white border border-[#e8e8e8] rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="bot" class="w-5 h-5 text-[#636363] group-hover:text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8]">AI Copilot</span>
+                    <span class="screen-badge text-[9px] font-mono bg-[#f7f7f7] text-[#636363] px-1.5 py-0.5 rounded inline-block transition-all">ai-copilot</span>
+                </a>
+                <a href="ai/ai-audit-log.html" target="_blank" class="group bg-white border border-[#e8e8e8] rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="file-text" class="w-5 h-5 text-[#636363] group-hover:text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8]">Nhật ký AI</span>
+                    <span class="screen-badge text-[9px] font-mono bg-[#f7f7f7] text-[#636363] px-1.5 py-0.5 rounded inline-block transition-all">ai-audit-log</span>
+                </a>
+                <a href="ai/graph-explorer.html" target="_blank" class="group bg-white border border-[#e8e8e8] rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="network" class="w-5 h-5 text-[#636363] group-hover:text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8]">Graph Explorer</span>
+                    <span class="screen-badge text-[9px] font-mono bg-[#f7f7f7] text-[#636363] px-1.5 py-0.5 rounded inline-block transition-all">graph-explorer</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Profile & Demo -->
+        <section class="space-y-3">
+            <h2 class="flex items-center gap-2 text-sm font-extrabold text-[#1a1a1a] uppercase tracking-wider">
+                <span class="w-6 h-6 bg-[#636363] text-white rounded-[4px] flex items-center justify-center"><i data-lucide="user" class="w-3 h-3"></i></span>
+                Hồ sơ &amp; Demo
+            </h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                <a href="profile/profile.html" target="_blank" class="group bg-white border border-[#e8e8e8] rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="user" class="w-5 h-5 text-[#636363] group-hover:text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8]">Hồ sơ cá nhân</span>
+                    <span class="screen-badge text-[9px] font-mono bg-[#f7f7f7] text-[#636363] px-1.5 py-0.5 rounded inline-block transition-all">profile</span>
+                </a>
+                <a href="demo/demo-scenario.html" target="_blank" class="group bg-white border border-[#c9e0fc] bg-blue-50/30 rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="play-circle" class="w-5 h-5 text-[#024ad8] group-hover:text-[#0e3191]"></i>
+                    <span class="text-xs font-bold text-[#024ad8] group-hover:text-[#0e3191]">Kịch bản demo</span>
+                    <span class="text-[9px] font-mono bg-[#c9e0fc] text-[#024ad8] px-1.5 py-0.5 rounded inline-block">demo-scenario</span>
+                </a>
+                <a href="demo/app.html" target="_blank" class="group bg-white border border-[#e8e8e8] rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="monitor" class="w-5 h-5 text-[#636363] group-hover:text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8]">App Demo</span>
+                    <span class="screen-badge text-[9px] font-mono bg-[#f7f7f7] text-[#636363] px-1.5 py-0.5 rounded inline-block transition-all">app</span>
+                </a>
+                <a href="errors/403.html" target="_blank" class="group bg-white border border-[#e8e8e8] rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="shield-x" class="w-5 h-5 text-[#636363] group-hover:text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8]">403 Không quyền</span>
+                    <span class="screen-badge text-[9px] font-mono bg-[#f7f7f7] text-[#636363] px-1.5 py-0.5 rounded inline-block transition-all">403</span>
+                </a>
+                <a href="errors/404.html" target="_blank" class="group bg-white border border-[#e8e8e8] rounded-[12px] p-4 shadow-sm hover:shadow-md hover:border-[#024ad8] transition-all flex flex-col gap-2">
+                    <i data-lucide="file-x" class="w-5 h-5 text-[#636363] group-hover:text-[#024ad8]"></i>
+                    <span class="text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8]">404 Không tìm thấy</span>
+                    <span class="screen-badge text-[9px] font-mono bg-[#f7f7f7] text-[#636363] px-1.5 py-0.5 rounded inline-block transition-all">404</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <div class="text-center py-6 text-xs text-[#636363]">
+            PharmaAssist Figma Design Prototype · Đồ án Công Nghệ Phần Mềm
+        </div>
+    </div>
+    <script>lucide.createIcons();</script>
+<script src="./global_ui.js"></script>
+</body>
+</html>

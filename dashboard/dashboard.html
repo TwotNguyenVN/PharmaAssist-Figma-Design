@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+
+<html lang="vi">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dashboard Quản Trị - PharmaAssist</title>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#024ad8',
+                            soft: '#c9e0fc',
+                            deep: '#0e3191',
+                            bright: '#296ef9'
+                        },
+                        ink: {
+                            DEFAULT: '#1a1a1a',
+                            deep: '#000000',
+                            soft: '#292929'
+                        },
+                        neutral: {
+                            canvas: '#ffffff',
+                            paper: '#ffffff',
+                            cloud: '#f7f7f7',
+                            fog: '#e8e8e8',
+                            steel: '#c2c2c2',
+                            graphite: '#636363',
+                            charcoal: '#3d3d3d'
+                        },
+                        danger: {
+                            DEFAULT: '#b3262b',
+                            rose: '#f9d4d2',
+                            coral: '#ff5050'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1a1a1a;
+        }
+    </style>
+</head>
+<body class="bg-white w-screen h-screen flex overflow-hidden relative">
+<!-- MOBILE OVERLAY & DRAWER MENU -->
+<div class="fixed inset-0 bg-ink/60 z-40 hidden transition-opacity md:hidden" id="mobile-menu-overlay" onclick="toggleMobileMenu()"></div>
+<div class="fixed top-0 left-0 bottom-0 w-[80%] max-w-[320px] bg-white z-50 transform -translate-x-full transition-transform duration-300 md:hidden flex flex-col shadow-xl" id="mobile-drawer">
+<!-- Drawer Header -->
+<div class="p-4 border-b border-neutral-fog flex items-center gap-3">
+<div class="bg-primary text-white p-2 rounded-[8px] shadow-sm shrink-0">
+<i class="w-5 h-5" data-lucide="sparkles"></i>
+</div>
+<div class="leading-tight flex-1">
+<span class="text-base font-extrabold tracking-tight text-ink">
+                    Pharma<span class="text-primary">Assist</span>
+</span>
+<span class="block text-[9px] text-neutral-graphite font-bold uppercase tracking-wider">
+                    Hệ thống thông minh
+                </span>
+</div>
+<button class="p-2 text-neutral-graphite hover:text-ink hover:bg-neutral-cloud rounded-lg transition-colors" onclick="toggleMobileMenu()">
+<i class="w-5 h-5" data-lucide="x"></i>
+</button>
+</div>
+<!-- Drawer User -->
+<div class="p-4 border-b border-neutral-fog bg-neutral-cloud/50 flex items-center gap-3">
+<div class="w-10 h-10 rounded-[8px] bg-primary-soft text-primary font-bold flex items-center justify-center text-sm shrink-0 border border-primary/20">
+                AD
+            </div>
+<div class="leading-tight flex-1">
+<p class="text-sm font-bold text-ink truncate">Quản trị viên</p>
+<p class="text-[10px] text-neutral-graphite font-medium truncate">admin@pharmaassist.com</p>
+</div>
+</div>
+<!-- Drawer Nav -->
+<nav class="p-4 space-y-1 overflow-y-auto flex-1">
+            <a href="../dashboard/dashboard.html" class="flex items-center gap-3 bg-[#024ad8] text-white px-4 py-3 rounded-[8px] text-sm font-bold"><i class="w-5 h-5 text-white shrink-0" data-lucide="layout-dashboard"></i> Dashboard</a>
+            <a href="../medicine/medicine_management.html" class="flex items-center gap-3 text-[#3d3d3d] hover:bg-[#f7f7f7] hover:text-[#1a1a1a] px-4 py-3 rounded-[8px] text-sm font-medium"><i class="w-5 h-5 text-[#636363] shrink-0" data-lucide="pill"></i> Quản lý thuốc</a>
+            <a href="../medicine/category_management.html" class="flex items-center gap-3 text-[#3d3d3d] hover:bg-[#f7f7f7] hover:text-[#1a1a1a] px-4 py-3 rounded-[8px] text-sm font-medium"><i class="w-5 h-5 text-[#636363] shrink-0" data-lucide="layers"></i> Danh mục thuốc</a>
+            <a href="../inventory/inventory.html" class="flex items-center gap-3 text-[#3d3d3d] hover:bg-[#f7f7f7] hover:text-[#1a1a1a] px-4 py-3 rounded-[8px] text-sm font-medium"><i class="w-5 h-5 text-[#636363] shrink-0" data-lucide="package"></i> Kho thuốc</a>
+            <a href="../inventory/import-create.html" class="flex items-center gap-3 text-[#3d3d3d] hover:bg-[#f7f7f7] hover:text-[#1a1a1a] px-4 py-3 rounded-[8px] text-sm font-medium"><i class="w-5 h-5 text-[#636363] shrink-0" data-lucide="arrow-down-left"></i> Nhập thuốc</a>
+            <a href="../inventory/import-history.html" class="flex items-center gap-3 text-[#3d3d3d] hover:bg-[#f7f7f7] hover:text-[#1a1a1a] px-4 py-3 rounded-[8px] text-sm font-medium"><i class="w-5 h-5 text-[#636363] shrink-0" data-lucide="history"></i> Lịch sử nhập</a>
+            <a href="../inventory/suppliers.html" class="flex items-center gap-3 text-[#3d3d3d] hover:bg-[#f7f7f7] hover:text-[#1a1a1a] px-4 py-3 rounded-[8px] text-sm font-medium"><i class="w-5 h-5 text-[#636363] shrink-0" data-lucide="building-2"></i> Nhà cung cấp</a>
+            <a href="../pos/pos.html" class="flex items-center gap-3 text-[#3d3d3d] hover:bg-[#f7f7f7] hover:text-[#1a1a1a] px-4 py-3 rounded-[8px] text-sm font-medium"><i class="w-5 h-5 text-[#636363] shrink-0" data-lucide="shopping-cart"></i> Bán thuốc</a>
+            <a href="../pos/order-history.html" class="flex items-center gap-3 text-[#3d3d3d] hover:bg-[#f7f7f7] hover:text-[#1a1a1a] px-4 py-3 rounded-[8px] text-sm font-medium"><i class="w-5 h-5 text-[#636363] shrink-0" data-lucide="receipt-text"></i> Lịch sử bán</a>
+            <a href="../customers/customers.html" class="flex items-center gap-3 text-[#3d3d3d] hover:bg-[#f7f7f7] hover:text-[#1a1a1a] px-4 py-3 rounded-[8px] text-sm font-medium"><i class="w-5 h-5 text-[#636363] shrink-0" data-lucide="users"></i> Khách hàng</a>
+            <a href="../reports/reports.html" class="flex items-center gap-3 text-[#3d3d3d] hover:bg-[#f7f7f7] hover:text-[#1a1a1a] px-4 py-3 rounded-[8px] text-sm font-medium"><i class="w-5 h-5 text-[#636363] shrink-0" data-lucide="bar-chart-3"></i> Báo cáo</a>
+            <div class="h-px bg-[#e8e8e8] my-1.5"></div>
+            <a href="../admin/users.html" class="flex items-center gap-3 text-[#3d3d3d] hover:bg-[#f7f7f7] hover:text-[#1a1a1a] px-4 py-3 rounded-[8px] text-sm font-medium"><i class="w-5 h-5 text-[#636363] shrink-0" data-lucide="user-cog"></i> Người dùng</a>
+            <a href="../admin/roles.html" class="flex items-center gap-3 text-[#3d3d3d] hover:bg-[#f7f7f7] hover:text-[#1a1a1a] px-4 py-3 rounded-[8px] text-sm font-medium"><i class="w-5 h-5 text-[#636363] shrink-0" data-lucide="shield"></i> Phân quyền</a>
+            <a href="../admin/notification-center.html" class="flex items-center gap-3 text-[#3d3d3d] hover:bg-[#f7f7f7] hover:text-[#1a1a1a] px-4 py-3 rounded-[8px] text-sm font-medium"><i class="w-5 h-5 text-[#636363] shrink-0" data-lucide="bell"></i> Thông báo</a>
+            <a href="../admin/pharmacy-profile.html" class="flex items-center gap-3 text-[#3d3d3d] hover:bg-[#f7f7f7] hover:text-[#1a1a1a] px-4 py-3 rounded-[8px] text-sm font-medium"><i class="w-5 h-5 text-[#636363] shrink-0" data-lucide="store"></i> Hồ sơ nhà thuốc</a>
+            <a href="../admin/system-audit-log.html" class="flex items-center gap-3 text-[#3d3d3d] hover:bg-[#f7f7f7] hover:text-[#1a1a1a] px-4 py-3 rounded-[8px] text-sm font-medium"><i class="w-5 h-5 text-[#636363] shrink-0" data-lucide="clipboard-list"></i> Nhật ký hệ thống</a>
+            <a href="../admin/settings.html" class="flex items-center gap-3 text-[#3d3d3d] hover:bg-[#f7f7f7] hover:text-[#1a1a1a] px-4 py-3 rounded-[8px] text-sm font-medium"><i class="w-5 h-5 text-[#636363] shrink-0" data-lucide="settings"></i> Cài đặt</a>
+            <a href="../admin/backup-export-data.html" class="flex items-center gap-3 text-[#3d3d3d] hover:bg-[#f7f7f7] hover:text-[#1a1a1a] px-4 py-3 rounded-[8px] text-sm font-medium"><i class="w-5 h-5 text-[#636363] shrink-0" data-lucide="database"></i> Sao lưu dữ liệu</a>
+            <div class="h-px bg-[#e8e8e8] my-1.5"></div>
+            <a href="../ai/ai-copilot.html" class="flex items-center gap-3 text-[#3d3d3d] hover:bg-[#f7f7f7] hover:text-[#1a1a1a] px-4 py-3 rounded-[8px] text-sm font-medium"><i class="w-5 h-5 text-[#636363] shrink-0" data-lucide="bot"></i> AI Copilot</a>
+            <a href="../ai/ai-audit-log.html" class="flex items-center gap-3 text-[#3d3d3d] hover:bg-[#f7f7f7] hover:text-[#1a1a1a] px-4 py-3 rounded-[8px] text-sm font-medium"><i class="w-5 h-5 text-[#636363] shrink-0" data-lucide="file-text"></i> Nhật ký AI</a>
+            <a href="../ai/graph-explorer.html" class="flex items-center gap-3 text-[#3d3d3d] hover:bg-[#f7f7f7] hover:text-[#1a1a1a] px-4 py-3 rounded-[8px] text-sm font-medium"><i class="w-5 h-5 text-[#636363] shrink-0" data-lucide="network"></i> Graph Explorer</a>
+            <a href="../profile/profile.html" class="flex items-center gap-3 text-[#3d3d3d] hover:bg-[#f7f7f7] hover:text-[#1a1a1a] px-4 py-3 rounded-[8px] text-sm font-medium"><i class="w-5 h-5 text-[#636363] shrink-0" data-lucide="user"></i> Hồ sơ</a>
+            <div class="h-px bg-[#e8e8e8] my-1.5"></div>
+            <a href="../demo/demo-scenario.html" class="flex items-center gap-3 bg-[#c9e0fc]/30 text-[#024ad8] border-l-2 border-[#024ad8] px-4 py-3 rounded-[8px] text-sm font-bold"><i class="w-5 h-5 text-[#024ad8] shrink-0" data-lucide="play-circle"></i> Kịch bản demo</a>
+            <a href="../auth/login.html" class="flex items-center gap-3 text-[#b3262b] hover:bg-red-50 px-4 py-3 rounded-[8px] text-sm font-bold"><i class="w-5 h-5 text-[#b3262b] shrink-0" data-lucide="log-out"></i> Đăng xuất</a>
+        </nav>
+</div>
+<!-- SIDEBAR BÊN TRÁI (DESKTOP) -->
+    <!-- SIDEBAR BÊN TRÁI (DESKTOP) -->
+        <!-- SIDEBAR BÊN TRÁI (DESKTOP) -->
+    <aside class="hidden md:flex w-60 bg-white border-r border-[#e8e8e8] flex-col shrink-0 h-full z-10">
+    <div class="flex flex-col h-full overflow-hidden">
+        <div class="p-4 border-b border-[#e8e8e8] flex items-center gap-3 shrink-0">
+            <div class="bg-[#024ad8] text-white p-2 rounded-[8px] shadow-md shadow-[#024ad8]/20 shrink-0"><i data-lucide="sparkles" class="w-4 h-4"></i></div>
+            <div class="leading-tight">
+                <span class="text-sm font-extrabold tracking-tight text-[#1a1a1a]">Pharma<span class="text-[#024ad8]">Assist</span></span>
+                <span class="block text-[9px] text-[#636363] font-bold uppercase tracking-wider">Hệ thống thông minh</span>
+            </div>
+        </div>
+        <nav class="py-2 px-2 space-y-0.5 flex-1 overflow-y-auto text-[13px] custom-scrollbar">
+            <a href="../dashboard/dashboard.html" data-nav="dashboard/dashboard.html" class="flex items-center gap-2.5 bg-[#c9e0fc] text-[#024ad8] border border-[#024ad8]/20 px-2.5 py-2 rounded-[6px] font-bold transition-all"><i class="w-4 h-4 shrink-0 text-[#024ad8]" data-lucide="layout-dashboard"></i> Dashboard</a>
+            <a href="../medicine/medicine_management.html" data-nav="medicine/medicine_management.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="pill"></i> Quản lý thuốc</a>
+            <a href="../medicine/category_management.html" data-nav="medicine/category_management.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="layers"></i> Danh mục thuốc</a>
+            <div class="h-px bg-[#e8e8e8] my-1"></div>
+            <div class="px-2.5 py-1.5"><span class="text-[9px] font-bold text-[#636363] uppercase tracking-widest">Kho thuốc</span></div>
+            <a href="../inventory/inventory.html" data-nav="inventory/inventory.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="package"></i> Tồn kho</a>
+            <a href="../inventory/import-create.html" data-nav="inventory/import-create.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="arrow-down-left"></i> Nhập thuốc</a>
+            <a href="../inventory/import-history.html" data-nav="inventory/import-history.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="history"></i> Lịch sử nhập</a>
+            <a href="../inventory/suppliers.html" data-nav="inventory/suppliers.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="building-2"></i> Nhà cung cấp</a>
+            <div class="h-px bg-[#e8e8e8] my-1"></div>
+            <div class="px-2.5 py-1.5"><span class="text-[9px] font-bold text-[#636363] uppercase tracking-widest">Bán thuốc</span></div>
+            <a href="../pos/pos.html" data-nav="pos/pos.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="shopping-cart"></i> Tạo đơn bán</a>
+            <a href="../pos/order-history.html" data-nav="pos/order-history.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="receipt-text"></i> Lịch sử bán</a>
+            <a href="../customer/customers.html" data-nav="customer/customers.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="users"></i> Khách hàng</a>
+            <div class="h-px bg-[#e8e8e8] my-1"></div>
+            <a href="../reports/reports.html" data-nav="reports/reports.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="bar-chart-3"></i> Báo cáo</a>
+            <div class="h-px bg-[#e8e8e8] my-1"></div>
+            <a href="../admin/users.html" data-nav="admin/users.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="user-cog"></i> Người dùng</a>
+            <a href="../admin/roles.html" data-nav="admin/roles.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="shield"></i> Phân quyền</a>
+            <a href="../notifications/notifications.html" data-nav="notifications/notifications.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="bell"></i> Thông báo</a>
+            <a href="../admin/pharmacy_profile.html" data-nav="admin/pharmacy_profile.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="store"></i> Hồ sơ nhà thuốc</a>
+            <a href="../admin/system_logs.html" data-nav="admin/system_logs.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="activity"></i> Nhật ký hệ thống</a>
+            <a href="../admin/settings.html" data-nav="admin/settings.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="settings"></i> Cài đặt</a>
+            <a href="../admin/backup.html" data-nav="admin/backup.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="database-backup"></i> Sao lưu dữ liệu</a>
+            <div class="h-px bg-[#e8e8e8] my-1"></div>
+            <a href="../ai/ai-copilot.html" data-nav="ai/ai-copilot.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="bot"></i> AI Copilot</a>
+            <a href="../ai/ai_logs.html" data-nav="ai/ai_logs.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="brain-circuit"></i> Nhật ký AI</a>
+            <a href="../ai/graph_explorer.html" data-nav="ai/graph_explorer.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="network"></i> Graph Explorer</a>
+            <div class="h-px bg-[#e8e8e8] my-1"></div>
+            <a href="../profile/profile.html" data-nav="profile/profile.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="user"></i> Hồ sơ cá nhân</a>
+            <a href="../auth/login.html" class="flex items-center gap-2.5 hover:bg-red-50 text-[#b3262b] px-2.5 py-2 rounded-[6px] font-bold transition-all mt-2"><i class="w-4 h-4 shrink-0 text-[#b3262b]" data-lucide="log-out"></i> Đăng xuất</a>
+        </nav>
+    </div>
+</aside>
+
+
+<!-- KHU VỰC CHÍNH BÊN PHẢI -->
+<div class="flex-1 flex flex-col h-full bg-[#f7f7f7] overflow-hidden w-full md:w-auto">
+<!-- TOP HEADER -->
+<header class="h-16 md:h-20 bg-white border-b border-[#e8e8e8] px-4 md:px-8 flex items-center justify-between shrink-0">
+<!-- Mobile Menu Button & Screen Title -->
+<div class="flex items-center gap-3">
+<button class="md:hidden p-2 -ml-2 text-[#636363] hover:text-[#1a1a1a] rounded-lg" onclick="toggleMobileMenu()">
+<i class="w-6 h-6" data-lucide="menu"></i>
+</button>
+<div class="flex flex-col hidden md:flex">
+<h2 class="text-xl font-extrabold text-[#1a1a1a] tracking-tight">Tổng quan hôm nay</h2>
+<span class="text-xs text-[#636363] mt-0.5">Theo dõi nhanh hoạt động nhà thuốc trong ngày.</span>
+</div>
+<!-- Mobile Logo (Center/Left) -->
+<div class="md:hidden flex items-center gap-2">
+<div class="bg-[#024ad8] text-white p-1.5 rounded-[6px] shadow-sm shrink-0">
+<i class="w-4 h-4" data-lucide="sparkles"></i>
+</div>
+<span class="text-base font-extrabold tracking-tight text-[#1a1a1a]">
+                        Pharma<span class="text-[#024ad8]">Assist</span>
+</span>
+</div>
+</div>
+<!-- Global Search & Actions -->
+<div class="flex items-center gap-3 md:gap-4">
+<a class="hidden md:flex px-5 py-2.5 text-sm font-bold bg-[#024ad8] text-white rounded-[4px] hover:bg-[#0e3191] transition-all shadow-sm uppercase items-center gap-2 tracking-wide" href="../pos/pos.html">
+<i class="w-4 h-4" data-lucide="shopping-bag"></i> TẠO ĐƠN BÁN
+                </a>
+<a class="hidden md:flex px-5 py-2.5 text-sm font-bold border border-[#024ad8] text-[#024ad8] rounded-[4px] hover:bg-blue-50 transition-all uppercase items-center gap-2 tracking-wide" href="../inventory/import-create.html">
+<i class="w-4 h-4" data-lucide="arrow-down-left"></i> NHẬP THUỐC
+                </a>
+<div class="hidden md:block w-px h-8 bg-[#e8e8e8] mx-2"></div>
+<!-- Notifications (Mobile visible) -->
+<button class="p-2 text-[#636363] hover:text-[#024ad8] relative rounded-full hover:bg-blue-50 transition-colors">
+<i class="w-5 h-5 md:w-6 md:h-6" data-lucide="bell"></i>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-rose-500 rounded-full border-2 border-white"></span>
+</button>
+<!-- Avatar Profile -->
+<div class="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity">
+<div class="w-9 h-9 rounded-full bg-blue-100 text-[#024ad8] flex items-center justify-center text-sm font-bold border border-blue-200">
+                        AD
+                    </div>
+</div>
+</div>
+</header>
+<!-- CONTAINER NỘI DUNG CHÍNH (SCROLLABLE) -->
+<main class="flex-1 overflow-y-auto p-4 md:p-8 space-y-4 md:space-y-6">
+<!-- Mobile Screen Title -->
+<div class="md:hidden flex flex-col mb-2">
+<h2 class="text-xl font-extrabold text-[#1a1a1a] tracking-tight">Tổng quan hôm nay</h2>
+</div>
+<!-- 1. HÀNG CARD TÌNH HÌNH HÔM NAY -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+<!-- Doanh thu hôm nay -->
+<div class="bg-white rounded-[16px] p-5 shadow-sm border border-[#e8e8e8] flex items-center justify-between hover:border-[#024ad8]/30 transition-all">
+<div class="space-y-1">
+<span class="text-[10px] text-[#636363] font-bold uppercase tracking-wider">Doanh thu hôm nay</span>
+<h3 class="text-2xl font-black text-[#1a1a1a] tracking-tight">8.450.000đ</h3>
+<span class="text-[10px] text-emerald-600 font-bold bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-100 inline-block mt-1">+8.4% so với hqua</span>
+</div>
+<div class="w-12 h-12 bg-blue-50 text-[#024ad8] rounded-full flex items-center justify-center shrink-0">
+<i class="w-6 h-6" data-lucide="banknote"></i>
+</div>
+</div>
+<!-- Số đơn bán -->
+<div class="bg-white rounded-[16px] p-5 shadow-sm border border-[#e8e8e8] flex items-center justify-between hover:border-[#024ad8]/30 transition-all">
+<div class="space-y-1">
+<span class="text-[10px] text-[#636363] font-bold uppercase tracking-wider">Đơn bán hôm nay</span>
+<h3 class="text-2xl font-black text-[#1a1a1a] tracking-tight">36 Đơn</h3>
+<span class="text-[10px] text-emerald-600 font-bold bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-100 inline-block mt-1">Hoạt động tốt</span>
+</div>
+<div class="w-12 h-12 bg-blue-50 text-[#024ad8] rounded-full flex items-center justify-center shrink-0">
+<i class="w-6 h-6" data-lucide="shopping-cart"></i>
+</div>
+</div>
+<!-- Thuốc sắp hết -->
+<div class="bg-white rounded-[16px] p-5 shadow-sm border-2 border-amber-200 flex items-center justify-between hover:border-amber-300 transition-all bg-amber-50/30">
+<div class="space-y-1">
+<span class="text-[10px] text-amber-700 font-bold uppercase tracking-wider">Thuốc sắp hết/hết hạn</span>
+<h3 class="text-2xl font-black text-amber-700 tracking-tight">12 Thuốc</h3>
+<span class="text-[10px] text-amber-800 font-bold bg-amber-100 px-1.5 py-0.5 rounded border border-amber-200 inline-block mt-1">Cần nhập thêm</span>
+</div>
+<div class="w-12 h-12 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center shrink-0">
+<i class="w-6 h-6" data-lucide="package-minus"></i>
+</div>
+</div>
+<!-- Cảnh báo cần xử lý -->
+<div class="bg-white rounded-[16px] p-5 shadow-sm border-2 border-rose-200 flex items-center justify-between hover:border-rose-300 transition-all bg-rose-50/30">
+<div class="space-y-1">
+<span class="text-[10px] text-rose-700 font-bold uppercase tracking-wider">Cảnh báo cần xử lý</span>
+<h3 class="text-2xl font-black text-rose-700 tracking-tight">3 Vụ</h3>
+<span class="text-[10px] text-rose-800 font-bold bg-rose-100 px-1.5 py-0.5 rounded border border-rose-200 inline-block mt-1">Chưa giải quyết</span>
+</div>
+<div class="w-12 h-12 bg-rose-100 text-rose-700 rounded-full flex items-center justify-center shrink-0">
+<i class="w-6 h-6" data-lucide="shield-alert"></i>
+</div>
+</div>
+</div>
+<!-- ROW 2: VIỆC CẦN XỬ LÝ & CẢNH BÁO KHO -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
+<!-- 3. Card Việc cần xử lý -->
+<div class="bg-white rounded-[16px] shadow-sm border border-[#e8e8e8] flex flex-col">
+<div class="p-5 border-b border-[#e8e8e8] flex justify-between items-center bg-[#f7f7f7] rounded-t-[16px]">
+<h3 class="text-sm font-extrabold text-[#1a1a1a] flex items-center gap-2">
+<i class="w-5 h-5 text-[#024ad8]" data-lucide="check-square"></i> Việc cần xử lý ngay
+                        </h3>
+</div>
+<div class="p-5 space-y-3 flex-1">
+<!-- Task 1 -->
+<div class="flex items-center justify-between p-3 border border-[#e8e8e8] rounded-[8px] hover:bg-blue-50/50 transition-colors">
+<div class="flex items-start gap-3">
+<input class="mt-1 w-4 h-4 rounded text-[#024ad8] focus:ring-[#024ad8] cursor-pointer" type="checkbox"/>
+<div>
+<p class="text-sm font-bold text-[#1a1a1a]">3 thuốc sắp hết cần nhập thêm</p>
+<p class="text-[10px] text-[#636363] mt-0.5">Paracetamol, Amoxicillin, Vitamin C</p>
+</div>
+</div>
+<a href="../inventory/inventory.html" class="px-3 py-1.5 text-[10px] font-bold text-[#024ad8] bg-blue-50 border border-blue-100 rounded-[4px] hover:bg-[#024ad8] hover:text-white transition-colors uppercase tracking-wide shrink-0">
+                                Xem kho
+                            </a>
+</div>
+<!-- Task 2 -->
+<div class="flex items-center justify-between p-3 border border-[#e8e8e8] rounded-[8px] hover:bg-blue-50/50 transition-colors">
+<div class="flex items-start gap-3">
+<input class="mt-1 w-4 h-4 rounded text-[#024ad8] focus:ring-[#024ad8] cursor-pointer" type="checkbox"/>
+<div>
+<p class="text-sm font-bold text-[#1a1a1a]">2 thuốc gần hết hạn cần kiểm tra</p>
+<p class="text-[10px] text-[#636363] mt-0.5">Lô Vitamin C, Lô Aspirin</p>
+</div>
+</div>
+<a href="../inventory/inventory.html" class="px-3 py-1.5 text-[10px] font-bold text-[#024ad8] bg-blue-50 border border-blue-100 rounded-[4px] hover:bg-[#024ad8] hover:text-white transition-colors uppercase tracking-wide shrink-0">
+                                Xem kho
+                            </a>
+</div>
+<!-- Task 3 -->
+<div class="flex items-center justify-between p-3 border border-[#e8e8e8] rounded-[8px] hover:bg-blue-50/50 transition-colors">
+<div class="flex items-start gap-3">
+<input class="mt-1 w-4 h-4 rounded text-[#024ad8] focus:ring-[#024ad8] cursor-pointer" type="checkbox"/>
+<div>
+<p class="text-sm font-bold text-[#1a1a1a]">1 đơn bán có cảnh báo tương tác</p>
+<p class="text-[10px] text-[#636363] mt-0.5">Đơn ORD0012 cần ghi chú tư vấn KH</p>
+</div>
+</div>
+<a href="../pos/order-detail.html" class="px-3 py-1.5 text-[10px] font-bold text-[#024ad8] bg-blue-50 border border-blue-100 rounded-[4px] hover:bg-[#024ad8] hover:text-white transition-colors uppercase tracking-wide shrink-0">
+                                Xem đơn
+                            </a>
+</div>
+<!-- Task 4 -->
+<div class="flex items-center justify-between p-3 border border-[#e8e8e8] rounded-[8px] hover:bg-blue-50/50 transition-colors">
+<div class="flex items-start gap-3">
+<input class="mt-1 w-4 h-4 rounded text-[#024ad8] focus:ring-[#024ad8] cursor-pointer" type="checkbox"/>
+<div>
+<p class="text-sm font-bold text-[#1a1a1a]">1 phiếu nhập đang ở trạng thái nháp</p>
+<p class="text-[10px] text-[#636363] mt-0.5">IMP0003 chưa xác nhận nhập kho</p>
+</div>
+</div>
+<button class="px-3 py-1.5 text-[10px] font-bold text-[#024ad8] bg-blue-50 border border-blue-100 rounded-[4px] hover:bg-[#024ad8] hover:text-white transition-colors uppercase tracking-wide shrink-0">
+                                Hoàn tất
+                            </button>
+</div>
+</div>
+</div>
+<!-- 4. Card Cảnh báo kho -->
+<div class="bg-white rounded-[16px] shadow-sm border border-[#e8e8e8] flex flex-col">
+<div class="p-5 border-b border-[#e8e8e8] flex justify-between items-center bg-[#f7f7f7] rounded-t-[16px]">
+<h3 class="text-sm font-extrabold text-[#1a1a1a] flex items-center gap-2">
+<i class="w-5 h-5 text-amber-600" data-lucide="package-search"></i> Tình trạng kho khẩn cấp
+                        </h3>
+</div>
+<div class="p-5 flex-1">
+<ul class="space-y-4">
+<!-- Alert 1 -->
+<li class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-amber-50 flex items-center justify-center shrink-0 text-amber-600 border border-amber-100">
+<i class="w-5 h-5" data-lucide="alert-triangle"></i>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center">
+<h4 class="text-sm font-bold text-[#1a1a1a]">Paracetamol 500mg</h4>
+<span class="text-[10px] font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded border border-amber-100">Sắp hết</span>
+</div>
+<p class="text-xs text-[#636363] mt-1">Chỉ còn <strong class="text-amber-700">12 hộp</strong> (Dưới mức cảnh báo 20)</p>
+</div>
+</li>
+<!-- Alert 2 -->
+<li class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-rose-50 flex items-center justify-center shrink-0 text-rose-600 border border-rose-100">
+<i class="w-5 h-5" data-lucide="x-circle"></i>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center">
+<h4 class="text-sm font-bold text-[#1a1a1a]">Amoxicillin 500mg</h4>
+<span class="text-[10px] font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded border border-rose-100">Hết hàng</span>
+</div>
+<p class="text-xs text-[#636363] mt-1">Kho hiện tại: <strong class="text-rose-700">0 hộp</strong></p>
+</div>
+</li>
+<!-- Alert 3 -->
+<li class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-orange-50 flex items-center justify-center shrink-0 text-orange-600 border border-orange-100">
+<i class="w-5 h-5" data-lucide="clock"></i>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center">
+<h4 class="text-sm font-bold text-[#1a1a1a]">Vitamin C 500mg</h4>
+<span class="text-[10px] font-bold text-orange-600 bg-orange-50 px-2 py-0.5 rounded border border-orange-100">Cận date</span>
+</div>
+<p class="text-xs text-[#636363] mt-1">Gần hết hạn: Lô HSD <strong class="text-orange-700">06/2026</strong></p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- ROW 3: CẢNH BÁO TƯƠNG TÁC & HOẠT ĐỘNG -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-6">
+<!-- 5. Card Cảnh báo tương tác gần đây -->
+<div class="lg:col-span-8 bg-white rounded-[16px] shadow-sm border border-[#e8e8e8] flex flex-col">
+<div class="p-4 md:p-5 border-b border-[#e8e8e8] flex justify-between items-center bg-[#f7f7f7] rounded-t-[16px]">
+<h3 class="text-sm font-extrabold text-[#1a1a1a] flex items-center gap-2">
+<i class="w-5 h-5 text-rose-600" data-lucide="shield-alert"></i> Cảnh báo tương tác thuốc gần đây
+                        </h3>
+</div>
+<div class="overflow-x-auto flex-1">
+<table class="w-full text-left text-sm border-collapse">
+<thead class="bg-white">
+<tr class="text-[10px] font-bold text-[#636363] uppercase tracking-wider border-b border-[#e8e8e8]">
+<th class="py-3 px-5">Thời gian</th>
+<th class="py-3 px-5">Đơn hàng</th>
+<th class="py-3 px-5">Cặp thuốc</th>
+<th class="py-3 px-5 text-center">Mức độ</th>
+<th class="py-3 px-5 text-right">Trạng thái</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#e8e8e8]">
+<tr class="hover:bg-[#f7f7f7] transition-colors">
+<td class="py-3 px-5 text-xs text-[#3d3d3d]">10:15 - H.nay</td>
+<td class="py-3 px-5 text-xs font-bold text-[#024ad8]"><a class="hover:underline" href="../pos/order-detail.html">ORD0012</a></td>
+<td class="py-3 px-5 text-xs font-medium text-[#1a1a1a]">Warfarin + Ibuprofen</td>
+<td class="py-3 px-5 text-center">
+<span class="text-[10px] font-bold text-rose-700 bg-rose-50 border border-rose-200 px-2 py-0.5 rounded uppercase">Cao</span>
+</td>
+<td class="py-3 px-5 text-right">
+<span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded uppercase">Đã duyệt (Có ghi chú)</span>
+</td>
+</tr>
+<tr class="hover:bg-[#f7f7f7] transition-colors">
+<td class="py-3 px-5 text-xs text-[#3d3d3d]">09:30 - H.nay</td>
+<td class="py-3 px-5 text-xs font-bold text-[#024ad8]"><a class="hover:underline" href="../pos/order-detail.html">ORD0008</a></td>
+<td class="py-3 px-5 text-xs font-medium text-[#1a1a1a]">Lisinopril + Kali</td>
+<td class="py-3 px-5 text-center">
+<span class="text-[10px] font-bold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded uppercase">Trung bình</span>
+</td>
+<td class="py-3 px-5 text-right">
+<span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded uppercase">Đã tư vấn KH</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- 6 & 7. Hoạt động gần nhất & Thao tác nhanh -->
+<div class="lg:col-span-4 flex flex-col gap-4 md:gap-6">
+<!-- 7. Thao tác nhanh -->
+<div class="bg-white rounded-[16px] shadow-sm border border-[#e8e8e8]">
+<div class="p-4 border-b border-[#e8e8e8] bg-[#f7f7f7] rounded-t-[16px]">
+<h3 class="text-sm font-extrabold text-[#1a1a1a]">Thao tác nhanh</h3>
+</div>
+<div class="p-4 grid grid-cols-2 gap-3">
+<a class="flex flex-col items-center justify-center p-3 border border-[#e8e8e8] rounded-[8px] hover:bg-blue-50 hover:border-blue-200 hover:text-[#024ad8] transition-all text-center group" href="../pos/pos.html">
+<i class="w-6 h-6 mb-2 text-[#636363] group-hover:text-[#024ad8]" data-lucide="shopping-bag"></i>
+<span class="text-[10px] font-bold uppercase tracking-wide">Tạo đơn bán</span>
+</a>
+<button class="flex flex-col items-center justify-center p-3 border border-[#e8e8e8] rounded-[8px] hover:bg-blue-50 hover:border-blue-200 hover:text-[#024ad8] transition-all text-center group" onclick="openAddMedicineModal()">
+<i class="w-6 h-6 mb-2 text-[#636363] group-hover:text-[#024ad8]" data-lucide="plus-circle"></i>
+<span class="text-[10px] font-bold uppercase tracking-wide">Thêm thuốc</span>
+</button>
+<a class="flex flex-col items-center justify-center p-3 border border-[#e8e8e8] rounded-[8px] hover:bg-blue-50 hover:border-blue-200 hover:text-[#024ad8] transition-all text-center group" href="../inventory/import-create.html">
+<i class="w-6 h-6 mb-2 text-[#636363] group-hover:text-[#024ad8]" data-lucide="arrow-down-left"></i>
+<span class="text-[10px] font-bold uppercase tracking-wide">Nhập thuốc</span>
+</a>
+<a class="flex flex-col items-center justify-center p-3 border border-[#e8e8e8] rounded-[8px] hover:bg-blue-50 hover:border-blue-200 hover:text-[#024ad8] transition-all text-center group" href="../inventory/inventory.html">
+<i class="w-6 h-6 mb-2 text-[#636363] group-hover:text-[#024ad8]" data-lucide="package"></i>
+<span class="text-[10px] font-bold uppercase tracking-wide">Xem tồn kho</span>
+</a>
+</div>
+</div>
+<!-- 6. Hoạt động gần nhất -->
+<div class="bg-white rounded-[16px] shadow-sm border border-[#e8e8e8] flex-1 flex flex-col">
+<div class="p-4 border-b border-[#e8e8e8] bg-[#f7f7f7] rounded-t-[16px]">
+<h3 class="text-sm font-extrabold text-[#1a1a1a] flex items-center gap-2">
+<i class="w-4 h-4 text-[#024ad8]" data-lucide="activity"></i> Hoạt động gần nhất
+                            </h3>
+</div>
+<div class="p-5 flex-1">
+<div class="relative border-l-2 border-[#e8e8e8] pl-4 ml-2 space-y-6">
+<div class="relative">
+<div class="absolute -left-[23px] top-1 w-3 h-3 bg-white border-2 border-emerald-500 rounded-full"></div>
+<p class="text-xs font-bold text-[#1a1a1a]">Cập nhật tồn kho MED003</p>
+<p class="text-[10px] text-[#636363] mt-1">10:30 • Admin</p>
+</div>
+<div class="relative">
+<div class="absolute -left-[23px] top-1 w-3 h-3 bg-white border-2 border-[#024ad8] rounded-full"></div>
+<p class="text-xs font-bold text-[#1a1a1a]">Nhập thuốc <a class="text-[#024ad8] hover:underline" href="../inventory/import-history.html">IMP0002</a></p>
+<p class="text-[10px] text-[#636363] mt-1">10:00 • Admin</p>
+</div>
+<div class="relative">
+<div class="absolute -left-[23px] top-1 w-3 h-3 bg-white border-2 border-[#1a1a1a] rounded-full"></div>
+<p class="text-xs font-bold text-[#1a1a1a]">Thanh toán hóa đơn <a class="text-[#024ad8] hover:underline" href="../pos/invoice.html">INV0001</a></p>
+<p class="text-[10px] text-[#636363] mt-1">09:20 • Cashier_1</p>
+</div>
+<div class="relative">
+<div class="absolute -left-[23px] top-1 w-3 h-3 bg-white border-2 border-[#636363] rounded-full"></div>
+<p class="text-xs font-bold text-[#1a1a1a]">Tạo đơn <a class="text-[#024ad8] hover:underline" href="../pos/order-detail.html">ORD0001</a></p>
+<p class="text-[10px] text-[#636363] mt-1">09:10 • Cashier_1</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- MODAL THÊM THUỐC MỚI (INTERACTIVE MODAL - SHADOW 0 8px 24px) -->
+<div class="fixed inset-0 bg-[#1a1a1a]/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4" id="add-medicine-modal">
+<div class="bg-white rounded-[16px] w-full max-w-[500px] shadow-[0_8px_24px_rgba(26,26,26,0.12)] border border-[#e8e8e8] flex flex-col overflow-hidden animate-fadeIn max-h-[90vh]">
+<!-- Modal Header -->
+<div class="px-6 py-4 bg-[#f7f7f7] border-b border-[#e8e8e8] flex justify-between items-center">
+<div class="flex items-center gap-2">
+<i class="w-5 h-5 text-[#024ad8]" data-lucide="plus-circle"></i>
+<h3 class="text-sm font-extrabold text-[#1a1a1a]">Thêm thuốc mới vào danh mục</h3>
+</div>
+<button class="text-[#636363] hover:text-[#1a1a1a] p-1 rounded-[4px] hover:bg-[#e8e8e8] transition-colors" onclick="closeAddMedicineModal()">
+<i class="w-4 h-4" data-lucide="x"></i>
+</button>
+</div>
+<!-- Modal Content (Form) -->
+<div class="p-4 md:p-6 space-y-4 text-xs overflow-y-auto">
+<!-- Mã thuốc & Tên biệt dược -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="space-y-1.5">
+<label class="block font-bold text-[#3d3d3d] uppercase tracking-wide text-[10px]">Mã dược chất/thuốc</label>
+<input class="w-full px-3 py-2 border border-[#c2c2c2] focus:border-[#024ad8] rounded-[4px] transition-all focus:outline-none" placeholder="Ví dụ: MED004" type="text"/>
+</div>
+<div class="space-y-1.5">
+<label class="block font-bold text-[#3d3d3d] uppercase tracking-wide text-[10px]">Tên biệt dược</label>
+<input class="w-full px-3 py-2 border border-[#c2c2c2] focus:border-[#024ad8] rounded-[4px] transition-all focus:outline-none" placeholder="Nhập tên thuốc..." type="text"/>
+</div>
+</div>
+<!-- Hoạt chất & Nhóm thuốc -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="space-y-1.5">
+<label class="block font-bold text-[#3d3d3d] uppercase tracking-wide text-[10px]">Hoạt chất chính</label>
+<input class="w-full px-3 py-2 border border-[#c2c2c2] focus:border-[#024ad8] rounded-[4px] transition-all focus:outline-none" placeholder="Nhập tên hoạt chất..." type="text"/>
+</div>
+<div class="space-y-1.5">
+<label class="block font-bold text-[#3d3d3d] uppercase tracking-wide text-[10px]">Nhóm thuốc phân loại</label>
+<select class="w-full px-3 py-2 border border-[#c2c2c2] bg-white rounded-[4px]">
+<option>Thuốc kê đơn (Rx)</option>
+<option>Không kê đơn (OTC)</option>
+<option>Thực phẩm chức năng</option>
+<option>Vật tư y tế</option>
+</select>
+</div>
+</div>
+<!-- Tồn kho & Hạn dùng -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+<div class="space-y-1.5">
+<label class="block font-bold text-[#3d3d3d] uppercase tracking-wide text-[10px]">Số lượng ban đầu</label>
+<input class="w-full px-3 py-2 border border-[#c2c2c2] focus:border-[#024ad8] rounded-[4px] transition-all focus:outline-none" placeholder="0" type="number"/>
+</div>
+<div class="space-y-1.5">
+<label class="block font-bold text-[#3d3d3d] uppercase tracking-wide text-[10px]">Ngưỡng cảnh báo</label>
+<input class="w-full px-3 py-2 border border-[#c2c2c2] focus:border-[#024ad8] rounded-[4px] transition-all focus:outline-none" placeholder="20" type="number"/>
+</div>
+<div class="space-y-1.5">
+<label class="block font-bold text-[#3d3d3d] uppercase tracking-wide text-[10px]">Hạn sử dụng</label>
+<input class="w-full px-3 py-2 border border-[#c2c2c2] focus:border-[#024ad8] rounded-[4px] transition-all focus:outline-none" placeholder="MM/YYYY" type="text"/>
+</div>
+</div>
+</div>
+<!-- Modal Footer -->
+<div class="px-6 py-4 bg-[#f7f7f7] border-t border-[#e8e8e8] flex justify-end gap-3 shrink-0">
+<button class="h-[36px] px-[16px] text-xs font-bold text-[#3d3d3d] border border-[#c2c2c2] rounded-[4px] hover:bg-white transition-all" onclick="closeAddMedicineModal()">
+                    HỦY BỎ
+                </button>
+<button class="h-[36px] px-[20px] uppercase text-xs font-bold tracking-wide bg-[#024ad8] text-white rounded-[4px] hover:bg-[#0e3191] transition-all shadow-[0_2px_4px_rgba(26,26,26,0.08)]" onclick="closeAddMedicineModal()">
+                    THÊM THUỐC
+                </button>
+</div>
+</div>
+</div>
+<!-- JS logic for interactive actions -->
+<script>
+        lucide.createIcons();
+
+        function toggleMobileMenu() {
+            const overlay = document.getElementById('mobile-menu-overlay');
+            const drawer = document.getElementById('mobile-drawer');
+            
+            if (overlay.classList.contains('hidden')) {
+                overlay.classList.remove('hidden');
+                setTimeout(() => {
+                    drawer.classList.remove('-translate-x-full');
+                }, 10);
+            } else {
+                drawer.classList.add('-translate-x-full');
+                setTimeout(() => {
+                    overlay.classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        function openAddMedicineModal() {
+            document.getElementById('add-medicine-modal').classList.remove('hidden');
+        }
+
+        function closeAddMedicineModal() {
+            document.getElementById('add-medicine-modal').classList.add('hidden');
+        }
+    </script>
+<script src="../global_ui.js"></script>
+</body>
+</html>

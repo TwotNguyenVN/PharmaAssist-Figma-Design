@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sao lưu và xuất dữ liệu — PharmaAssist</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        html { -webkit-font-smoothing: antialiased; }
+        body { font-family: 'Inter', sans-serif; }
+        .tabular { font-variant-numeric: tabular-nums; }
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar-track { background: #f7f7f7; }
+        ::-webkit-scrollbar-thumb { background: #c2c2c2; border-radius: 99px; }
+        .btn-action { transition-property: background-color, border-color, color, transform; transition-duration: 150ms; transition-timing-function: ease-out; }
+        .btn-action:active { transform: scale(0.97); }
+    </style>
+</head>
+<body class="bg-[#f7f7f7] h-screen w-screen overflow-hidden flex">
+
+<!-- SIDEBAR WILL BE INJECTED BY SCRIPT -->
+<aside class="hidden md:flex w-60 bg-white border-r border-[#e8e8e8] flex-col shrink-0 h-full z-10">
+    <div class="flex flex-col h-full overflow-hidden">
+        <div class="p-4 border-b border-[#e8e8e8] flex items-center gap-3 shrink-0">
+            <div class="bg-[#024ad8] text-white p-2 rounded-[8px] shadow-md shadow-[#024ad8]/20 shrink-0"><i data-lucide="sparkles" class="w-4 h-4"></i></div>
+            <div class="leading-tight">
+                <span class="text-sm font-extrabold tracking-tight text-[#1a1a1a]">Pharma<span class="text-[#024ad8]">Assist</span></span>
+                <span class="block text-[9px] text-[#636363] font-bold uppercase tracking-wider">Hệ thống thông minh</span>
+            </div>
+        </div>
+        <nav class="py-2 px-2 space-y-0.5 flex-1 overflow-y-auto text-[13px] custom-scrollbar">
+            <a href="../dashboard/dashboard.html" data-nav="dashboard/dashboard.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="layout-dashboard"></i> Dashboard</a>
+            <a href="../medicine/medicine_management.html" data-nav="medicine/medicine_management.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="pill"></i> Quản lý thuốc</a>
+            <a href="../medicine/category_management.html" data-nav="medicine/category_management.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="layers"></i> Danh mục thuốc</a>
+            <div class="h-px bg-[#e8e8e8] my-1"></div>
+            <div class="px-2.5 py-1.5"><span class="text-[9px] font-bold text-[#636363] uppercase tracking-widest">Kho thuốc</span></div>
+            <a href="../inventory/inventory.html" data-nav="inventory/inventory.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="package"></i> Tồn kho</a>
+            <a href="../inventory/import-create.html" data-nav="inventory/import-create.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="arrow-down-left"></i> Nhập thuốc</a>
+            <a href="../inventory/import-history.html" data-nav="inventory/import-history.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="history"></i> Lịch sử nhập</a>
+            <a href="../inventory/suppliers.html" data-nav="inventory/suppliers.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="building-2"></i> Nhà cung cấp</a>
+            <div class="h-px bg-[#e8e8e8] my-1"></div>
+            <div class="px-2.5 py-1.5"><span class="text-[9px] font-bold text-[#636363] uppercase tracking-widest">Bán thuốc</span></div>
+            <a href="../pos/pos.html" data-nav="pos/pos.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="shopping-cart"></i> Tạo đơn bán</a>
+            <a href="../pos/order-history.html" data-nav="pos/order-history.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="receipt-text"></i> Lịch sử bán</a>
+            <a href="../customer/customers.html" data-nav="customer/customers.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="users"></i> Khách hàng</a>
+            <div class="h-px bg-[#e8e8e8] my-1"></div>
+            <a href="../reports/reports.html" data-nav="reports/reports.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="bar-chart-3"></i> Báo cáo</a>
+            <div class="h-px bg-[#e8e8e8] my-1"></div>
+            <a href="../admin/users.html" data-nav="admin/users.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="user-cog"></i> Người dùng</a>
+            <a href="../admin/roles.html" data-nav="admin/roles.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="shield"></i> Phân quyền</a>
+            <a href="../notifications/notifications.html" data-nav="notifications/notifications.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="bell"></i> Thông báo</a>
+            <a href="../admin/pharmacy_profile.html" data-nav="admin/pharmacy_profile.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="store"></i> Hồ sơ nhà thuốc</a>
+            <a href="../admin/system_logs.html" data-nav="admin/system_logs.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="activity"></i> Nhật ký hệ thống</a>
+            <a href="../admin/settings.html" data-nav="admin/settings.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="settings"></i> Cài đặt</a>
+            <a href="../admin/backup.html" data-nav="admin/backup.html" class="flex items-center gap-2.5 bg-[#c9e0fc] text-[#024ad8] border border-[#024ad8]/20 px-2.5 py-2 rounded-[6px] font-bold transition-all"><i class="w-4 h-4 shrink-0 text-[#024ad8]" data-lucide="database-backup"></i> Sao lưu dữ liệu</a>
+            <div class="h-px bg-[#e8e8e8] my-1"></div>
+            <a href="../ai/ai-copilot.html" data-nav="ai/ai-copilot.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="bot"></i> AI Copilot</a>
+            <a href="../ai/ai_logs.html" data-nav="ai/ai_logs.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="brain-circuit"></i> Nhật ký AI</a>
+            <a href="../ai/graph_explorer.html" data-nav="ai/graph_explorer.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="network"></i> Graph Explorer</a>
+            <div class="h-px bg-[#e8e8e8] my-1"></div>
+            <a href="../profile/profile.html" data-nav="profile/profile.html" class="flex items-center gap-2.5 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-2.5 py-2 rounded-[6px] font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="user"></i> Hồ sơ cá nhân</a>
+            <a href="../auth/login.html" class="flex items-center gap-2.5 hover:bg-red-50 text-[#b3262b] px-2.5 py-2 rounded-[6px] font-bold transition-all mt-2"><i class="w-4 h-4 shrink-0 text-[#b3262b]" data-lucide="log-out"></i> Đăng xuất</a>
+        </nav>
+    </div>
+</aside>
+
+<!-- MAIN -->
+<div class="flex-1 flex flex-col h-full overflow-hidden">
+    <!-- HEADER -->
+    <header class="h-14 bg-white border-b border-[#e8e8e8] px-6 flex items-center justify-between shrink-0 gap-4">
+        <div>
+            <h1 class="text-base font-extrabold text-[#1a1a1a]">Sao lưu và xuất dữ liệu</h1>
+            <p class="text-[10px] text-[#636363]">Bảo vệ an toàn dữ liệu nhà thuốc và xuất file theo yêu cầu.</p>
+        </div>
+        <div class="flex items-center gap-3">
+            <button class="h-8 px-6 bg-[#024ad8] text-white rounded-[4px] text-xs font-bold flex items-center gap-1.5 hover:bg-[#023aa8] transition-all btn-action shadow-sm shadow-[#024ad8]/20">
+                <i data-lucide="plus" class="w-3.5 h-3.5"></i> Tạo bản sao lưu mới
+            </button>
+        </div>
+    </header>
+
+    <!-- CONTENT WRAPPER -->
+    <div class="flex-1 overflow-y-auto p-5 flex flex-col gap-5">
+        
+        <!-- TOP CARDS -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <!-- Tình trạng sao lưu -->
+            <div class="bg-white rounded-[16px] border border-[#e8e8e8] shadow-sm p-5">
+                <div class="flex items-center gap-2 text-[#024ad8] font-extrabold text-[13px] mb-4">
+                    <i data-lucide="shield-check" class="w-4 h-4"></i> Tình trạng sao lưu
+                </div>
+                <div class="flex items-center gap-5">
+                    <div class="w-16 h-16 rounded-full border-4 border-emerald-500 text-emerald-500 flex items-center justify-center shrink-0">
+                        <i data-lucide="check" class="w-8 h-8"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-black text-[#1a1a1a]">An toàn</h3>
+                        <p class="text-xs text-[#636363] mt-1">Bản sao lưu gần nhất: <span class="font-bold text-[#1a1a1a]">Hôm nay, 03:00 AM</span></p>
+                        <p class="text-[10px] text-emerald-600 font-bold mt-1 uppercase tracking-widest">Đang chạy tự động</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Xuất dữ liệu nhanh -->
+            <div class="bg-white rounded-[16px] border border-[#e8e8e8] shadow-sm p-5">
+                <div class="flex items-center gap-2 text-[#024ad8] font-extrabold text-[13px] mb-4">
+                    <i data-lucide="download-cloud" class="w-4 h-4"></i> Xuất dữ liệu nhanh (Excel/CSV)
+                </div>
+                <div class="flex gap-2">
+                    <button class="flex-1 h-10 border border-[#e8e8e8] rounded-[6px] text-xs font-bold text-[#3d3d3d] hover:bg-[#f7f7f7] hover:border-[#024ad8] hover:text-[#024ad8] transition-all flex items-center justify-center gap-2">
+                        <i data-lucide="package" class="w-4 h-4"></i> Tồn kho
+                    </button>
+                    <button class="flex-1 h-10 border border-[#e8e8e8] rounded-[6px] text-xs font-bold text-[#3d3d3d] hover:bg-[#f7f7f7] hover:border-[#024ad8] hover:text-[#024ad8] transition-all flex items-center justify-center gap-2">
+                        <i data-lucide="shopping-cart" class="w-4 h-4"></i> Đơn hàng
+                    </button>
+                    <button class="flex-1 h-10 border border-[#e8e8e8] rounded-[6px] text-xs font-bold text-[#3d3d3d] hover:bg-[#f7f7f7] hover:border-[#024ad8] hover:text-[#024ad8] transition-all flex items-center justify-center gap-2">
+                        <i data-lucide="users" class="w-4 h-4"></i> Khách hàng
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- BACKUP HISTORY TABLE -->
+        <div class="bg-white border border-[#e8e8e8] rounded-[16px] shadow-sm flex flex-col flex-1 overflow-hidden">
+            <div class="p-4 border-b border-[#e8e8e8] flex justify-between items-center bg-[#fcfcfc] shrink-0">
+                <div class="flex items-center gap-2 text-[#1a1a1a] font-extrabold text-[13px]">
+                    <i data-lucide="history" class="w-4 h-4 text-[#024ad8]"></i> Lịch sử sao lưu
+                </div>
+            </div>
+            <div class="overflow-x-auto flex-1">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-[#f7f7f7] text-[10px] uppercase tracking-wider text-[#636363] border-b border-[#e8e8e8]">
+                            <th class="p-3 font-bold">Thời gian sao lưu</th>
+                            <th class="p-3 font-bold">Loại</th>
+                            <th class="p-3 font-bold">Kích thước</th>
+                            <th class="p-3 font-bold">Trạng thái</th>
+                            <th class="p-3 font-bold text-right">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-[13px] text-[#1a1a1a]">
+                        <tr class="border-b border-[#e8e8e8] hover:bg-[#f0f4ff] transition-colors group">
+                            <td class="p-3 font-bold">22/06/2026 03:00:00</td>
+                            <td class="p-3"><span class="text-[10px] font-bold text-[#024ad8] bg-blue-100 px-2 py-0.5 rounded border border-blue-200">Tự động</span></td>
+                            <td class="p-3 text-[#636363] tabular">125 MB</td>
+                            <td class="p-3"><span class="flex items-center gap-1 text-emerald-600 font-bold text-xs"><i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> Thành công</span></td>
+                            <td class="p-3 text-right">
+                                <button class="h-7 px-3 border border-[#024ad8] text-[#024ad8] hover:bg-[#024ad8] hover:text-white rounded-[4px] text-[10px] font-bold uppercase tracking-wide transition-all btn-action mr-2">Tải xuống</button>
+                                <button class="h-7 px-3 border border-rose-600 text-rose-600 hover:bg-rose-600 hover:text-white rounded-[4px] text-[10px] font-bold uppercase tracking-wide transition-all btn-action">Khôi phục</button>
+                            </td>
+                        </tr>
+                        <tr class="border-b border-[#e8e8e8] hover:bg-[#f0f4ff] transition-colors group">
+                            <td class="p-3 font-bold">21/06/2026 03:00:00</td>
+                            <td class="p-3"><span class="text-[10px] font-bold text-[#024ad8] bg-blue-100 px-2 py-0.5 rounded border border-blue-200">Tự động</span></td>
+                            <td class="p-3 text-[#636363] tabular">124 MB</td>
+                            <td class="p-3"><span class="flex items-center gap-1 text-emerald-600 font-bold text-xs"><i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> Thành công</span></td>
+                            <td class="p-3 text-right">
+                                <button class="h-7 px-3 border border-[#024ad8] text-[#024ad8] hover:bg-[#024ad8] hover:text-white rounded-[4px] text-[10px] font-bold uppercase tracking-wide transition-all btn-action mr-2">Tải xuống</button>
+                                <button class="h-7 px-3 border border-rose-600 text-rose-600 hover:bg-rose-600 hover:text-white rounded-[4px] text-[10px] font-bold uppercase tracking-wide transition-all btn-action opacity-50 cursor-not-allowed">Khôi phục</button>
+                            </td>
+                        </tr>
+                        <tr class="border-b border-[#e8e8e8] hover:bg-[#f0f4ff] transition-colors group">
+                            <td class="p-3 font-bold">20/06/2026 15:30:12</td>
+                            <td class="p-3"><span class="text-[10px] font-bold text-amber-700 bg-amber-100 px-2 py-0.5 rounded border border-amber-200">Thủ công</span></td>
+                            <td class="p-3 text-[#636363] tabular">123.5 MB</td>
+                            <td class="p-3"><span class="flex items-center gap-1 text-emerald-600 font-bold text-xs"><i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> Thành công</span></td>
+                            <td class="p-3 text-right">
+                                <button class="h-7 px-3 border border-[#024ad8] text-[#024ad8] hover:bg-[#024ad8] hover:text-white rounded-[4px] text-[10px] font-bold uppercase tracking-wide transition-all btn-action mr-2">Tải xuống</button>
+                                <button class="h-7 px-3 border border-rose-600 text-rose-600 hover:bg-rose-600 hover:text-white rounded-[4px] text-[10px] font-bold uppercase tracking-wide transition-all btn-action opacity-50 cursor-not-allowed">Khôi phục</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+    lucide.createIcons();
+</script>
+<script src="../global_ui.js"></script>
+</body>
+</html>

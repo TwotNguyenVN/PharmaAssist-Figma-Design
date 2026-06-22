@@ -1,0 +1,914 @@
+# **Prompt 4 — Luồng AI \+ phân quyền \+ cài đặt \+ hệ thống**
+
+Nối prototype cho nhóm luồng “AI \+ phân quyền \+ cài đặt \+ hệ thống” của PharmaAssist.
+
+Mục tiêu:  
+\- Demo được AI Copilot, Nhật ký AI, Graph Explorer, phân quyền, người dùng, thông báo, cài đặt, sao lưu, nhật ký hệ thống và trang lỗi.  
+\- Có desktop và mobile nếu frame tương ứng đã tồn tại.  
+\- Tất cả thao tác, toast, modal, drawer, bottom sheet đều bằng tiếng Việt.  
+\- Giữ đúng nguyên tắc an toàn: AI không kê đơn, không chẩn đoán.
+
+Kích thước:  
+\- Desktop: w-screen h-screen.  
+\- Mobile: responsive 320px–479px, không khóa theo một kích thước cố định.
+
+Dữ liệu demo:  
+\- Cảnh báo tương tác: Ibuprofen 400mg \+ Warfarin 5mg  
+\- Đơn hàng liên quan: ORD0001  
+\- Khách hàng: Nguyễn Văn Minh  
+\- Người dùng Staff: Trần Nhân Viên  
+\- Admin: Nguyễn Quản Trị
+
+\==================================================  
+LUỒNG 1 — AI COPILOT  
+\==================================================
+
+AI Copilot desktop:  
+\- Click menu AI Copilot.  
+\- Click quick prompt “Giải thích cảnh báo tương tác”.  
+\- Hiển thị tin nhắn AI mẫu giải thích cảnh báo Ibuprofen \+ Warfarin.  
+\- Hiển thị disclaimer:  
+  “Nội dung AI chỉ mang tính tham khảo, không thay thế tư vấn của dược sĩ, bác sĩ hoặc chuyên gia y tế.”  
+\- Click TẠO GHI CHÚ TƯ VẤN hoặc LƯU VÀO GHI CHÚ.  
+\- Hiển thị ghi chú tư vấn nháp.  
+\- Click SAO CHÉP → toast “Đã sao chép ghi chú.”  
+\- Click LƯU VÀO GHI CHÚ → toast “Đã lưu ghi chú tư vấn.”  
+\- Click menu Nhật ký AI → AI Audit Log.
+
+AI Copilot mobile:  
+\- Dùng tab Chat / Ngữ cảnh / Ghi chú nháp.  
+\- Tap quick prompt → tạo phản hồi.  
+\- Tap LƯU VÀO GHI CHÚ → toast.  
+\- Input chat sticky bottom.
+
+Yêu cầu an toàn:  
+\- Không tạo nội dung kê đơn.  
+\- Không chẩn đoán.  
+\- Không khẳng định thuốc an toàn tuyệt đối.  
+\- Luôn hiển thị disclaimer.
+
+\==================================================  
+LUỒNG 2 — NHẬT KÝ AI  
+\==================================================
+
+AI Audit Log:  
+\- Click menu Nhật ký AI.  
+\- Click dòng log ORD0001 → mở drawer chi tiết log.  
+\- Drawer hiển thị:  
+  \- Prompt người dùng  
+  \- Phản hồi AI  
+  \- Guardrail result  
+  \- Thời gian xử lý  
+  \- Mức rủi ro  
+\- Click SAO CHÉP LOG → toast “Đã sao chép log.”  
+\- Click filter trạng thái “Bị chặn bởi guardrail”.  
+\- Bảng cập nhật log yêu cầu bị chặn.  
+\- Click XUẤT NHẬT KÝ → toast “Xuất nhật ký AI thành công.”
+
+Mobile nếu có:  
+\- Log chuyển thành card list.  
+\- Tap log → bottom sheet chi tiết log.
+
+\==================================================  
+LUỒNG 3 — GRAPH EXPLORER  
+\==================================================
+
+Graph Explorer desktop:  
+\- Click menu Graph Explorer.  
+\- Click node Ibuprofen.  
+\- Panel trái cập nhật thông tin Ibuprofen.  
+\- Click node Warfarin.  
+\- Hiển thị cạnh TƯƠNG\_TÁC\_VỚI giữa Ibuprofen và Warfarin.  
+\- Click cạnh tương tác → mở drawer chi tiết quan hệ.  
+\- Drawer hiển thị:  
+  \- Thuốc 1: Ibuprofen 400mg  
+  \- Thuốc 2: Warfarin 5mg  
+  \- Mức độ: Cao  
+  \- Mô tả mẫu  
+  \- Khuyến nghị mẫu  
+\- Click XEM CHI TIẾT THUỐC → Chi tiết thuốc.  
+\- Nhập “Warfarin” vào search.  
+\- Click TÌM KIẾM → lọc graph.
+
+Disclaimer:  
+\- Graph chỉ sử dụng dữ liệu mẫu phục vụ đồ án. Không sử dụng như dữ liệu y khoa thật.
+
+Mobile nếu có:  
+\- Tap node → bottom sheet node detail.  
+\- Tap cạnh tương tác → bottom sheet chi tiết tương tác.
+
+\==================================================  
+LUỒNG 4 — PHÂN QUYỀN VÀ SIDEBAR THEO VAI TRÒ  
+\==================================================
+
+Role & Permission desktop:  
+\- Click menu Vai trò & phân quyền.  
+\- Click vai trò Admin / Chủ nhà thuốc → hiển thị toàn quyền.  
+\- Click vai trò Nhân viên nhà thuốc → hiển thị quyền bán hàng, khách hàng, hóa đơn, AI Copilot.  
+\- Click vai trò Nhân viên kho → hiển thị quyền tồn kho, nhập thuốc, nhà cung cấp.  
+\- Tick hoặc bỏ tick một quyền.  
+\- Hiển thị banner “Bạn có thay đổi chưa được lưu.”  
+\- Click LƯU PHÂN QUYỀN → toast “Cập nhật phân quyền thành công.”
+
+Sidebar role switching:  
+\- Click avatar hoặc dropdown vai trò.  
+\- Chọn Admin → sidebar Admin.  
+\- Chọn Nhân viên nhà thuốc → sidebar Staff.  
+\- Chọn Nhân viên kho → sidebar Warehouse.  
+\- Nếu Staff click vào Người dùng hoặc Phân quyền → chuyển sang 403 Không có quyền truy cập.
+
+Mobile:  
+\- Mobile drawer hiển thị menu tương ứng theo vai trò.  
+\- Tap avatar hoặc role switch demo → đổi menu.
+
+\==================================================  
+LUỒNG 5 — QUẢN LÝ NGƯỜI DÙNG VÀ HỒ SƠ  
+\==================================================
+
+User Management:  
+\- Click menu Người dùng.  
+\- Click THÊM TÀI KHOẢN → mở modal thêm tài khoản.  
+\- Nhập họ tên, email, vai trò.  
+\- Click LƯU TÀI KHOẢN → toast “Lưu tài khoản thành công.”  
+\- Click Sửa → mở modal chỉnh sửa tài khoản.  
+\- Click Khóa → mở modal xác nhận khóa.  
+\- Click HỦY → đóng modal.
+
+Profile:  
+\- Click avatar → Hồ sơ cá nhân.  
+\- Click LƯU THAY ĐỔI → toast “Cập nhật hồ sơ thành công.”  
+\- Click ĐỔI MẬT KHẨU → mở form đổi mật khẩu.  
+\- Nếu mật khẩu xác nhận không khớp → hiển thị lỗi.  
+\- Click ĐĂNG XUẤT → mở modal xác nhận.  
+\- Click XÁC NHẬN ĐĂNG XUẤT → Login.
+
+\==================================================  
+LUỒNG 6 — THÔNG BÁO  
+\==================================================
+
+Notification Center:  
+\- Click icon chuông trên top header → Trung tâm thông báo.  
+\- Click tab Kho thuốc → lọc thông báo kho.  
+\- Click thông báo “Paracetamol 500mg chỉ còn 12 hộp” → Quản lý tồn kho.  
+\- Click thông báo “Đơn ORD0001 có tương tác mức cao” → Chi tiết đơn hàng.  
+\- Click thông báo “Hóa đơn INV0001 đã được tạo” → Hóa đơn.  
+\- Click thông báo AI Guardrail → Nhật ký AI.  
+\- Click ĐÁNH DẤU TẤT CẢ ĐÃ ĐỌC → toast “Đã đánh dấu tất cả thông báo là đã đọc.”
+
+Mobile:  
+\- Tap icon chuông → Notification Center mobile.  
+\- Tap item → điều hướng màn hình liên quan.
+
+\==================================================  
+LUỒNG 7 — CÀI ĐẶT VÀ HỒ SƠ NHÀ THUỐC  
+\==================================================
+
+Settings:  
+\- Click menu Cài đặt.  
+\- Click tab Thông tin nhà thuốc.  
+\- Click tab Bán hàng.  
+\- Click tab Tồn kho.  
+\- Click tab Hóa đơn.  
+\- Click tab AI & an toàn.  
+\- Toggle “Bắt buộc disclaimer AI”.  
+\- Hiển thị banner “Bạn có thay đổi chưa được lưu.”  
+\- Click LƯU CÀI ĐẶT → toast “Lưu cài đặt thành công.”
+
+Pharmacy Profile:  
+\- Click Hồ sơ nhà thuốc.  
+\- Click CHỈNH SỬA THÔNG TIN → mở form chỉnh sửa.  
+\- Click TẢI LOGO LÊN → upload state.  
+\- Click LƯU → toast “Cập nhật hồ sơ nhà thuốc thành công.”  
+\- Click thông tin hóa đơn nếu có → Invoice Print View hoặc Invoice.
+
+Mobile nếu có:  
+\- Settings tab chuyển thành accordion hoặc vertical list.  
+\- Toggle vẫn bấm được.  
+\- Button LƯU CÀI ĐẶT full width.
+
+\==================================================  
+LUỒNG 8 — SAO LƯU VÀ XUẤT DỮ LIỆU  
+\==================================================
+
+Backup / Export Data:  
+\- Click menu Sao lưu dữ liệu.  
+\- Click TẠO BẢN SAO LƯU.  
+\- Hiển thị loading state.  
+\- Toast “Tạo bản sao lưu thành công.”  
+\- Chọn dữ liệu:  
+  \- Thuốc  
+  \- Tồn kho  
+  \- Khách hàng  
+  \- Đơn hàng  
+  \- Hóa đơn  
+\- Chọn định dạng Excel.  
+\- Click XUẤT DỮ LIỆU → mở modal xác nhận.  
+\- Click XÁC NHẬN XUẤT → toast “Xuất dữ liệu thành công.”  
+\- Click Tải xuống trong lịch sử sao lưu → toast “Đang tải file sao lưu.”
+
+Cảnh báo bảo mật:  
+\- Giữ card cảnh báo: Dữ liệu khách hàng, hóa đơn và lịch sử mua hàng cần được bảo vệ.  
+\- Không chia sẻ file sao lưu công khai.
+
+\==================================================  
+LUỒNG 9 — NHẬT KÝ HỆ THỐNG  
+\==================================================
+
+System Audit Log:  
+\- Click menu Nhật ký hệ thống.  
+\- Chọn module: Bán thuốc.  
+\- Click ÁP DỤNG → lọc bảng.  
+\- Click dòng “Tạo đơn hàng ORD0001” → mở drawer chi tiết log.  
+\- Click mã tham chiếu ORD0001 → Chi tiết đơn hàng.  
+\- Click dòng “Xác nhận nhập kho IMP001” → mở drawer.  
+\- Click mã IMP001 → Chi tiết phiếu nhập.  
+\- Click XUẤT NHẬT KÝ → toast “Xuất nhật ký hệ thống thành công.”
+
+Mobile nếu có:  
+\- Log chuyển thành card list.  
+\- Tap log → bottom sheet chi tiết.
+
+\==================================================  
+LUỒNG 10 — TRANG LỖI VÀ QUÊN MẬT KHẨU  
+\==================================================
+
+Quên mật khẩu:  
+\- Click Quên mật khẩu? ở Login → Quên mật khẩu.  
+\- Nhập email staff@pharmaassist.local.  
+\- Click GỬI YÊU CẦU → success state “Yêu cầu đặt lại mật khẩu đã được gửi.”  
+\- Click Quay lại đăng nhập → Login.
+
+403 Không có quyền truy cập:  
+\- Khi Staff click vào Phân quyền hoặc Người dùng → 403\.  
+\- Click QUAY VỀ DASHBOARD → Dashboard.  
+\- Click QUAY LẠI → màn hình trước đó.
+
+404 Không tìm thấy trang:  
+\- Click đường dẫn không tồn tại hoặc card 404 demo → 404\.  
+\- Click QUAY VỀ DASHBOARD → Dashboard.  
+\- Click QUAY LẠI → màn hình trước đó.
+
+\==================================================  
+LUỒNG 11 — KỊCH BẢN DEMO  
+\==================================================
+
+Demo Scenario Page:  
+\- Click menu Kịch bản demo.  
+\- Click BỎ QUA → ĐĂNG NHẬP TRỰC TIẾP → Login.  
+\- Button này phải có nền \#024ad8, chữ trắng, cao 44px, bo góc 4px.  
+\- Click BẮT ĐẦU DEMO ở card AI Copilot → AI Copilot.  
+\- Click BẮT ĐẦU DEMO ở card Phân quyền → Role & Permission.  
+\- Click BẮT ĐẦU DEMO ở card Cài đặt hệ thống nếu có → Settings.
+
+\==================================================  
+QUY TẮC CHUNG  
+\==================================================
+
+Navigation:  
+\- Desktop dùng sidebar.  
+\- Mobile dùng hamburger drawer.  
+\- Click logo hoặc Dashboard → Dashboard.
+
+Responsive:  
+\- Desktop: w-screen h-screen.  
+\- Mobile: responsive 320px–479px.  
+\- Mobile không khóa layout theo một kích thước cố định.  
+\- Mobile table chuyển thành card list.  
+\- Mobile filter chuyển thành bottom sheet.  
+\- Mobile modal dùng full-screen hoặc bottom sheet.  
+\- Button chính full width trên mobile.
+
+Modal:  
+\- Desktop modal centered.  
+\- Mobile modal full-screen hoặc bottom sheet.  
+\- Có overlay nền tối nhẹ.  
+\- Click X để đóng.
+
+Drawer:  
+\- Desktop drawer mở từ phải.  
+\- Mobile drawer menu mở từ trái.  
+\- Bottom sheet mở từ dưới lên.
+
+Toast:  
+\- Desktop toast góc trên phải.  
+\- Mobile toast phía dưới hoặc phía trên.  
+\- Tự đóng sau 2–3 giây.  
+\- Có icon trạng thái và nút đóng X.
+
+Button states:  
+\- Tất cả button có default, hover, pressed, disabled.  
+\- Button chính dùng \#024ad8.  
+\- Nút danger dùng \#b3262b.
+
+Safety:  
+\- AI không kê đơn.  
+\- AI không chẩn đoán.  
+\- AI không khẳng định thuốc an toàn tuyệt đối.  
+\- Luôn hiển thị disclaimer ở AI, cảnh báo tương tác và Graph:  
+  “Thông tin cảnh báo chỉ mang tính tham khảo, không thay thế tư vấn của dược sĩ, bác sĩ hoặc chuyên gia y tế.”
+
+---
+
+# Thẻ 5
+
+Nối lại prototype sau khi đã hoàn thiện responsive cho PharmaAssist.
+
+Mục tiêu:  
+\- Tạo nhiều luồng demo riêng biệt, dễ trình bày trong buổi bảo vệ.  
+\- Có cả desktop và mobile nếu các frame tương ứng đã tồn tại.  
+\- Giữ dữ liệu demo thống nhất.  
+\- Tất cả thao tác, toast, modal, drawer, bottom sheet và trạng thái đều bằng tiếng Việt.  
+\- Cho phép người dùng chọn kịch bản demo hoặc bỏ qua để tự test hệ thống.
+
+Kích thước:  
+\- Desktop: w-screen h-screen.  
+\- Mobile: responsive mobile, không khóa theo một kích thước cố định.
+
+Yêu cầu đặc biệt cho màn hình Kịch bản demo:  
+\- Thêm hoặc chỉnh dòng “Bỏ qua → Đăng nhập trực tiếp” thành button rõ ràng.  
+\- Button này có nền màu xanh \#024ad8.  
+\- Chữ màu trắng \#ffffff.  
+\- Text button: BỎ QUA → ĐĂNG NHẬP TRỰC TIẾP  
+\- Button cao tối thiểu 44px.  
+\- Bo góc 4px.  
+\- Đặt ở vị trí dễ thấy, ví dụ phía trên danh sách card demo hoặc cuối header.  
+\- Khi click button này → chuyển thẳng sang màn hình Login.  
+\- Mục đích: người dùng có thể bỏ qua việc chọn luồng demo và bắt đầu tự đi test hệ thống.
+
+Dữ liệu demo bắt buộc giữ thống nhất:  
+\- Đơn hàng: ORD0001  
+\- Hóa đơn: INV0001  
+\- Khách hàng: Nguyễn Văn Minh  
+\- Số điện thoại: 0901234567  
+\- Nhân viên bán: Trần Thị B  
+\- Tổng tiền: 130.000đ  
+\- Thanh toán: Tiền mặt  
+\- Trạng thái đơn: Đã thanh toán  
+\- Cảnh báo tương tác: Ibuprofen 400mg \+ Warfarin 5mg  
+\- Mức độ cảnh báo: Cao  
+\- Trạng thái cảnh báo: Đã tư vấn
+
+\==================================================  
+LUỒNG 0 — MÀN HÌNH **DemoFlowHub**  
+\==================================================
+
+Desktop:  
+Kịch bản demo desktop → chọn từng card demo hoặc bỏ qua để đăng nhập.
+
+Mobile:  
+Kịch bản demo mobile → chọn từng card demo hoặc bỏ qua để đăng nhập.
+
+Tương tác:  
+\- Click “BỎ QUA → ĐĂNG NHẬP TRỰC TIẾP” → Login.  
+\- Click card “Luồng bán thuốc và cảnh báo tương tác” → Sales POS hoặc Login trước nếu muốn bắt đầu đầy đủ.  
+\- Click card “Luồng quản lý kho và nhập thuốc” → Inventory.  
+\- Click card “Luồng tra cứu đơn hàng” → Order History.  
+\- Click card “Luồng AI Copilot” → AI Copilot.  
+\- Click card “Luồng phân quyền” → Role & Permission.  
+\- Click card “Luồng khách hàng” → Customer Management.  
+\- Click card “Luồng báo cáo” → Reports.  
+\- Click card “Luồng cài đặt và sao lưu” → Settings.  
+và tương tự với các luồng demo khác  
+Quy tắc:  
+\- Các card demo có button “BẮT ĐẦU DEMO”.  
+\- Button “BỎ QUA → ĐĂNG NHẬP TRỰC TIẾP” phải nổi bật hơn các link phụ.  
+\- Không dùng text link mờ cho chức năng bỏ qua.
+
+\==================================================  
+LUỒNG 1 — BÁN THUỐC VÀ CẢNH BÁO TƯƠNG TÁC  
+\==================================================
+
+Desktop:  
+Login desktop → Dashboard desktop → Bán thuốc tại quầy desktop → Modal cảnh báo tương tác thuốc desktop → Thanh toán desktop → Hóa đơn desktop
+
+Mobile:  
+Login mobile → Dashboard mobile → Bán thuốc tại quầy mobile → Modal cảnh báo tương tác thuốc mobile → Thanh toán mobile → Hóa đơn mobile
+
+Tương tác:  
+\- Click ĐĂNG NHẬP → Dashboard.  
+\- Click TẠO ĐƠN BÁN → Bán thuốc tại quầy.  
+\- Click THÊM ở Paracetamol 500mg → thêm vào đơn.  
+\- Click THÊM ở Ibuprofen 400mg → thêm vào đơn.  
+\- Click THÊM ở Warfarin 5mg → hiển thị cảnh báo tương tác.  
+\- Click XEM CHI TIẾT CẢNH BÁO → mở modal cảnh báo.  
+\- Tick checkbox xác nhận tư vấn → enable nút ĐÃ HIỂU VÀ TIẾP TỤC.  
+\- Click ĐÃ HIỂU VÀ TIẾP TỤC → quay lại đơn bán.  
+\- Card cảnh báo chuyển sang trạng thái Đã tư vấn.  
+\- Button THANH TOÁN được bật.  
+\- Click THANH TOÁN → Thanh toán.  
+\- Chọn phương thức Tiền mặt.  
+\- Nhập khách đưa 150.000đ.  
+\- Hiển thị tiền thối lại 20.000đ.  
+\- Click XÁC NHẬN THANH TOÁN → Hóa đơn.  
+\- Click IN HÓA ĐƠN → toast “Đang gửi lệnh in hóa đơn.”  
+\- Click TẢI PDF → toast “Tải hóa đơn thành công.”
+
+Mobile bổ sung:  
+\- Sales POS mobile dùng tab: Tìm thuốc, Đơn hàng, Cảnh báo, Thanh toán.  
+\- Khi có tương tác, tab Cảnh báo có badge.  
+\- Modal cảnh báo mobile dùng bottom sheet hoặc full-screen modal.  
+\- Button thanh toán mobile full width và sticky bottom.
+
+\==================================================  
+LUỒNG 2 — KHO THUỐC VÀ NHẬP THUỐC  
+\==================================================
+
+Desktop:  
+Dashboard desktop → Quản lý tồn kho desktop → Chi tiết lô thuốc hoặc drawer tồn kho → Lịch sử biến động kho → Tạo phiếu nhập thuốc desktop → Chi tiết phiếu nhập thuốc desktop
+
+Mobile nếu có:  
+Dashboard mobile → Quản lý tồn kho mobile → Chi tiết lô thuốc mobile → Lịch sử biến động kho mobile → Tạo phiếu nhập thuốc mobile
+
+Tương tác:  
+\- Click cảnh báo “Paracetamol 500mg còn 12 hộp” → Quản lý tồn kho.  
+\- Click dòng MED001 Paracetamol 500mg → mở Chi tiết lô thuốc hoặc drawer tồn kho.  
+\- Click XEM LỊCH SỬ BIẾN ĐỘNG → mở drawer hoặc bottom sheet lịch sử biến động kho.  
+\- Click TẠO PHIẾU NHẬP → Tạo phiếu nhập thuốc.  
+\- Chọn nhà cung cấp: Công ty Dược An Tâm.  
+\- Chọn thuốc: Paracetamol 500mg.  
+\- Nhập số lượng: 70\.  
+\- Nhập giá nhập: 18.000đ.  
+\- Chọn hạn sử dụng: 31/12/2026.  
+\- Click THÊM VÀO PHIẾU → thêm thuốc vào bảng chi tiết phiếu.  
+\- Click LƯU NHÁP → toast “Đã lưu nháp phiếu nhập.”  
+\- Click XÁC NHẬN NHẬP KHO → mở modal xác nhận.  
+\- Click XÁC NHẬN NHẬP KHO trong modal → Chi tiết phiếu nhập thuốc.  
+\- Hiển thị toast “Nhập kho thành công.”  
+\- Click IN PHIẾU NHẬP → toast “Đang gửi lệnh in phiếu nhập.”
+
+\==================================================  
+LUỒNG 3 — TRA CỨU ĐƠN HÀNG VÀ BÁO CÁO  
+\==================================================
+
+Desktop:  
+Lịch sử đơn hàng desktop → Chi tiết đơn hàng desktop → Hóa đơn desktop → Báo cáo & thống kê desktop
+
+Mobile:  
+Lịch sử đơn hàng mobile → Chi tiết đơn hàng mobile → Hóa đơn mobile
+
+Tương tác:  
+\- Click Lịch sử đơn hàng trong sidebar hoặc mobile drawer.  
+\- Click hoặc tap ORD0001 → Chi tiết đơn hàng.  
+\- Click XEM CHI TIẾT CẢNH BÁO → mở modal cảnh báo tương tác đã xử lý.  
+\- Click đóng modal → quay lại Chi tiết đơn hàng.  
+\- Click XEM HÓA ĐƠN → Hóa đơn.  
+\- Click quay lại → Chi tiết đơn hàng.  
+\- Click Báo cáo & thống kê → Báo cáo.  
+\- Chọn khoảng thời gian 7 ngày.  
+\- Click ÁP DỤNG BỘ LỌC → cập nhật biểu đồ.  
+\- Click XUẤT EXCEL hoặc XUẤT BÁO CÁO → toast “Xuất báo cáo thành công.”
+
+\==================================================  
+LUỒNG 4 — QUẢN LÝ THUỐC  
+\==================================================
+
+Desktop:  
+Dashboard desktop → Quản lý thuốc desktop → Chi tiết thuốc desktop → Thêm/Sửa thuốc desktop → Quản lý thuốc desktop
+
+Mobile nếu có:  
+Dashboard mobile → Quản lý thuốc mobile → Chi tiết thuốc mobile → Thêm/Sửa thuốc mobile
+
+Tương tác:  
+\- Click menu Quản lý thuốc → màn hình Quản lý thuốc.  
+\- Nhập “Paracetamol” vào ô tìm kiếm.  
+\- Click ÁP DỤNG hoặc chọn kết quả MED001.  
+\- Click dòng MED001 → Chi tiết thuốc.  
+\- Click CHỈNH SỬA THUỐC → mở màn hình hoặc modal Thêm/Sửa thuốc.  
+\- Thay đổi giá bán từ 25.000đ thành 26.000đ.  
+\- Click LƯU THUỐC → toast “Lưu thuốc thành công.”  
+\- Quay lại Quản lý thuốc.  
+\- Click THÊM THUỐC → mở form thêm thuốc mới.  
+\- Nếu bấm LƯU khi chưa nhập tên thuốc → hiển thị lỗi “Vui lòng nhập tên thuốc.”
+
+\==================================================  
+LUỒNG 5 — QUẢN LÝ DANH MỤC THUỐC  
+\==================================================
+
+Desktop:  
+Dashboard desktop → Quản lý danh mục thuốc desktop → Thêm/Sửa danh mục → Quản lý thuốc
+
+Tương tác:  
+\- Click menu Danh mục thuốc.  
+\- Click THÊM DANH MỤC.  
+\- Panel hoặc modal thêm danh mục được focus.  
+\- Nhập tên danh mục: Thuốc tiêu hóa.  
+\- Nhập mô tả: Nhóm thuốc tiêu hóa mẫu phục vụ đồ án.  
+\- Click LƯU DANH MỤC → toast “Lưu danh mục thành công.”  
+\- Click Sửa ở danh mục “Giảm đau, hạ sốt” → đổ dữ liệu vào form.  
+\- Click Xóa → mở modal xác nhận.  
+\- Click HỦY → đóng modal.
+
+Mobile nếu có:  
+\- Danh mục chuyển thành card list.  
+\- Form thêm danh mục mở bằng bottom sheet.
+
+\==================================================  
+LUỒNG 6 — NHÀ CUNG CẤP  
+\==================================================
+
+Desktop:  
+Quản lý nhà cung cấp desktop → Chi tiết nhà cung cấp desktop → Tạo phiếu nhập thuốc desktop → Lịch sử nhập thuốc desktop
+
+Mobile nếu có:  
+Quản lý nhà cung cấp mobile → Chi tiết nhà cung cấp mobile
+
+Tương tác:  
+\- Click menu Nhà cung cấp.  
+\- Click THÊM NHÀ CUNG CẤP → mở modal thêm nhà cung cấp.  
+\- Nhập tên: Công ty Dược An Tâm.  
+\- Click LƯU NHÀ CUNG CẤP → toast “Lưu nhà cung cấp thành công.”  
+\- Click dòng NCC001 → Chi tiết nhà cung cấp.  
+\- Click TẠO PHIẾU NHẬP → Stock Import với nhà cung cấp đã được chọn sẵn.  
+\- Click XEM LỊCH SỬ NHẬP → Lịch sử nhập thuốc lọc theo NCC001.  
+\- Click TẠM NGỪNG HỢP TÁC → mở modal xác nhận.  
+\- Click QUAY LẠI → đóng modal.
+
+\==================================================  
+LUỒNG 7 — ĐIỀU CHỈNH TỒN KHO  
+\==================================================
+
+Desktop:  
+Quản lý tồn kho desktop → Chi tiết lô thuốc desktop → Điều chỉnh tồn kho desktop → Lịch sử biến động kho
+
+Mobile nếu có:  
+Quản lý tồn kho mobile → Chi tiết lô thuốc mobile → Điều chỉnh tồn kho mobile
+
+Tương tác:  
+\- Click menu Tồn kho.  
+\- Click dòng MED001 hoặc LOT001.  
+\- Chuyển sang Chi tiết lô thuốc.  
+\- Click ĐIỀU CHỈNH TỒN → màn hình Điều chỉnh tồn kho.  
+\- Chọn loại điều chỉnh: Giảm tồn.  
+\- Nhập số lượng điều chỉnh: 2\.  
+\- Chọn lý do: Kiểm kê thực tế.  
+\- Nhập ghi chú: Điều chỉnh theo kiểm kê cuối ngày.  
+\- Tick checkbox xác nhận.  
+\- Click LƯU ĐIỀU CHỈNH → mở modal xác nhận.  
+\- Click XÁC NHẬN → toast “Điều chỉnh tồn kho thành công.”  
+\- Chuyển sang Lịch sử biến động kho hoặc quay lại Tồn kho.
+
+\==================================================  
+LUỒNG 8 — KHÁCH HÀNG VÀ LỊCH SỬ MUA  
+\==================================================
+
+Desktop:  
+Quản lý khách hàng desktop → Chi tiết khách hàng desktop → Lịch sử mua hàng của khách desktop → Chi tiết đơn hàng desktop → Sales POS desktop
+
+Mobile:  
+Quản lý khách hàng mobile → Chi tiết khách hàng mobile → Lịch sử mua hàng mobile → Chi tiết đơn hàng mobile
+
+Tương tác:  
+\- Click menu Khách hàng.  
+\- Click dòng KH001 Nguyễn Văn Minh → Chi tiết khách hàng.  
+\- Click XEM TOÀN BỘ LỊCH SỬ MUA → Lịch sử mua hàng của khách.  
+\- Click ORD0001 → Chi tiết đơn hàng.  
+\- Click quay lại → Lịch sử mua hàng.  
+\- Click TẠO ĐƠN BÁN CHO KHÁCH → Sales POS với khách hàng Nguyễn Văn Minh đã được chọn.  
+\- Click THÊM KHÁCH HÀNG ở Quản lý khách hàng → mở modal thêm khách hàng.  
+\- Click LƯU KHÁCH HÀNG → toast “Lưu khách hàng thành công.”
+
+\==================================================  
+LUỒNG 9 — LỊCH SỬ THANH TOÁN  
+\==================================================
+
+Desktop:  
+Lịch sử thanh toán desktop → Drawer chi tiết thanh toán → Chi tiết đơn hàng → Hóa đơn
+
+Mobile nếu có:  
+Lịch sử thanh toán mobile → Chi tiết thanh toán mobile
+
+Tương tác:  
+\- Click menu Lịch sử thanh toán.  
+\- Click bộ lọc phương thức thanh toán: Tiền mặt.  
+\- Click ÁP DỤNG → toast “Đã áp dụng bộ lọc.”  
+\- Click dòng PAY001 → mở drawer chi tiết thanh toán.  
+\- Click XEM ĐƠN HÀNG → Chi tiết đơn hàng ORD0001.  
+\- Click XEM HÓA ĐƠN → Hóa đơn INV0001.  
+\- Click XUẤT EXCEL → toast “Xuất lịch sử thanh toán thành công.”
+
+\==================================================  
+LUỒNG 10 — LỊCH SỬ HÓA ĐƠN  
+\==================================================
+
+Desktop:  
+Lịch sử hóa đơn desktop → Hóa đơn desktop → Invoice Print View
+
+Mobile:  
+Lịch sử hóa đơn mobile → Hóa đơn mobile
+
+Tương tác:  
+\- Click menu Lịch sử hóa đơn.  
+\- Click Xem hóa đơn ở INV0001 → Hóa đơn.  
+\- Click IN LẠI → toast “Đang gửi lệnh in hóa đơn.”  
+\- Click TẢI PDF → toast “Tải hóa đơn thành công.”  
+\- Click GỬI HÓA ĐƠN → mở modal gửi hóa đơn.  
+\- Nhập email hoặc số điện thoại.  
+\- Click GỬI HÓA ĐƠN → toast “Gửi hóa đơn thành công.”  
+\- Click Xem bản in nếu có → Invoice Print View.
+
+\==================================================  
+LUỒNG 11 — AI COPILOT VÀ NHẬT KÝ AI  
+\==================================================
+
+Desktop:  
+AI Copilot desktop → Lưu ghi chú tư vấn → AI Audit Log desktop → Drawer chi tiết log
+
+Mobile:  
+AI Copilot mobile → Ghi chú nháp mobile → AI Audit Log mobile nếu có
+
+Tương tác:  
+\- Click menu AI Copilot.  
+\- Click quick prompt “Giải thích cảnh báo tương tác”.  
+\- Hiển thị phản hồi mẫu về cảnh báo Ibuprofen \+ Warfarin.  
+\- Hiển thị disclaimer an toàn.  
+\- Click TẠO GHI CHÚ TƯ VẤN hoặc LƯU VÀO GHI CHÚ.  
+\- Toast “Đã lưu ghi chú tư vấn.”  
+\- Click menu Nhật ký AI.  
+\- Click dòng log ORD0001 → mở drawer chi tiết log.  
+\- Click SAO CHÉP LOG → toast “Đã sao chép log.”  
+\- Click filter “Bị chặn bởi guardrail” → hiển thị log yêu cầu bị chặn.
+
+Yêu cầu an toàn:  
+\- Không tạo nội dung kê đơn, chẩn đoán hoặc hướng dẫn điều trị.  
+\- Luôn giữ disclaimer AI.
+
+\==================================================  
+LUỒNG 12 — GRAPH EXPLORER  
+\==================================================
+
+Desktop:  
+Graph Explorer desktop → Chọn node thuốc → Drawer chi tiết quan hệ → Chi tiết thuốc
+
+Mobile nếu có:  
+Graph Explorer mobile → Node detail bottom sheet
+
+Tương tác:  
+\- Click menu Graph Explorer.  
+\- Click node Ibuprofen.  
+\- Panel trái cập nhật:  
+  \- Tên: Ibuprofen 400mg  
+  \- Loại: Thuốc  
+  \- Hoạt chất: Ibuprofen  
+  \- Nhóm: Giảm đau  
+\- Click node Warfarin.  
+\- Hiển thị cạnh TƯƠNG\_TÁC\_VỚI giữa Ibuprofen và Warfarin.  
+\- Click cạnh tương tác → mở drawer chi tiết quan hệ.  
+\- Drawer hiển thị:  
+  \- Thuốc 1  
+  \- Thuốc 2  
+  \- Mức độ: Cao  
+  \- Mô tả mẫu  
+  \- Khuyến nghị mẫu  
+\- Click XEM CHI TIẾT THUỐC → Chi tiết thuốc.  
+\- Click TÌM KIẾM sau khi nhập “Warfarin” → lọc graph.
+
+Disclaimer:  
+\- Graph chỉ sử dụng dữ liệu mẫu phục vụ đồ án. Không sử dụng như dữ liệu y khoa thật.
+
+\==================================================  
+LUỒNG 13 — PHÂN QUYỀN VÀ SIDEBAR THEO VAI TRÒ  
+\==================================================
+
+Desktop:  
+Role & Permission desktop → Chọn vai trò → Sửa quyền → Lưu phân quyền → Chuyển sidebar theo vai trò
+
+Mobile:  
+Role & Permission mobile nếu có → Mobile drawer theo vai trò
+
+Tương tác:  
+\- Click menu Vai trò & phân quyền.  
+\- Click vai trò Admin / Chủ nhà thuốc → hiển thị toàn quyền.  
+\- Click vai trò Nhân viên nhà thuốc → hiển thị quyền bán hàng, khách hàng, hóa đơn, AI Copilot.  
+\- Click vai trò Nhân viên kho → hiển thị quyền tồn kho, nhập thuốc, nhà cung cấp.  
+\- Tick hoặc bỏ tick một quyền.  
+\- Hiển thị banner “Bạn có thay đổi chưa được lưu.”  
+\- Click LƯU PHÂN QUYỀN → toast “Cập nhật phân quyền thành công.”  
+\- Click avatar hoặc dropdown vai trò.  
+\- Chọn Admin → sidebar Admin.  
+\- Chọn Nhân viên nhà thuốc → sidebar Staff.  
+\- Chọn Nhân viên kho → sidebar Warehouse.  
+\- Nếu người dùng truy cập màn hình không có quyền → chuyển sang 403 Không có quyền truy cập.
+
+\==================================================  
+LUỒNG 14 — NGƯỜI DÙNG VÀ HỒ SƠ CÁ NHÂN  
+\==================================================
+
+Desktop:  
+Quản lý người dùng desktop → Modal thêm tài khoản → Hồ sơ người dùng desktop → Đổi mật khẩu → Đăng xuất
+
+Mobile nếu có:  
+Hồ sơ người dùng mobile → Đổi mật khẩu mobile
+
+Tương tác:  
+\- Click menu Người dùng.  
+\- Click THÊM TÀI KHOẢN → mở modal thêm tài khoản.  
+\- Nhập họ tên, email, vai trò.  
+\- Click LƯU TÀI KHOẢN → toast “Lưu tài khoản thành công.”  
+\- Click Khóa ở một tài khoản → mở modal xác nhận khóa.  
+\- Click HỦY → đóng modal.  
+\- Click avatar → Hồ sơ cá nhân.  
+\- Click LƯU THAY ĐỔI → toast “Cập nhật hồ sơ thành công.”  
+\- Click ĐỔI MẬT KHẨU → mở form đổi mật khẩu.  
+\- Nếu mật khẩu xác nhận không khớp → hiển thị lỗi.  
+\- Click ĐĂNG XUẤT → modal xác nhận.  
+\- Click XÁC NHẬN ĐĂNG XUẤT → Login.
+
+\==================================================  
+LUỒNG 15 — THÔNG BÁO  
+\==================================================
+
+Desktop:  
+Notification Center desktop → Click thông báo → Màn hình liên quan
+
+Mobile:  
+Notification Center mobile → Tap thông báo → Màn hình liên quan
+
+Tương tác:  
+\- Click icon chuông trên top header → Trung tâm thông báo.  
+\- Click tab Kho thuốc → lọc thông báo kho.  
+\- Click thông báo “Paracetamol 500mg chỉ còn 12 hộp” → Quản lý tồn kho.  
+\- Click thông báo “Đơn ORD0001 có tương tác mức cao” → Chi tiết đơn hàng.  
+\- Click thông báo “Hóa đơn INV0001 đã được tạo” → Hóa đơn.  
+\- Click thông báo AI Guardrail → Nhật ký AI.  
+\- Click ĐÁNH DẤU TẤT CẢ ĐÃ ĐỌC → toast “Đã đánh dấu tất cả thông báo là đã đọc.”
+
+\==================================================  
+LUỒNG 16 — CÀI ĐẶT HỆ THỐNG VÀ HỒ SƠ NHÀ THUỐC  
+\==================================================
+
+Desktop:  
+Settings desktop → Pharmacy Profile desktop → Invoice Print View hoặc Invoice
+
+Mobile nếu có:  
+Settings mobile → Pharmacy Profile mobile
+
+Tương tác:  
+\- Click menu Cài đặt.  
+\- Click tab Thông tin nhà thuốc.  
+\- Click tab Bán hàng.  
+\- Click tab Tồn kho.  
+\- Click tab Hóa đơn.  
+\- Click tab AI & an toàn.  
+\- Toggle “Bắt buộc disclaimer AI”.  
+\- Hiển thị banner “Bạn có thay đổi chưa được lưu.”  
+\- Click LƯU CÀI ĐẶT → toast “Lưu cài đặt thành công.”  
+\- Click Hồ sơ nhà thuốc.  
+\- Click CHỈNH SỬA THÔNG TIN → mở form chỉnh sửa.  
+\- Click TẢI LOGO LÊN → upload state.  
+\- Click LƯU → toast “Cập nhật hồ sơ nhà thuốc thành công.”
+
+\==================================================  
+LUỒNG 17 — SAO LƯU VÀ XUẤT DỮ LIỆU  
+\==================================================
+
+Desktop:  
+Backup / Export Data desktop → Modal xác nhận xuất dữ liệu → Toast thành công
+
+Tương tác:  
+\- Click menu Sao lưu dữ liệu.  
+\- Click TẠO BẢN SAO LƯU.  
+\- Hiển thị loading state.  
+\- Toast “Tạo bản sao lưu thành công.”  
+\- Chọn dữ liệu:  
+  \- Thuốc  
+  \- Tồn kho  
+  \- Khách hàng  
+  \- Đơn hàng  
+  \- Hóa đơn  
+\- Chọn định dạng Excel.  
+\- Click XUẤT DỮ LIỆU → mở modal xác nhận.  
+\- Click XÁC NHẬN XUẤT → toast “Xuất dữ liệu thành công.”  
+\- Click Tải xuống trong lịch sử sao lưu → toast “Đang tải file sao lưu.”
+
+Cảnh báo:  
+\- Giữ card cảnh báo bảo mật dữ liệu khách hàng, hóa đơn và lịch sử mua hàng.
+
+\==================================================  
+LUỒNG 18 — NHẬT KÝ HỆ THỐNG  
+\==================================================
+
+Desktop:  
+System Audit Log desktop → Drawer chi tiết log → Màn hình tham chiếu
+
+Tương tác:  
+\- Click menu Nhật ký hệ thống.  
+\- Chọn module: Bán thuốc.  
+\- Click ÁP DỤNG → lọc bảng.  
+\- Click dòng “Tạo đơn hàng ORD0001” → mở drawer chi tiết log.  
+\- Click mã tham chiếu ORD0001 → Chi tiết đơn hàng.  
+\- Click dòng “Xác nhận nhập kho IMP001” → mở drawer.  
+\- Click mã IMP001 → Chi tiết phiếu nhập.  
+\- Click XUẤT NHẬT KÝ → toast “Xuất nhật ký hệ thống thành công.”
+
+\==================================================  
+LUỒNG 19 — TRANG LỖI VÀ QUÊN MẬT KHẨU  
+\==================================================
+
+Desktop và Mobile nếu có:  
+Login → Quên mật khẩu → Login  
+Sidebar role test → 403  
+Route lỗi → 404
+
+Tương tác:  
+\- Click “Quên mật khẩu?” ở Login → Quên mật khẩu.  
+\- Nhập email staff@pharmaassist.local.  
+\- Click GỬI YÊU CẦU → success state “Yêu cầu đặt lại mật khẩu đã được gửi.”  
+\- Click Quay lại đăng nhập → Login.  
+\- Khi Staff click vào Phân quyền hoặc Người dùng → 403 Không có quyền truy cập.  
+\- Click QUAY VỀ DASHBOARD → Dashboard.  
+\- Click đường dẫn không tồn tại hoặc card 404 demo → 404 Không tìm thấy trang.  
+\- Click QUAY VỀ DASHBOARD → Dashboard.
+
+\==================================================  
+LUỒNG 20 — REPORTS CHUYÊN SÂU  
+\==================================================
+
+Desktop:  
+Reports desktop → Tab Doanh thu → Tab Thuốc bán chạy → Tab Tồn kho → Tab Thanh toán → Tab Tương tác thuốc
+
+Mobile nếu có:  
+Reports mobile → Filter bottom sheet → Chart/cards
+
+Tương tác:  
+\- Click menu Báo cáo.  
+\- Chọn khoảng thời gian: 7 ngày.  
+\- Click ÁP DỤNG BỘ LỌC.  
+\- Click tab Doanh thu → hiển thị biểu đồ doanh thu.  
+\- Click tab Thuốc bán chạy → hiển thị bảng top thuốc.  
+\- Click Paracetamol trong bảng → Chi tiết thuốc.  
+\- Click tab Tồn kho → hiển thị báo cáo tồn đầu kỳ, nhập, bán, tồn cuối kỳ.  
+\- Click tab Thanh toán → hiển thị tỷ lệ phương thức thanh toán.  
+\- Click tab Tương tác thuốc → hiển thị số cảnh báo theo kỳ.  
+\- Click XUẤT PDF → toast “Xuất PDF thành công.”  
+\- Click XUẤT EXCEL → toast “Xuất Excel thành công.”
+
+\==================================================  
+QUY TẮC CHUNG CHO TOÀN BỘ PROTOTYPE  
+\==================================================
+
+Navigation:  
+\- Desktop dùng sidebar.  
+\- Mobile dùng hamburger drawer.  
+\- Click logo hoặc Dashboard → Dashboard.  
+\- Các submenu phải mở/đóng được.
+
+Responsive:  
+\- Desktop: w-screen h-screen.  
+\- Mobile: responsive 320px–479px, không khóa layout theo một kích thước cố định.  
+\- Mobile table chuyển thành card list.  
+\- Mobile filter chuyển thành bottom sheet.  
+\- Mobile modal dùng full-screen hoặc bottom sheet.  
+\- Button chính full width trên mobile.
+
+Modal:  
+\- Có overlay nền tối nhẹ.  
+\- Desktop modal centered.  
+\- Mobile modal full-screen hoặc bottom sheet.  
+\- Click X để đóng.  
+\- Modal xác nhận quan trọng không tự đóng khi click nhầm nếu đang nhập dữ liệu.
+
+Drawer:  
+\- Desktop drawer mở từ phải.  
+\- Mobile menu drawer mở từ trái.  
+\- Bottom sheet mở từ dưới lên.
+
+Toast:  
+\- Desktop toast góc trên phải.  
+\- Mobile toast phía dưới hoặc phía trên.  
+\- Tự đóng sau 2–3 giây.  
+\- Có icon trạng thái và nút đóng X.
+
+Button states:  
+\- Tất cả button có default, hover, pressed, disabled.  
+\- Button chính dùng \#024ad8.  
+\- Nút danger dùng \#b3262b.  
+\- Disabled dùng màu xám.
+
+Form validation:  
+\- Input bắt buộc bị trống → hiện lỗi dưới input.  
+\- Input lỗi có viền danger.  
+\- Không submit khi dữ liệu chưa hợp lệ.
+
+Data consistency:  
+\- ORD0001, INV0001, Nguyễn Văn Minh, Trần Thị B và tổng tiền 130.000đ phải thống nhất.  
+\- Cảnh báo Ibuprofen 400mg \+ Warfarin 5mg phải thống nhất ở Sales POS, Interaction Alert, Order Detail, AI Copilot, Graph Explorer và AI Audit Log.  
+\- Dữ liệu tồn kho phải thống nhất với dữ liệu demo chuẩn.
+
+Safety disclaimer:  
+Luôn hiển thị disclaimer ở các màn hình liên quan đến cảnh báo thuốc, AI hoặc Graph:  
+“Thông tin cảnh báo chỉ mang tính tham khảo, không thay thế tư vấn của dược sĩ, bác sĩ hoặc chuyên gia y tế.”
+
+PRIMARY FLOW:  
+Đánh dấu luồng chính để trình bày:  
+Kịch bản demo  
+→ BỎ QUA → ĐĂNG NHẬP TRỰC TIẾP  
+→ Login  
+→ Dashboard  
+→ Sales POS  
+→ Drug Interaction Alert  
+→ Payment  
+→ Invoice  
+→ Order History  
+→ Order Detail  
+→ AI Copilot  
+→ AI Audit Log  

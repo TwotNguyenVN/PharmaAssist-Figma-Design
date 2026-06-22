@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+
+<html lang="vi">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sao lưu và xuất dữ liệu - PharmaAssist</title>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#024ad8',
+                            soft: '#c9e0fc',
+                            deep: '#0e3191',
+                            bright: '#296ef9'
+                        },
+                        neutral: {
+                            cloud: '#f7f7f7',
+                            fog: '#e8e8e8',
+                            steel: '#c2c2c2',
+                            graphite: '#636363',
+                            charcoal: '#3d3d3d'
+                        },
+                        danger: {
+                            DEFAULT: '#b3262b',
+                            rose: '#f9d4d2',
+                            coral: '#ff5050'
+                        },
+                        warning: {
+                            DEFAULT: '#d97706',
+                            soft: '#fef3c7',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1a1a1a;
+        }
+        /* Custom Checkbox */
+        .custom-checkbox input:checked + div {
+            background-color: #024ad8;
+            border-color: #024ad8;
+        }
+        .custom-checkbox input:checked + div svg {
+            display: block;
+        }
+        /* Custom Radio */
+        .custom-radio input:checked + div {
+            border-color: #024ad8;
+        }
+        .custom-radio input:checked + div > div {
+            background-color: #024ad8;
+        }
+    </style>
+</head>
+<body class="bg-[#f7f7f7] w-screen h-screen flex overflow-hidden relative">
+<!-- SIDEBAR BÊN TRÁI -->
+    <!-- SIDEBAR BÊN TRÁI (DESKTOP) -->
+        <!-- SIDEBAR BÊN TRÁI (DESKTOP) -->
+    <aside class="hidden md:flex w-64 bg-white border-r border-[#e8e8e8] flex-col shrink-0 h-full">
+        <div class="flex flex-col h-full overflow-hidden">
+            <!-- Logo -->
+            <div class="p-5 border-b border-[#e8e8e8] flex items-center gap-3 shrink-0">
+                <div class="bg-[#024ad8] text-white p-2 rounded-[8px] shadow-md shadow-[#024ad8]/20 shrink-0">
+                    <i data-lucide="sparkles" class="w-5 h-5"></i>
+                </div>
+                <div class="leading-tight">
+                    <span class="text-base font-extrabold tracking-tight text-[#1a1a1a]">Pharma<span class="text-[#024ad8]">Assist</span></span>
+                    <span class="block text-[9px] text-[#636363] font-bold uppercase tracking-wider">Hệ thống thông minh</span>
+                </div>
+            </div>
+            <!-- User Info -->
+            <div class="px-4 py-3 border-b border-[#e8e8e8] flex items-center gap-3 shrink-0 bg-[#f7f7f7]">
+                <div class="w-9 h-9 rounded-[8px] bg-[#c9e0fc] text-[#024ad8] font-bold flex items-center justify-center text-sm shrink-0">AD</div>
+                <div class="leading-tight flex-1 min-w-0">
+                    <p class="text-xs font-bold text-[#1a1a1a] truncate">Admin Hệ Thống</p>
+                    <p class="text-[10px] text-[#636363] truncate">Admin / Chủ nhà thuốc</p>
+                </div>
+            </div>
+            <!-- Navigation -->
+            <nav class="py-3 px-3 space-y-0.5 flex-1 overflow-y-auto">
+                <a href="../dashboard/dashboard.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="layout-dashboard"></i> Dashboard</a>
+                <a href="../medicine/medicine_management.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="pill"></i> Quản lý thuốc</a>
+                <a href="../medicine/category_management.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="layers"></i> Danh mục thuốc</a>
+                <a href="../inventory/inventory.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="package"></i> Kho thuốc</a>
+                <a href="../inventory/import-create.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="arrow-down-left"></i> Nhập thuốc</a>
+                <a href="../inventory/import-history.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="history"></i> Lịch sử nhập</a>
+                <a href="../inventory/suppliers.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="building-2"></i> Nhà cung cấp</a>
+                <a href="../pos/pos.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="shopping-cart"></i> Bán thuốc</a>
+                <a href="../pos/order-history.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="receipt-text"></i> Lịch sử bán</a>
+                <a href="../customers/customers.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="users"></i> Khách hàng</a>
+                <a href="../reports/reports.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="bar-chart-3"></i> Báo cáo</a>
+                <div class="h-px bg-[#e8e8e8] my-1.5"></div>
+                <a href="../admin/users.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="user-cog"></i> Người dùng</a>
+                <a href="../admin/roles.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="shield"></i> Phân quyền</a>
+                <a href="../admin/notification-center.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="bell"></i> Thông báo</a>
+                <a href="../admin/pharmacy-profile.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="store"></i> Hồ sơ nhà thuốc</a>
+                <a href="../admin/system-audit-log.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="clipboard-list"></i> Nhật ký hệ thống</a>
+                <a href="../admin/settings.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="settings"></i> Cài đặt</a>
+                <a href="../admin/backup-export-data.html" class="flex items-center gap-3 px-3 py-2.5 rounded-[8px] text-sm font-bold transition-all bg-[#024ad8] text-white"><i class="w-4 h-4 shrink-0 text-white" data-lucide="database"></i> Sao lưu dữ liệu</a>
+                <div class="h-px bg-[#e8e8e8] my-1.5"></div>
+                <a href="../ai/ai-copilot.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="bot"></i> AI Copilot</a>
+                <a href="../ai/ai-audit-log.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="file-text"></i> Nhật ký AI</a>
+                <a href="../ai/graph-explorer.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="network"></i> Graph Explorer</a>
+                <a href="../profile/profile.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="user"></i> Hồ sơ</a>
+                <div class="h-px bg-[#e8e8e8] my-1.5"></div>
+                <a href="../demo/demo-scenario.html" class="flex items-center gap-3 bg-[#c9e0fc]/30 text-[#024ad8] px-3 py-2.5 rounded-[8px] text-sm font-bold transition-all border-l-2 border-[#024ad8]"><i class="w-4 h-4 shrink-0 text-[#024ad8]" data-lucide="play-circle"></i> Kịch bản demo</a>
+                <a href="../auth/login.html" class="flex items-center gap-3 hover:bg-red-50 text-[#b3262b] px-3 py-2.5 rounded-[8px] text-sm font-bold transition-all"><i class="w-4 h-4 shrink-0 text-[#b3262b]" data-lucide="log-out"></i> Đăng xuất</a>
+            </nav>
+        </div>
+        <!-- Footer -->
+        <a href="../profile/profile.html" class="p-4 border-t border-[#e8e8e8] flex items-center gap-3 hover:bg-[#f7f7f7] transition-all shrink-0">
+            <div class="w-8 h-8 rounded-[8px] bg-[#c9e0fc] text-[#024ad8] font-bold flex items-center justify-center text-xs shrink-0">AD</div>
+            <div class="leading-tight truncate flex-1">
+                <p class="text-xs font-bold text-[#1a1a1a] truncate">Quản trị viên</p>
+                <p class="text-[9px] text-[#636363] font-medium truncate">admin@pharmaassist.com</p>
+            </div>
+            <i data-lucide="settings" class="w-4 h-4 text-[#636363] shrink-0"></i>
+        </a>
+    </aside>
+
+
+<!-- MAIN CONTENT -->
+<div class="flex-1 flex flex-col h-full overflow-hidden relative">
+<!-- HEADER TRÊN CÙNG -->
+<header class="bg-white border-b border-[#e8e8e8] px-8 py-4 flex items-center justify-between shrink-0">
+<div>
+<h1 class="text-xl font-extrabold text-[#1a1a1a] tracking-tight">Sao lưu và xuất dữ liệu</h1>
+<p class="text-xs text-[#636363] mt-0.5">Sao lưu dữ liệu demo và xuất dữ liệu phục vụ báo cáo, kiểm thử.</p>
+</div>
+</header>
+<!-- MAIN SCROLLABLE CONTENT (2 Cột) -->
+<main class="flex-1 overflow-y-auto p-8">
+<div class="max-w-6xl mx-auto flex items-start gap-8">
+<!-- CỘT TRÁI -->
+<div class="flex-1 space-y-6">
+<!-- 1. Card sao lưu dữ liệu -->
+<div class="bg-white rounded-[16px] border border-[#e8e8e8] shadow-[0_2px_8px_rgba(26,26,26,0.08)] overflow-hidden">
+<div class="p-6 border-b border-[#e8e8e8] bg-[#fcfcfc]">
+<h3 class="text-sm font-bold text-[#1a1a1a] flex items-center gap-2">
+<i class="w-5 h-5 text-[#024ad8]" data-lucide="database"></i>
+                                Sao lưu hệ thống
+                            </h3>
+</div>
+<div class="p-6 space-y-6">
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-[#f7f7f7] p-4 rounded-[8px]">
+<span class="block text-[10px] font-bold text-[#636363] uppercase tracking-wider mb-1">Lần sao lưu gần nhất</span>
+<span class="text-sm font-bold text-[#1a1a1a]">30/05/2026 18:00</span>
+</div>
+<div class="bg-[#f7f7f7] p-4 rounded-[8px]">
+<span class="block text-[10px] font-bold text-[#636363] uppercase tracking-wider mb-1">Trạng thái</span>
+<span class="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100">
+<i class="w-3 h-3" data-lucide="check"></i> Thành công
+                                    </span>
+</div>
+<div class="bg-[#f7f7f7] p-4 rounded-[8px]">
+<span class="block text-[10px] font-bold text-[#636363] uppercase tracking-wider mb-1">Dung lượng</span>
+<span class="text-sm font-bold text-[#1a1a1a]">12.5 MB</span>
+</div>
+<div class="bg-[#f7f7f7] p-4 rounded-[8px]">
+<span class="block text-[10px] font-bold text-[#636363] uppercase tracking-wider mb-1">Người thực hiện</span>
+<span class="text-sm font-bold text-[#1a1a1a]">Admin</span>
+</div>
+</div>
+<button class="w-full h-[44px] flex items-center justify-center text-xs font-bold bg-[#024ad8] text-white rounded-[4px] hover:bg-[#0e3191] transition-all uppercase tracking-wide shadow-sm gap-2" onclick="createBackup()">
+<i class="w-4 h-4" data-lucide="database-backup"></i>
+                                TẠO BẢN SAO LƯU
+                            </button>
+</div>
+</div>
+<!-- 2. Card xuất dữ liệu -->
+<div class="bg-white rounded-[16px] border border-[#e8e8e8] shadow-[0_2px_8px_rgba(26,26,26,0.08)] overflow-hidden">
+<div class="p-6 border-b border-[#e8e8e8] bg-[#fcfcfc]">
+<h3 class="text-sm font-bold text-[#1a1a1a] flex items-center gap-2">
+<i class="w-5 h-5 text-[#024ad8]" data-lucide="download-cloud"></i>
+                                Xuất dữ liệu
+                            </h3>
+</div>
+<div class="p-6 space-y-6">
+<!-- Chọn dữ liệu -->
+<div class="space-y-3">
+<span class="block text-xs font-bold text-[#1a1a1a]">Chọn dữ liệu cần xuất</span>
+<div class="grid grid-cols-2 gap-3">
+<label class="custom-checkbox flex items-center gap-3 cursor-pointer group">
+<input checked="" class="hidden" type="checkbox"/>
+<div class="w-4 h-4 rounded-[4px] border border-[#c2c2c2] bg-white flex items-center justify-center group-hover:border-[#024ad8] transition-colors">
+<svg class="w-3 h-3 text-white hidden" fill="none" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24">
+<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<span class="text-xs text-[#3d3d3d] font-medium group-hover:text-[#1a1a1a] transition-colors">Thuốc</span>
+</label>
+<label class="custom-checkbox flex items-center gap-3 cursor-pointer group">
+<input checked="" class="hidden" type="checkbox"/>
+<div class="w-4 h-4 rounded-[4px] border border-[#c2c2c2] bg-white flex items-center justify-center group-hover:border-[#024ad8] transition-colors">
+<svg class="w-3 h-3 text-white hidden" fill="none" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24">
+<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<span class="text-xs text-[#3d3d3d] font-medium group-hover:text-[#1a1a1a] transition-colors">Tồn kho</span>
+</label>
+<label class="custom-checkbox flex items-center gap-3 cursor-pointer group">
+<input checked="" class="hidden" type="checkbox"/>
+<div class="w-4 h-4 rounded-[4px] border border-[#c2c2c2] bg-white flex items-center justify-center group-hover:border-[#024ad8] transition-colors">
+<svg class="w-3 h-3 text-white hidden" fill="none" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24">
+<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<span class="text-xs text-[#3d3d3d] font-medium group-hover:text-[#1a1a1a] transition-colors">Khách hàng</span>
+</label>
+<label class="custom-checkbox flex items-center gap-3 cursor-pointer group">
+<input class="hidden" type="checkbox"/>
+<div class="w-4 h-4 rounded-[4px] border border-[#c2c2c2] bg-white flex items-center justify-center group-hover:border-[#024ad8] transition-colors">
+<svg class="w-3 h-3 text-white hidden" fill="none" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24">
+<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<span class="text-xs text-[#3d3d3d] font-medium group-hover:text-[#1a1a1a] transition-colors">Đơn hàng</span>
+</label>
+<label class="custom-checkbox flex items-center gap-3 cursor-pointer group">
+<input class="hidden" type="checkbox"/>
+<div class="w-4 h-4 rounded-[4px] border border-[#c2c2c2] bg-white flex items-center justify-center group-hover:border-[#024ad8] transition-colors">
+<svg class="w-3 h-3 text-white hidden" fill="none" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24">
+<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<span class="text-xs text-[#3d3d3d] font-medium group-hover:text-[#1a1a1a] transition-colors">Hóa đơn</span>
+</label>
+<label class="custom-checkbox flex items-center gap-3 cursor-pointer group">
+<input class="hidden" type="checkbox"/>
+<div class="w-4 h-4 rounded-[4px] border border-[#c2c2c2] bg-white flex items-center justify-center group-hover:border-[#024ad8] transition-colors">
+<svg class="w-3 h-3 text-white hidden" fill="none" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24">
+<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<span class="text-xs text-[#3d3d3d] font-medium group-hover:text-[#1a1a1a] transition-colors">Phiếu nhập</span>
+</label>
+<label class="custom-checkbox flex items-center gap-3 cursor-pointer group">
+<input class="hidden" type="checkbox"/>
+<div class="w-4 h-4 rounded-[4px] border border-[#c2c2c2] bg-white flex items-center justify-center group-hover:border-[#024ad8] transition-colors">
+<svg class="w-3 h-3 text-white hidden" fill="none" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24">
+<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<span class="text-xs text-[#3d3d3d] font-medium group-hover:text-[#1a1a1a] transition-colors">Nhật ký AI</span>
+</label>
+<label class="custom-checkbox flex items-center gap-3 cursor-pointer group">
+<input class="hidden" type="checkbox"/>
+<div class="w-4 h-4 rounded-[4px] border border-[#c2c2c2] bg-white flex items-center justify-center group-hover:border-[#024ad8] transition-colors">
+<svg class="w-3 h-3 text-white hidden" fill="none" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24">
+<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<span class="text-xs text-[#3d3d3d] font-medium group-hover:text-[#1a1a1a] transition-colors">Nhật ký hệ thống</span>
+</label>
+</div>
+</div>
+<div class="h-px bg-[#e8e8e8]"></div>
+<!-- Định dạng -->
+<div class="space-y-3">
+<span class="block text-xs font-bold text-[#1a1a1a]">Định dạng xuất</span>
+<div class="flex items-center gap-6">
+<label class="custom-radio flex items-center gap-2 cursor-pointer group">
+<input checked="" class="hidden" name="exportFormat" type="radio"/>
+<div class="w-4 h-4 rounded-full border border-[#c2c2c2] flex items-center justify-center bg-white group-hover:border-[#024ad8] transition-colors">
+<div class="w-2 h-2 rounded-full bg-transparent transition-colors"></div>
+</div>
+<span class="text-xs text-[#3d3d3d] font-medium group-hover:text-[#1a1a1a] transition-colors">Excel (.xlsx)</span>
+</label>
+<label class="custom-radio flex items-center gap-2 cursor-pointer group">
+<input class="hidden" name="exportFormat" type="radio"/>
+<div class="w-4 h-4 rounded-full border border-[#c2c2c2] flex items-center justify-center bg-white group-hover:border-[#024ad8] transition-colors">
+<div class="w-2 h-2 rounded-full bg-transparent transition-colors"></div>
+</div>
+<span class="text-xs text-[#3d3d3d] font-medium group-hover:text-[#1a1a1a] transition-colors">CSV (.csv)</span>
+</label>
+<label class="custom-radio flex items-center gap-2 cursor-pointer group">
+<input class="hidden" name="exportFormat" type="radio"/>
+<div class="w-4 h-4 rounded-full border border-[#c2c2c2] flex items-center justify-center bg-white group-hover:border-[#024ad8] transition-colors">
+<div class="w-2 h-2 rounded-full bg-transparent transition-colors"></div>
+</div>
+<span class="text-xs text-[#3d3d3d] font-medium group-hover:text-[#1a1a1a] transition-colors">JSON (.json)</span>
+</label>
+</div>
+</div>
+<button class="w-full h-[44px] flex items-center justify-center text-xs font-bold border border-[#024ad8] text-[#024ad8] rounded-[4px] hover:bg-[#f0f5ff] transition-all uppercase tracking-wide gap-2" onclick="openExportModal()">
+<i class="w-4 h-4" data-lucide="file-output"></i>
+                                XUẤT DỮ LIỆU
+                            </button>
+</div>
+</div>
+</div>
+<!-- CỘT PHẢI -->
+<div class="flex-1 space-y-6">
+<!-- 1. Card cảnh báo bảo mật -->
+<div class="bg-white rounded-[16px] border border-[#b3262b]/20 shadow-[0_2px_8px_rgba(179,38,43,0.08)] overflow-hidden">
+<div class="p-6 border-b border-[#b3262b]/10 bg-rose-50/30 flex items-center gap-3">
+<i class="w-6 h-6 text-[#b3262b]" data-lucide="shield-alert"></i>
+<div>
+<h3 class="text-sm font-bold text-[#b3262b]">Cảnh báo bảo mật dữ liệu</h3>
+<p class="text-[10px] text-[#b3262b]/80 mt-0.5">Dành cho Admin hệ thống</p>
+</div>
+</div>
+<div class="p-6 space-y-3 bg-[#fcfcfc]">
+<ul class="space-y-3">
+<li class="flex items-start gap-2">
+<i class="w-4 h-4 text-[#d97706] mt-0.5 shrink-0" data-lucide="info"></i>
+<span class="text-xs text-[#3d3d3d] leading-relaxed">Dữ liệu khách hàng, hóa đơn và lịch sử mua hàng chứa thông tin nhạy cảm và cần được bảo vệ nghiêm ngặt.</span>
+</li>
+<li class="flex items-start gap-2">
+<i class="w-4 h-4 text-[#d97706] mt-0.5 shrink-0" data-lucide="alert-triangle"></i>
+<span class="text-xs text-[#3d3d3d] leading-relaxed">Tuyệt đối <strong class="text-[#1a1a1a]">không chia sẻ</strong> file sao lưu (.json, .xlsx) lên các kênh công khai hoặc mạng xã hội.</span>
+</li>
+<li class="flex items-start gap-2">
+<i class="w-4 h-4 text-[#b3262b] mt-0.5 shrink-0" data-lucide="lock"></i>
+<span class="text-xs text-[#b3262b] font-medium leading-relaxed">Không đưa dữ liệu khách hàng thật vào đồ án báo cáo, repository mã nguồn công khai (Github/Gitlab Public).</span>
+</li>
+</ul>
+</div>
+</div>
+<!-- 2. Card lịch sử sao lưu -->
+<div class="bg-white rounded-[16px] border border-[#e8e8e8] shadow-[0_2px_8px_rgba(26,26,26,0.08)] overflow-hidden">
+<div class="p-6 border-b border-[#e8e8e8] bg-[#fcfcfc]">
+<h3 class="text-sm font-bold text-[#1a1a1a] flex items-center gap-2">
+<i class="w-5 h-5 text-[#024ad8]" data-lucide="history"></i>
+                                Lịch sử sao lưu
+                            </h3>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left text-xs min-w-max">
+<thead>
+<tr class="bg-[#f7f7f7] text-[#636363] uppercase tracking-wider text-[10px]">
+<th class="py-3 px-4 font-bold border-b border-[#e8e8e8]">Thời gian</th>
+<th class="py-3 px-4 font-bold border-b border-[#e8e8e8]">Loại</th>
+<th class="py-3 px-4 font-bold border-b border-[#e8e8e8]">Dung lượng</th>
+<th class="py-3 px-4 font-bold border-b border-[#e8e8e8]">Người thực hiện</th>
+<th class="py-3 px-4 font-bold border-b border-[#e8e8e8]">Trạng thái</th>
+<th class="py-3 px-4 font-bold border-b border-[#e8e8e8] text-right">Thao tác</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#f7f7f7]">
+<tr class="hover:bg-[#fcfcfc] transition-colors">
+<td class="py-3 px-4 text-[#1a1a1a] font-medium">30/05/2026 18:00</td>
+<td class="py-3 px-4 text-[#3d3d3d]">Sao lưu toàn bộ</td>
+<td class="py-3 px-4 text-[#1a1a1a] font-mono">12.5 MB</td>
+<td class="py-3 px-4 text-[#1a1a1a] font-medium">Admin</td>
+<td class="py-3 px-4">
+<span class="inline-block bg-emerald-50 text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded-full border border-emerald-100">Thành công</span>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="text-[#024ad8] hover:text-[#0e3191] font-bold transition-colors" onclick="downloadBackup()">Tải xuống</button>
+</td>
+</tr>
+<tr class="hover:bg-[#fcfcfc] transition-colors">
+<td class="py-3 px-4 text-[#1a1a1a] font-medium">29/05/2026 18:00</td>
+<td class="py-3 px-4 text-[#3d3d3d]">Sao lưu toàn bộ</td>
+<td class="py-3 px-4 text-[#1a1a1a] font-mono">12.1 MB</td>
+<td class="py-3 px-4 text-[#1a1a1a] font-medium">Admin</td>
+<td class="py-3 px-4">
+<span class="inline-block bg-emerald-50 text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded-full border border-emerald-100">Thành công</span>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="text-[#024ad8] hover:text-[#0e3191] font-bold transition-colors" onclick="downloadBackup()">Tải xuống</button>
+</td>
+</tr>
+<tr class="hover:bg-[#fcfcfc] transition-colors">
+<td class="py-3 px-4 text-[#1a1a1a] font-medium">28/05/2026 18:00</td>
+<td class="py-3 px-4 text-[#3d3d3d]">Tự động sao lưu</td>
+<td class="py-3 px-4 text-[#1a1a1a] font-mono">11.8 MB</td>
+<td class="py-3 px-4 text-[#1a1a1a] font-medium">Hệ thống</td>
+<td class="py-3 px-4">
+<span class="inline-block bg-emerald-50 text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded-full border border-emerald-100">Thành công</span>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="text-[#024ad8] hover:text-[#0e3191] font-bold transition-colors" onclick="downloadBackup()">Tải xuống</button>
+</td>
+</tr>
+<tr class="hover:bg-[#fcfcfc] transition-colors opacity-70">
+<td class="py-3 px-4 text-[#1a1a1a] font-medium">27/05/2026 18:00</td>
+<td class="py-3 px-4 text-[#3d3d3d]">Sao lưu toàn bộ</td>
+<td class="py-3 px-4 text-[#1a1a1a] font-mono">-</td>
+<td class="py-3 px-4 text-[#1a1a1a] font-medium">Admin</td>
+<td class="py-3 px-4">
+<span class="inline-block bg-rose-50 text-[#b3262b] text-[10px] font-bold px-2 py-0.5 rounded-full border border-rose-100">Thất bại</span>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="text-[#c2c2c2] font-bold cursor-not-allowed" disabled="">Tải xuống</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="h-8"></div> <!-- spacer -->
+</main>
+</div>
+<!-- MODAL XÁC NHẬN XUẤT DỮ LIỆU -->
+<div class="fixed inset-0 z-[60] flex items-center justify-center invisible transition-all duration-300" id="export-modal">
+<!-- Overlay -->
+<div class="absolute inset-0 bg-[#1a1a1a]/60 backdrop-blur-xs"></div>
+<!-- Modal Panel -->
+<div class="relative bg-white w-[400px] rounded-[16px] shadow-[0_12px_32px_rgba(26,26,26,0.15)] border border-[#e8e8e8] overflow-hidden transform scale-95 opacity-0 transition-all duration-300 flex flex-col" id="export-modal-panel">
+<div class="p-6 space-y-4">
+<div class="w-12 h-12 rounded-full bg-[#f0f5ff] text-[#024ad8] flex items-center justify-center mb-2 mx-auto">
+<i class="w-6 h-6" data-lucide="file-output"></i>
+</div>
+<div class="text-center space-y-2">
+<h3 class="text-base font-bold text-[#1a1a1a]">Xác nhận xuất dữ liệu</h3>
+<p class="text-xs text-[#636363] leading-relaxed">Bạn có chắc chắn muốn xuất các nhóm dữ liệu đã chọn? Dữ liệu sẽ được xuất dưới định dạng <strong class="text-[#1a1a1a]">Excel (.xlsx)</strong>.</p>
+</div>
+<div class="bg-[#f7f7f7] p-3 rounded-[8px] mt-4">
+<span class="block text-[10px] font-bold text-[#636363] uppercase tracking-wider mb-2">Dữ liệu được chọn:</span>
+<div class="flex flex-wrap gap-2">
+<span class="text-[10px] font-bold text-[#3d3d3d] bg-white border border-[#e8e8e8] px-2 py-1 rounded-[4px]">Thuốc</span>
+<span class="text-[10px] font-bold text-[#3d3d3d] bg-white border border-[#e8e8e8] px-2 py-1 rounded-[4px]">Tồn kho</span>
+<span class="text-[10px] font-bold text-[#3d3d3d] bg-white border border-[#e8e8e8] px-2 py-1 rounded-[4px]">Khách hàng</span>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="px-6 py-4 border-t border-[#e8e8e8] flex justify-end gap-3 bg-[#fcfcfc] shrink-0">
+<button class="h-[36px] px-5 text-xs font-bold text-[#3d3d3d] border border-[#c2c2c2] bg-white rounded-[4px] hover:bg-[#f7f7f7] transition-all uppercase tracking-wide" onclick="closeExportModal()">
+                    HỦY
+                </button>
+<button class="h-[36px] px-5 text-xs font-bold text-white bg-[#024ad8] rounded-[4px] hover:bg-[#0e3191] transition-all uppercase tracking-wide shadow-sm flex items-center gap-2" onclick="confirmExport()">
+                    XÁC NHẬN XUẤT
+                </button>
+</div>
+</div>
+</div>
+<!-- TOAST NOTIFICATION CONTAINER -->
+<div class="fixed bottom-6 right-6 z-50 space-y-3 pointer-events-none" id="toast-container"></div>
+<script>
+        // Khởi tạo Lucide Icons
+        lucide.createIcons();
+
+        function showToast(message, type = 'success', duration = 3000) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            let iconClass = 'check-circle-2';
+            let bgClass = 'bg-emerald-50 border-emerald-100 text-emerald-700';
+            let spinner = false;
+            
+            if (type === 'error') {
+                iconClass = 'alert-circle';
+                bgClass = 'bg-rose-50 border-rose-100 text-[#b3262b]';
+            } else if (type === 'info') {
+                iconClass = 'info';
+                bgClass = 'bg-[#f0f5ff] border-[#c9e0fc] text-[#024ad8]';
+            } else if (type === 'loading') {
+                iconClass = 'loader-2';
+                bgClass = 'bg-[#f0f5ff] border-[#c9e0fc] text-[#024ad8]';
+                spinner = true;
+            }
+
+            toast.className = `flex items-center gap-3 px-4 py-3 rounded-[8px] border ${bgClass} shadow-lg transform transition-all duration-300 translate-y-full opacity-0 pointer-events-auto`;
+            
+            toast.innerHTML = `
+                <i data-lucide="${iconClass}" class="w-5 h-5 shrink-0 ${spinner ? 'animate-spin' : ''}"></i>
+                <p class="text-sm font-bold">${message}</p>
+            `;
+            
+            container.appendChild(toast);
+            lucide.createIcons();
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-full', 'opacity-0');
+            }, 10);
+
+            if (duration > 0) {
+                setTimeout(() => {
+                    toast.classList.add('opacity-0', 'scale-95');
+                    setTimeout(() => {
+                        toast.remove();
+                    }, 300);
+                }, duration);
+            }
+            
+            return toast;
+        }
+
+        // Tạo bản sao lưu mock
+        function createBackup() {
+            const btn = event.currentTarget;
+            const originalContent = btn.innerHTML;
+            
+            btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> ĐANG TẠO...`;
+            btn.disabled = true;
+            lucide.createIcons();
+            
+            const loadingToast = showToast('Đang tạo bản sao lưu dữ liệu...', 'loading', 0);
+
+            setTimeout(() => {
+                loadingToast.classList.add('opacity-0', 'scale-95');
+                setTimeout(() => {
+                    loadingToast.remove();
+                }, 300);
+                
+                showToast('Tạo bản sao lưu thành công.', 'success');
+                
+                btn.innerHTML = originalContent;
+                btn.disabled = false;
+                lucide.createIcons();
+            }, 2000);
+        }
+
+        function downloadBackup() {
+            showToast('Đang tải file sao lưu...', 'info');
+        }
+
+        // Modal logic
+        function openExportModal() {
+            const modal = document.getElementById('export-modal');
+            const panel = document.getElementById('export-modal-panel');
+            modal.classList.remove('invisible');
+            setTimeout(() => {
+                panel.classList.remove('scale-95', 'opacity-0');
+            }, 10);
+        }
+
+        function closeExportModal() {
+            const modal = document.getElementById('export-modal');
+            const panel = document.getElementById('export-modal-panel');
+            panel.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('invisible');
+            }, 300);
+        }
+
+        function confirmExport() {
+            closeExportModal();
+            setTimeout(() => {
+                showToast('Đang tải file xuất dữ liệu...', 'info');
+            }, 300);
+        }
+    </script>
+<script src="../global_ui.js"></script>
+</body>
+</html>

@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+
+<html lang="vi">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Thanh toán đơn hàng - PharmaAssist</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f7f7; }
+        .payment-radio:checked + label {
+            border-color: #024ad8;
+            background-color: #eff6ff;
+        }
+        .payment-radio:checked + label .icon-container {
+            color: #024ad8;
+        }
+    </style>
+</head>
+<body class="w-screen h-screen flex overflow-hidden">
+<!-- Sidebar -->
+    <!-- SIDEBAR BÊN TRÁI (DESKTOP) -->
+        <!-- SIDEBAR BÊN TRÁI (DESKTOP) -->
+    <aside class="hidden md:flex w-64 bg-white border-r border-[#e8e8e8] flex-col shrink-0 h-full">
+        <div class="flex flex-col h-full overflow-hidden">
+            <!-- Logo -->
+            <div class="p-5 border-b border-[#e8e8e8] flex items-center gap-3 shrink-0">
+                <div class="bg-[#024ad8] text-white p-2 rounded-[8px] shadow-md shadow-[#024ad8]/20 shrink-0">
+                    <i data-lucide="sparkles" class="w-5 h-5"></i>
+                </div>
+                <div class="leading-tight">
+                    <span class="text-base font-extrabold tracking-tight text-[#1a1a1a]">Pharma<span class="text-[#024ad8]">Assist</span></span>
+                    <span class="block text-[9px] text-[#636363] font-bold uppercase tracking-wider">Hệ thống thông minh</span>
+                </div>
+            </div>
+            <!-- User Info -->
+            <div class="px-4 py-3 border-b border-[#e8e8e8] flex items-center gap-3 shrink-0 bg-[#f7f7f7]">
+                <div class="w-9 h-9 rounded-[8px] bg-[#c9e0fc] text-[#024ad8] font-bold flex items-center justify-center text-sm shrink-0">AD</div>
+                <div class="leading-tight flex-1 min-w-0">
+                    <p class="text-xs font-bold text-[#1a1a1a] truncate">Admin Hệ Thống</p>
+                    <p class="text-[10px] text-[#636363] truncate">Admin / Chủ nhà thuốc</p>
+                </div>
+            </div>
+            <!-- Navigation -->
+            <nav class="py-3 px-3 space-y-0.5 flex-1 overflow-y-auto">
+                <a href="../dashboard/dashboard.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="layout-dashboard"></i> Dashboard</a>
+                <a href="../medicine/medicine_management.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="pill"></i> Quản lý thuốc</a>
+                <a href="../medicine/category_management.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="layers"></i> Danh mục thuốc</a>
+                <a href="../inventory/inventory.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="package"></i> Kho thuốc</a>
+                <a href="../inventory/import-create.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="arrow-down-left"></i> Nhập thuốc</a>
+                <a href="../inventory/import-history.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="history"></i> Lịch sử nhập</a>
+                <a href="../inventory/suppliers.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="building-2"></i> Nhà cung cấp</a>
+                <a href="../pos/pos.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="shopping-cart"></i> Bán thuốc</a>
+                <a href="../pos/order-history.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="receipt-text"></i> Lịch sử bán</a>
+                <a href="../customers/customers.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="users"></i> Khách hàng</a>
+                <a href="../reports/reports.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="bar-chart-3"></i> Báo cáo</a>
+                <div class="h-px bg-[#e8e8e8] my-1.5"></div>
+                <a href="../admin/users.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="user-cog"></i> Người dùng</a>
+                <a href="../admin/roles.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="shield"></i> Phân quyền</a>
+                <a href="../admin/notification-center.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="bell"></i> Thông báo</a>
+                <a href="../admin/pharmacy-profile.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="store"></i> Hồ sơ nhà thuốc</a>
+                <a href="../admin/system-audit-log.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="clipboard-list"></i> Nhật ký hệ thống</a>
+                <a href="../admin/settings.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="settings"></i> Cài đặt</a>
+                <a href="../admin/backup-export-data.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="database"></i> Sao lưu dữ liệu</a>
+                <div class="h-px bg-[#e8e8e8] my-1.5"></div>
+                <a href="../ai/ai-copilot.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="bot"></i> AI Copilot</a>
+                <a href="../ai/ai-audit-log.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="file-text"></i> Nhật ký AI</a>
+                <a href="../ai/graph-explorer.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="network"></i> Graph Explorer</a>
+                <a href="../profile/profile.html" class="flex items-center gap-3 hover:bg-[#f7f7f7] text-[#3d3d3d] hover:text-[#1a1a1a] px-3 py-2.5 rounded-[8px] text-sm font-medium transition-all"><i class="w-4 h-4 shrink-0 text-[#636363]" data-lucide="user"></i> Hồ sơ</a>
+                <div class="h-px bg-[#e8e8e8] my-1.5"></div>
+                <a href="../demo/demo-scenario.html" class="flex items-center gap-3 bg-[#c9e0fc]/30 text-[#024ad8] px-3 py-2.5 rounded-[8px] text-sm font-bold transition-all border-l-2 border-[#024ad8]"><i class="w-4 h-4 shrink-0 text-[#024ad8]" data-lucide="play-circle"></i> Kịch bản demo</a>
+                <a href="../auth/login.html" class="flex items-center gap-3 hover:bg-red-50 text-[#b3262b] px-3 py-2.5 rounded-[8px] text-sm font-bold transition-all"><i class="w-4 h-4 shrink-0 text-[#b3262b]" data-lucide="log-out"></i> Đăng xuất</a>
+            </nav>
+        </div>
+        <!-- Footer -->
+        <a href="../profile/profile.html" class="p-4 border-t border-[#e8e8e8] flex items-center gap-3 hover:bg-[#f7f7f7] transition-all shrink-0">
+            <div class="w-8 h-8 rounded-[8px] bg-[#c9e0fc] text-[#024ad8] font-bold flex items-center justify-center text-xs shrink-0">AD</div>
+            <div class="leading-tight truncate flex-1">
+                <p class="text-xs font-bold text-[#1a1a1a] truncate">Quản trị viên</p>
+                <p class="text-[9px] text-[#636363] font-medium truncate">admin@pharmaassist.com</p>
+            </div>
+            <i data-lucide="settings" class="w-4 h-4 text-[#636363] shrink-0"></i>
+        </a>
+    </aside>
+
+
+<!-- Main Content -->
+<main class="flex-1 flex flex-col h-screen overflow-hidden">
+<!-- Header -->
+<header class="h-16 bg-white border-b border-[#e8e8e8] flex items-center justify-between px-8 shrink-0">
+<div class="flex items-center gap-4">
+<a class="text-[#636363] hover:text-[#1a1a1a] transition-colors" href="../pos/pos.html">
+<i class="w-5 h-5" data-lucide="arrow-left"></i>
+</a>
+<h1 class="text-xl font-extrabold text-[#1a1a1a]">Thanh toán đơn hàng</h1>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-sm font-semibold text-[#3d3d3d] bg-[#f7f7f7] px-3 py-1.5 rounded-[6px]">Mã đơn: <span class="font-extrabold text-[#024ad8]">ORD0001</span></span>
+</div>
+</header>
+<!-- Layout 2 cột -->
+<div class="flex-1 overflow-auto p-8 flex gap-8">
+<!-- Cột trái: Thông tin thanh toán & Các State -->
+<div class="flex-1 flex flex-col gap-6">
+<!-- Card Thông tin đơn hàng (chung) -->
+<div class="bg-white rounded-[16px] p-6 shadow-sm border border-[#e8e8e8]">
+<h2 class="text-sm font-extrabold text-[#1a1a1a] uppercase mb-4 tracking-wider">Thông tin khách hàng</h2>
+<div class="grid grid-cols-2 gap-y-4 text-sm">
+<div>
+<p class="text-[#636363] mb-1">Khách hàng</p>
+<p class="font-bold text-[#1a1a1a]">Nguyễn Văn Minh</p>
+</div>
+<div>
+<p class="text-[#636363] mb-1">Số điện thoại</p>
+<p class="font-bold text-[#1a1a1a]">0901234567</p>
+</div>
+<div>
+<p class="text-[#636363] mb-1">Nhân viên bán</p>
+<p class="font-bold text-[#1a1a1a]">Trần Thị B</p>
+</div>
+</div>
+</div>
+<!-- KHU VỰC CÁC TRẠNG THÁI THANH TOÁN -->
+<div class="bg-white rounded-[16px] p-6 shadow-sm border border-[#e8e8e8] relative min-h-[400px]" id="payment-states-container">
+<!-- 1. Trạng thái mặc định -->
+<div class="block animate-in fade-in duration-300" id="state-default">
+<h2 class="text-sm font-extrabold text-[#1a1a1a] uppercase mb-4 tracking-wider flex justify-between items-center">
+                            Phương thức thanh toán
+                        </h2>
+<div class="grid grid-cols-2 gap-4 mb-6">
+<input class="hidden payment-radio" id="pay-cash" name="payment" onchange="togglePaymentDetails()" type="radio" value="cash"/>
+<label class="flex flex-col items-center justify-center gap-3 p-4 border border-[#e8e8e8] rounded-[12px] cursor-pointer hover:border-[#024ad8] transition-all bg-white group" for="pay-cash">
+<div class="icon-container text-[#636363] group-hover:text-[#024ad8] transition-colors">
+<i class="w-8 h-8" data-lucide="banknote"></i>
+</div>
+<span class="font-bold text-[#1a1a1a]">Tiền mặt</span>
+</label>
+<input class="hidden payment-radio" id="pay-transfer" name="payment" onchange="togglePaymentDetails()" type="radio" value="transfer"/>
+<label class="flex flex-col items-center justify-center gap-3 p-4 border border-[#e8e8e8] rounded-[12px] cursor-pointer hover:border-[#024ad8] transition-all bg-white group" for="pay-transfer">
+<div class="icon-container text-[#636363] group-hover:text-[#024ad8] transition-colors">
+<i class="w-8 h-8" data-lucide="qr-code"></i>
+</div>
+<span class="font-bold text-[#1a1a1a]">Chuyển khoản</span>
+</label>
+<input class="hidden payment-radio" id="pay-card" name="payment" onchange="togglePaymentDetails()" type="radio" value="card"/>
+<label class="flex flex-col items-center justify-center gap-3 p-4 border border-[#e8e8e8] rounded-[12px] cursor-pointer hover:border-[#024ad8] transition-all bg-white group" for="pay-card">
+<div class="icon-container text-[#636363] group-hover:text-[#024ad8] transition-colors">
+<i class="w-8 h-8" data-lucide="credit-card"></i>
+</div>
+<span class="font-bold text-[#1a1a1a]">Thẻ tín dụng</span>
+</label>
+<input class="hidden payment-radio" id="pay-ewallet" name="payment" onchange="togglePaymentDetails()" type="radio" value="ewallet"/>
+<label class="flex flex-col items-center justify-center gap-3 p-4 border border-[#e8e8e8] rounded-[12px] cursor-pointer hover:border-[#024ad8] transition-all bg-white group" for="pay-ewallet">
+<div class="icon-container text-[#636363] group-hover:text-[#024ad8] transition-colors">
+<i class="w-8 h-8" data-lucide="wallet"></i>
+</div>
+<span class="font-bold text-[#1a1a1a]">Ví điện tử</span>
+</label>
+</div>
+<!-- Chi tiết Tiền mặt -->
+<div class="hidden bg-[#f7f7f7] p-5 rounded-[12px] border border-[#e8e8e8] mb-6" id="details-cash">
+<div class="flex items-center justify-between mb-4">
+<span class="text-[#636363] font-medium text-sm">Cần thanh toán</span>
+<span class="text-xl font-black text-[#1a1a1a]">130.000đ</span>
+</div>
+<div class="flex items-center justify-between mb-4">
+<span class="text-[#636363] font-medium text-sm">Khách đưa</span>
+<div class="relative">
+<input class="w-32 text-right border border-[#c2c2c2] rounded-[6px] px-3 py-1.5 font-bold text-[#1a1a1a] focus:outline-none focus:border-[#024ad8]" id="cash-given" oninput="calculateChange()" type="text" value="200.000"/>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 text-[#636363] font-bold">đ</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-4 border-t border-[#e8e8e8]">
+<span class="text-[#636363] font-medium text-sm">Tiền thối lại</span>
+<span class="text-xl font-black text-[#024ad8]" id="cash-change">70.000đ</span>
+</div>
+</div>
+<!-- Chi tiết Chuyển khoản -->
+<div class="hidden bg-[#f7f7f7] p-5 rounded-[12px] border border-[#e8e8e8] mb-6 flex flex-col items-center justify-center text-center gap-3" id="details-transfer">
+<div class="w-32 h-32 bg-white rounded-[12px] p-2 border border-[#e8e8e8] shadow-sm">
+<img alt="QR Code" class="w-full h-full object-contain" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&amp;data=PharmaAssist-Payment-130000"/>
+</div>
+<div>
+<p class="text-sm font-bold text-[#1a1a1a]">Quét mã QR để thanh toán</p>
+<p class="text-xs text-[#636363] mt-1">Số tiền: <span class="font-extrabold text-[#024ad8]">130.000đ</span></p>
+</div>
+</div>
+<div class="flex gap-4 mt-8">
+<button class="flex-1 py-3 px-4 bg-white border border-[#c2c2c2] rounded-[8px] font-bold text-[#3d3d3d] hover:bg-[#f7f7f7] transition-colors uppercase text-sm">
+                                Quay lại đơn
+                            </button>
+<!-- Nút có 3 action giả lập để xem 3 trạng thái -->
+<div class="flex-1 flex gap-2">
+<button class="flex-1 py-3 px-4 bg-[#024ad8] text-white rounded-[8px] font-bold uppercase hover:bg-[#0e3191] transition-all disabled:bg-[#c2c2c2] disabled:cursor-not-allowed text-sm shadow-[0_2px_8px_rgba(2,74,216,0.25)]" disabled="" id="btn-confirm" onclick="processPayment(true)">
+                                    Thanh toán thành công
+                                </button>
+<button class="px-4 bg-rose-600 text-white rounded-[8px] font-bold hover:bg-rose-700 transition-all disabled:bg-[#c2c2c2] disabled:cursor-not-allowed shadow-[0_2px_8px_rgba(225,29,72,0.25)]" disabled="" id="btn-fail" onclick="processPayment(false)" title="Giả lập lỗi">
+<i class="w-5 h-5" data-lucide="x"></i>
+</button>
+</div>
+</div>
+</div>
+<!-- 2. Đang xử lý -->
+<div class="hidden absolute inset-0 bg-white rounded-[16px] flex flex-col items-center justify-center gap-4 animate-in fade-in duration-300 z-10" id="state-processing">
+<div class="w-12 h-12 rounded-full border-4 border-[#e8e8e8] border-t-[#024ad8] animate-spin"></div>
+<h2 class="text-lg font-extrabold text-[#1a1a1a]">Đang xử lý thanh toán...</h2>
+<p class="text-sm text-[#636363]">Vui lòng không đóng cửa sổ hoặc tải lại trang.</p>
+</div>
+<!-- 3. Thanh toán thành công -->
+<div class="hidden absolute inset-0 bg-white rounded-[16px] flex flex-col items-center justify-center p-8 animate-in fade-in zoom-in-95 duration-300 z-10" id="state-success">
+<div class="w-20 h-20 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 mb-6">
+<i class="w-10 h-10" data-lucide="check-circle"></i>
+</div>
+<h2 class="text-2xl font-black text-[#1a1a1a] mb-2">Thanh toán thành công</h2>
+<p class="text-[#636363] text-center mb-8">Đơn hàng <span class="font-bold text-[#1a1a1a]">ORD0001</span> đã được thanh toán.</p>
+<div class="w-full max-w-sm bg-[#f7f7f7] border border-[#e8e8e8] rounded-[12px] p-5 mb-8">
+<div class="flex justify-between items-center mb-3">
+<span class="text-sm text-[#636363]">Mã hóa đơn</span>
+<span class="text-sm font-bold text-[#1a1a1a]">INV0001</span>
+</div>
+<div class="flex justify-between items-center pt-3 border-t border-[#e8e8e8]">
+<span class="text-sm font-bold text-[#1a1a1a]">Tổng thanh toán</span>
+<span class="text-lg font-black text-[#024ad8]">130.000đ</span>
+</div>
+</div>
+<div class="flex w-full max-w-sm gap-4">
+<button class="flex-1 py-3 px-4 bg-white border border-[#c2c2c2] rounded-[8px] font-bold text-[#3d3d3d] hover:bg-[#f7f7f7] transition-colors uppercase text-sm" onclick="resetPayment()">
+                                Tạo đơn mới
+                            </button>
+<button class="flex-1 py-3 px-4 bg-[#024ad8] text-white rounded-[8px] font-bold uppercase hover:bg-[#0e3191] transition-all text-sm shadow-[0_2px_8px_rgba(2,74,216,0.25)] flex items-center justify-center gap-2">
+<i class="w-4 h-4" data-lucide="file-text"></i> Xem hóa đơn
+                            </button>
+</div>
+</div>
+<!-- 4. Thanh toán thất bại -->
+<div class="hidden absolute inset-0 bg-white rounded-[16px] flex flex-col items-center justify-center p-8 animate-in fade-in zoom-in-95 duration-300 z-10" id="state-failed">
+<div class="w-20 h-20 rounded-full bg-rose-100 flex items-center justify-center text-rose-600 mb-6">
+<i class="w-10 h-10" data-lucide="x-circle"></i>
+</div>
+<h2 class="text-2xl font-black text-[#1a1a1a] mb-2">Thanh toán không thành công</h2>
+<p class="text-[#636363] text-center max-w-md mb-8 leading-relaxed">Không thể xác nhận giao dịch. Vui lòng kiểm tra lại số dư hoặc chọn phương thức thanh toán khác.</p>
+<div class="flex w-full max-w-sm gap-4">
+<button class="flex-1 py-3 px-4 bg-white border border-[#024ad8] text-[#024ad8] rounded-[8px] font-bold hover:bg-blue-50 transition-colors uppercase text-sm" onclick="resetPayment()">
+                                Chọn phương thức khác
+                            </button>
+<button class="flex-1 py-3 px-4 bg-[#024ad8] text-white rounded-[8px] font-bold uppercase hover:bg-[#0e3191] transition-all text-sm shadow-[0_2px_8px_rgba(2,74,216,0.25)] flex items-center justify-center gap-2" onclick="processPayment(true)">
+<i class="w-4 h-4" data-lucide="refresh-cw"></i> Thử lại
+                            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Cột phải: Tóm tắt đơn hàng -->
+<div class="w-[380px] shrink-0 flex flex-col gap-6">
+<div class="bg-white rounded-[16px] shadow-sm border border-[#e8e8e8] flex flex-col h-full overflow-hidden">
+<div class="p-5 border-b border-[#e8e8e8] bg-[#f7f7f7]">
+<h2 class="text-sm font-extrabold text-[#1a1a1a] uppercase tracking-wider flex items-center gap-2">
+<i class="w-4 h-4 text-[#024ad8]" data-lucide="receipt"></i> Tóm tắt đơn hàng
+                        </h2>
+</div>
+<div class="flex-1 overflow-y-auto p-0">
+<table class="w-full text-left border-collapse">
+<thead class="bg-white border-b border-[#e8e8e8] sticky top-0">
+<tr>
+<th class="py-3 px-5 text-[10px] font-extrabold text-[#636363] uppercase tracking-wider">Tên thuốc</th>
+<th class="py-3 px-2 text-[10px] font-extrabold text-[#636363] uppercase tracking-wider text-center">SL</th>
+<th class="py-3 px-5 text-[10px] font-extrabold text-[#636363] uppercase tracking-wider text-right">Thành tiền</th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-b border-[#f7f7f7]">
+<td class="py-3 px-5">
+<p class="text-xs font-bold text-[#1a1a1a]">Paracetamol 500mg</p>
+<p class="text-[10px] text-[#636363] mt-0.5">25.000đ/Hộp</p>
+</td>
+<td class="py-3 px-2 text-xs font-bold text-center text-[#1a1a1a]">2</td>
+<td class="py-3 px-5 text-xs font-bold text-right text-[#024ad8]">50.000đ</td>
+</tr>
+<tr class="border-b border-[#f7f7f7]">
+<td class="py-3 px-5">
+<p class="text-xs font-bold text-[#1a1a1a]">Ibuprofen 400mg</p>
+<p class="text-[10px] text-[#636363] mt-0.5">32.000đ/Hộp</p>
+</td>
+<td class="py-3 px-2 text-xs font-bold text-center text-[#1a1a1a]">1</td>
+<td class="py-3 px-5 text-xs font-bold text-right text-[#024ad8]">32.000đ</td>
+</tr>
+<tr class="border-b border-[#f7f7f7]">
+<td class="py-3 px-5">
+<p class="text-xs font-bold text-[#1a1a1a]">Warfarin 5mg</p>
+<p class="text-[10px] text-[#636363] mt-0.5">48.000đ/Hộp</p>
+</td>
+<td class="py-3 px-2 text-xs font-bold text-center text-[#1a1a1a]">1</td>
+<td class="py-3 px-5 text-xs font-bold text-right text-[#024ad8]">48.000đ</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-5 border-t border-[#e8e8e8] bg-white flex flex-col gap-3">
+<div class="flex justify-between items-center text-sm">
+<span class="text-[#636363] font-medium">Tạm tính</span>
+<span class="font-bold text-[#1a1a1a]">130.000đ</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-[#636363] font-medium">Giảm giá</span>
+<span class="font-bold text-rose-600">-0đ</span>
+</div>
+<div class="h-[1px] bg-[#e8e8e8] w-full my-1"></div>
+<div class="flex justify-between items-end">
+<span class="text-sm font-bold text-[#1a1a1a] mb-1">Tổng thanh toán</span>
+<span class="text-2xl font-black text-[#024ad8]">130.000đ</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Toast Container -->
+<div class="fixed top-6 right-6 z-50 flex flex-col gap-3" id="toast-container"></div>
+<script>
+        lucide.createIcons();
+
+        function togglePaymentDetails() {
+            const cashSelected = document.getElementById('pay-cash').checked;
+            const transferSelected = document.getElementById('pay-transfer').checked;
+            const cardSelected = document.getElementById('pay-card').checked;
+            const ewalletSelected = document.getElementById('pay-ewallet').checked;
+
+            document.getElementById('details-cash').classList.toggle('hidden', !cashSelected);
+            document.getElementById('details-transfer').classList.toggle('hidden', !transferSelected);
+
+            const hasSelection = cashSelected || transferSelected || cardSelected || ewalletSelected;
+            document.getElementById('btn-confirm').disabled = !hasSelection;
+            document.getElementById('btn-fail').disabled = !hasSelection;
+        }
+
+        function calculateChange() {
+            const givenInput = document.getElementById('cash-given');
+            let rawVal = givenInput.value.replace(/[^0-9]/g, '');
+            if(rawVal === '') rawVal = '0';
+            
+            const given = parseInt(rawVal);
+            givenInput.value = given.toLocaleString('vi-VN');
+
+            const total = 130000;
+            const change = given - total;
+
+            const changeEl = document.getElementById('cash-change');
+            if (change < 0) {
+                changeEl.textContent = 'Thiếu ' + Math.abs(change).toLocaleString('vi-VN') + 'đ';
+                changeEl.className = "text-xl font-black text-[#b3262b]";
+            } else {
+                changeEl.textContent = change.toLocaleString('vi-VN') + 'đ';
+                changeEl.className = "text-xl font-black text-[#024ad8]";
+            }
+        }
+
+        function processPayment(isSuccess) {
+            // 1. Show processing
+            document.getElementById('state-default').classList.add('hidden');
+            document.getElementById('state-failed').classList.add('hidden');
+            document.getElementById('state-processing').classList.remove('hidden');
+
+            // 2. Simulate delay then show result
+            setTimeout(() => {
+                document.getElementById('state-processing').classList.add('hidden');
+                if (isSuccess) {
+                    document.getElementById('state-success').classList.remove('hidden');
+                    showToast('Thanh toán thành công!', 'success');
+                } else {
+                    document.getElementById('state-failed').classList.remove('hidden');
+                    showToast('Giao dịch bị từ chối bởi ngân hàng.', 'error');
+                }
+            }, 1500);
+        }
+
+        function resetPayment() {
+            document.getElementById('state-success').classList.add('hidden');
+            document.getElementById('state-failed').classList.add('hidden');
+            document.getElementById('state-processing').classList.add('hidden');
+            document.getElementById('state-default').classList.remove('hidden');
+        }
+
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            const icon = type === 'success' ? 'check-circle' : 'alert-triangle';
+            const colorClass = type === 'success' ? 'border-emerald-500 text-emerald-700 bg-emerald-50' : 'border-rose-500 text-rose-700 bg-rose-50';
+            
+            toast.className = `flex items-center gap-3 px-4 py-3 rounded-[8px] border shadow-lg animate-in slide-in-from-right-full duration-300 ${colorClass}`;
+            toast.innerHTML = `
+                <i data-lucide="${icon}" class="w-5 h-5"></i>
+                <span class="font-bold text-sm">${message}</span>
+            `;
+            
+            document.getElementById('toast-container').appendChild(toast);
+            lucide.createIcons();
+
+            setTimeout(() => {
+                toast.classList.replace('animate-in', 'animate-out');
+                toast.classList.add('fade-out', 'slide-out-to-right-full');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+    </script>
+<script src="../global_ui.js"></script>
+</body>
+</html>

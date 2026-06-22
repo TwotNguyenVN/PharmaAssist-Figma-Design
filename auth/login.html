@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập — PharmaAssist</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        html { -webkit-font-smoothing: antialiased; }
+        body { font-family: 'Inter', sans-serif; }
+        .btn-action { transition-property: background-color, border-color, color, transform; transition-duration: 150ms; transition-timing-function: ease-out; }
+        .btn-action:active { transform: scale(0.97); }
+        .input-focus { transition: all 0.2s ease; }
+        .input-focus:focus-within { box-shadow: 0 0 0 3px rgba(2, 74, 216, 0.15); }
+        
+        /* Background pattern for left column */
+        .bg-pattern {
+            background-color: #024ad8;
+            background-image: radial-gradient(circle at 0% 0%, #035ff0 0%, transparent 50%),
+                              radial-gradient(circle at 100% 100%, #003399 0%, transparent 50%);
+        }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+    </style>
+</head>
+<body class="bg-[#f7f7f7] h-screen w-screen overflow-hidden flex">
+
+    <!-- LEFT COLUMN: Intro & Branding -->
+    <div class="hidden lg:flex flex-1 flex-col justify-between bg-pattern text-white p-12 relative overflow-hidden">
+        <!-- Abstract Chevron Graphics -->
+        <div class="absolute -top-32 -left-32 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
+        <div class="absolute top-1/4 right-0 transform translate-x-1/3 opacity-20">
+            <svg width="400" height="400" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 10 L80 50 L20 90" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M40 10 L100 50 L40 90" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        
+        <!-- Logo -->
+        <div class="relative z-10 flex items-center gap-3">
+            <div class="bg-white text-[#024ad8] p-2.5 rounded-[12px] shadow-lg shrink-0">
+                <i data-lucide="sparkles" class="w-6 h-6"></i>
+            </div>
+            <div class="leading-tight">
+                <span class="text-2xl font-black tracking-tight text-white">Pharma<span class="text-blue-200">Assist</span></span>
+                <span class="block text-[11px] text-blue-200 font-bold uppercase tracking-widest mt-0.5">Hệ thống thông minh</span>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="relative z-10 max-w-lg mb-20 animate-fade-in opacity-0">
+            <h1 class="text-4xl font-extrabold leading-tight mb-4">Website quản lý nhà thuốc toàn diện</h1>
+            <p class="text-blue-100 text-sm leading-relaxed mb-8 font-medium">Hệ thống bán hàng, quản lý tồn kho và cảnh báo tương tác thuốc thông minh dành cho các nhà thuốc hiện đại.</p>
+            
+            <div class="space-y-5">
+                <div class="flex items-start gap-4 animate-fade-in opacity-0 delay-100">
+                    <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center shrink-0 mt-0.5">
+                        <i data-lucide="package" class="w-4 h-4 text-white"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-base">Quản lý thuốc và tồn kho</h3>
+                        <p class="text-blue-100 text-xs mt-1 leading-relaxed">Kiểm soát chính xác số lượng, cảnh báo tự động khi sắp hết hàng hoặc gần hết hạn.</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start gap-4 animate-fade-in opacity-0 delay-200">
+                    <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center shrink-0 mt-0.5">
+                        <i data-lucide="shopping-cart" class="w-4 h-4 text-white"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-base">Bán thuốc và thanh toán nhanh</h3>
+                        <p class="text-blue-100 text-xs mt-1 leading-relaxed">Màn hình POS tối ưu cho thao tác nhanh, hỗ trợ đa phương thức thanh toán.</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start gap-4 animate-fade-in opacity-0 delay-300">
+                    <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center shrink-0 mt-0.5">
+                        <i data-lucide="shield-alert" class="w-4 h-4 text-white"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-base">Cảnh báo tương tác thông minh</h3>
+                        <p class="text-blue-100 text-xs mt-1 leading-relaxed">Hệ thống AI tự động phân tích và cảnh báo nguy cơ tương tác dựa trên dữ liệu chuẩn.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer Info -->
+        <div class="relative z-10 text-[11px] text-blue-200 font-medium">
+            &copy; 2026 PharmaAssist. Dự án đồ án Công Nghệ Phần Mềm.
+        </div>
+    </div>
+
+    <!-- RIGHT COLUMN: Login Form -->
+    <div class="flex-1 flex items-center justify-center p-6 bg-[#f7f7f7]">
+        <div class="w-full max-w-[420px]">
+            
+            <!-- Mobile Logo (visible only on small screens) -->
+            <div class="flex items-center justify-center gap-3 mb-10 lg:hidden">
+                <div class="bg-[#024ad8] text-white p-2.5 rounded-[12px] shadow-lg shrink-0">
+                    <i data-lucide="sparkles" class="w-6 h-6"></i>
+                </div>
+                <div class="leading-tight">
+                    <span class="text-2xl font-black tracking-tight text-[#1a1a1a]">Pharma<span class="text-[#024ad8]">Assist</span></span>
+                </div>
+            </div>
+
+            <!-- Login Card -->
+            <div class="bg-white rounded-[16px] shadow-[0_8px_24px_rgba(26,26,26,0.06)] border border-[#e8e8e8] p-8">
+                <div class="mb-8">
+                    <h2 class="text-2xl font-extrabold text-[#1a1a1a]">Đăng nhập hệ thống</h2>
+                    <p class="text-sm text-[#636363] mt-1">Vui lòng đăng nhập để tiếp tục.</p>
+                </div>
+
+                <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-5">
+                    
+                    <!-- Error Message Box (Hidden by default) -->
+                    <div id="error-box" class="hidden bg-rose-50 border border-rose-200 text-rose-700 text-xs font-medium px-4 py-3 rounded-[6px] flex items-start gap-2">
+                        <i data-lucide="alert-circle" class="w-4 h-4 shrink-0 mt-0.5"></i>
+                        <span id="error-text">Sai email hoặc mật khẩu. Vui lòng thử lại.</span>
+                    </div>
+
+                    <!-- Email Input -->
+                    <div>
+                        <label class="block text-xs font-bold text-[#3d3d3d] mb-1.5">Email hoặc tên đăng nhập</label>
+                        <div class="relative input-focus rounded-[4px]">
+                            <i data-lucide="user" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#c2c2c2]"></i>
+                            <input type="text" id="email" placeholder="admin@pharmaassist.local" value="admin@pharmaassist.local"
+                                class="w-full pl-10 pr-4 h-11 border border-[#e8e8e8] focus:border-[#024ad8] rounded-[4px] text-sm focus:outline-none transition-colors">
+                        </div>
+                    </div>
+
+                    <!-- Password Input -->
+                    <div>
+                        <label class="block text-xs font-bold text-[#3d3d3d] mb-1.5">Mật khẩu</label>
+                        <div class="relative input-focus rounded-[4px]">
+                            <i data-lucide="lock" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#c2c2c2]"></i>
+                            <input type="password" id="password" placeholder="••••••••" value="password123"
+                                class="w-full pl-10 pr-10 h-11 border border-[#e8e8e8] focus:border-[#024ad8] rounded-[4px] text-sm focus:outline-none transition-colors">
+                            <button type="button" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#c2c2c2] hover:text-[#024ad8] transition-colors focus:outline-none">
+                                <i data-lucide="eye" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Remember Me & Forgot Password -->
+                    <div class="flex items-center justify-between mt-2">
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" checked class="w-4 h-4 text-[#024ad8] rounded focus:ring-[#024ad8] border-[#e8e8e8]">
+                            <span class="text-xs font-medium text-[#636363]">Ghi nhớ đăng nhập</span>
+                        </label>
+                        <a href="#" class="text-xs font-bold text-[#024ad8] hover:underline">Quên mật khẩu?</a>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="w-full h-11 bg-[#024ad8] text-white rounded-[4px] text-sm font-bold uppercase tracking-wide hover:bg-[#0e3191] transition-all flex items-center justify-center gap-2 mt-6 btn-action shadow-md shadow-[#024ad8]/20">
+                        Đăng nhập <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </form>
+
+                <!-- Demo Accounts Box -->
+                <div class="mt-8 bg-[#f7f7f7] border border-[#e8e8e8] rounded-[8px] p-4">
+                    <p class="text-[10px] font-bold text-[#636363] uppercase tracking-wide mb-3">Tài khoản demo</p>
+                    <div class="space-y-2 text-xs">
+                        <div class="flex items-center justify-between cursor-pointer hover:bg-blue-50 p-1.5 -mx-1.5 rounded transition-colors group" onclick="fillForm('admin@pharmaassist.local')">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-[#024ad8]"></span>
+                                <span class="font-bold text-[#3d3d3d] group-hover:text-[#024ad8]">Admin</span>
+                            </div>
+                            <span class="text-[#636363] font-medium font-mono">admin@...</span>
+                        </div>
+                        <div class="flex items-center justify-between cursor-pointer hover:bg-emerald-50 p-1.5 -mx-1.5 rounded transition-colors group" onclick="fillForm('staff@pharmaassist.local')">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                                <span class="font-bold text-[#3d3d3d] group-hover:text-emerald-700">Nhân viên</span>
+                            </div>
+                            <span class="text-[#636363] font-medium font-mono">staff@...</span>
+                        </div>
+                        <div class="flex items-center justify-between cursor-pointer hover:bg-amber-50 p-1.5 -mx-1.5 rounded transition-colors group" onclick="fillForm('warehouse@pharmaassist.local')">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                                <span class="font-bold text-[#3d3d3d] group-hover:text-amber-700">Kho</span>
+                            </div>
+                            <span class="text-[#636363] font-medium font-mono">warehouse@...</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+<script>
+    lucide.createIcons();
+
+    function handleLogin(e) {
+        e.preventDefault();
+        const email = document.getElementById('email').value;
+        const pwd = document.getElementById('password').value;
+        const errorBox = document.getElementById('error-box');
+
+        if (!email || !pwd) {
+            errorBox.classList.remove('hidden');
+        } else {
+            errorBox.classList.add('hidden');
+            // Mock successful login redirection
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Đang đăng nhập...`;
+            lucide.createIcons();
+            
+            setTimeout(() => {
+                window.location.href = '../dashboard/dashboard.html';
+            }, 800);
+        }
+    }
+
+    function fillForm(email) {
+        document.getElementById('email').value = email;
+        document.getElementById('password').value = 'password123';
+        document.getElementById('error-box').classList.add('hidden');
+    }
+</script>
+<script src="../global_ui.js"></script>
+</body>
+</html>
