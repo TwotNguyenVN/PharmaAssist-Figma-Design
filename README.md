@@ -37,27 +37,27 @@ PharmaAssist-Figma-Design/
 │   ├── import-history.html      # Lịch sử nhập kho
 │   └── suppliers.html           # Danh sách nhà cung cấp
 ├── medicine/
-│   ├── medicine_management.html # Danh sách thuốc (CRUD)
-│   └── category_management.html # Danh mục thuốc
+│   ├── medicine-management.html # Danh sách thuốc (CRUD)
+│   └── category-management.html # Danh mục thuốc
 ├── customer/
 │   └── customers.html           # Quản lý khách hàng (Danh sách)
 ├── customers/
 │   ├── customers.html               # (Phiên bản backup/chi tiết)
-│   ├── customer_detail.html         # Chi tiết khách hàng
+│   ├── customer-detail.html         # Chi tiết khách hàng
 │   └── customer-purchase-history.html # Lịch sử mua hàng của KH
 ├── reports/
 │   └── reports.html             # Báo cáo thống kê
 ├── admin/
 │   ├── users.html               # Danh sách người dùng
 │   ├── roles.html               # Cấu hình phân quyền
-│   ├── pharmacy_profile.html    # Hồ sơ nhà thuốc
+│   ├── pharmacy-profile.html    # Hồ sơ nhà thuốc
 │   ├── settings.html            # Cài đặt hệ thống
 │   ├── backup.html              # Sao lưu và xuất dữ liệu
-│   └── system_logs.html         # Nhật ký hệ thống
+│   └── system-audit-log.html         # Nhật ký hệ thống
 ├── ai/
 │   ├── ai-copilot.html          # Chatbot trợ lý y khoa
-│   ├── ai_logs.html             # Giám sát request AI
-│   └── graph_explorer.html      # Mạng lưới tri thức / Tương tác
+│   ├── ai-audit-log.html             # Giám sát request AI
+│   └── graph-explorer.html      # Mạng lưới tri thức / Tương tác
 ├── notifications/
 │   └── notifications.html       # Trung tâm thông báo
 ├── profile/
