@@ -164,7 +164,7 @@
 </div>
 
 <!-- DRAWER OVERLAY -->
-<div id="drawer-overlay" class="fixed inset-0 bg-[#1a1a1a]/40 backdrop-blur-sm z-40 drawer-overlay" onclick="closeDrawer()"></div>
+<div id="drawer-overlay" class="fixed inset-0 bg-[#1a1a1a]/40 backdrop-blur-sm z-40 drawer-overlay hidden" onclick="closeDrawer()"></div>
 
 <!-- DRAWER CONTENT -->
 <div id="drawer-content" class="fixed top-0 right-0 h-full w-[500px] bg-white shadow-2xl z-50 flex flex-col drawer-content">
@@ -294,13 +294,21 @@
         badge.innerText = status;
         badge.className = `status-badge ${STATUS_STYLE[status]} inline-block mt-1`;
 
-        document.getElementById('drawer-overlay').classList.add('active');
-        document.getElementById('drawer-content').classList.add('active');
+        const overlay = document.getElementById('drawer-overlay');
+        overlay.classList.remove('hidden');
+        setTimeout(() => {
+            overlay.classList.add('active');
+            document.getElementById('drawer-content').classList.add('active');
+        }, 10);
     }
 
     function closeDrawer() {
-        document.getElementById('drawer-overlay').classList.remove('active');
+        const overlay = document.getElementById('drawer-overlay');
+        overlay.classList.remove('active');
         document.getElementById('drawer-content').classList.remove('active');
+        setTimeout(() => {
+            overlay.classList.add('hidden');
+        }, 300);
     }
 
     renderTable();
