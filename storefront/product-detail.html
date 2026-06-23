@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết sản phẩm — PharmaAssist</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        html { -webkit-font-smoothing: antialiased; }
+        body { font-family: 'Inter', sans-serif; background-color: #f7f7f7; color: #1a1a1a; }
+        
+        /* Custom Scrollbar */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Quantity input without spinners */
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        input[type=number] { -moz-appearance: textfield; }
+
+        .tab-btn.active { color: #024ad8; border-bottom-color: #024ad8; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.3s ease-in-out; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- TOP ANNOUNCEMENT BAR -->
+    <div class="bg-[#024ad8] text-white text-xs font-bold py-2 text-center tracking-wide">
+        <span class="opacity-90">Giao hàng miễn phí cho đơn hàng từ 300.000đ khu vực nội thành</span>
+    </div>
+
+    <!-- HEADER (Reused from Home) -->
+    <header class="bg-white border-b border-[#e8e8e8] sticky top-0 z-40 shadow-sm">
+        <div class="max-w-[1280px] mx-auto px-6 py-4 flex items-center justify-between gap-8">
+            <a href="home.html" class="flex items-center gap-2 shrink-0 group">
+                <div class="bg-[#024ad8] text-white p-2 rounded-[8px] shadow-md group-hover:scale-105 transition-transform">
+                    <i data-lucide="sparkles" class="w-5 h-5"></i>
+                </div>
+                <div class="leading-tight">
+                    <span class="text-xl font-black tracking-tight text-[#1a1a1a]">Pharma<span class="text-[#024ad8]">Assist</span></span>
+                </div>
+            </a>
+            <div class="flex-1 max-w-2xl relative hidden md:block">
+                <div class="relative flex items-center">
+                    <div class="absolute left-4 text-[#636363]">
+                        <i data-lucide="search" class="w-5 h-5"></i>
+                    </div>
+                    <input type="text" placeholder="Tìm kiếm tên thuốc, triệu chứng, hoạt chất..." 
+                           class="w-full pl-12 pr-24 h-11 border border-[#c2c2c2] rounded-full text-sm focus:outline-none focus:border-[#024ad8] focus:ring-1 focus:ring-[#024ad8] transition-all bg-[#f7f7f7] focus:bg-white">
+                    <button class="absolute right-1 top-1 bottom-1 bg-[#024ad8] text-white px-5 rounded-full text-xs font-bold hover:bg-[#0e3191] transition-colors">
+                        TÌM KIẾM
+                    </button>
+                </div>
+            </div>
+            <div class="flex items-center gap-6 shrink-0">
+                <a href="#" class="flex flex-col items-center gap-1 text-[#636363] hover:text-[#024ad8] transition-colors">
+                    <i data-lucide="phone-call" class="w-6 h-6"></i>
+                    <span class="text-[10px] font-bold">1900 1234</span>
+                </a>
+                <a href="cart.html" class="flex flex-col items-center gap-1 text-[#636363] hover:text-[#024ad8] transition-colors relative">
+                    <div class="relative">
+                        <i data-lucide="shopping-cart" class="w-6 h-6"></i>
+                        <span class="absolute -top-1.5 -right-2 bg-[#b3262b] text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center border-2 border-white">3</span>
+                    </div>
+                    <span class="text-[10px] font-bold">Giỏ hàng</span>
+                </a>
+                <div class="w-px h-8 bg-[#e8e8e8]"></div>
+                <a href="../auth/login.html" class="flex items-center gap-3 group">
+                    <div class="w-9 h-9 rounded-full border border-[#e8e8e8] bg-[#f7f7f7] flex items-center justify-center text-[#636363] group-hover:bg-[#c9e0fc] group-hover:text-[#024ad8] transition-colors">
+                        <i data-lucide="user" class="w-5 h-5"></i>
+                    </div>
+                    <div class="hidden lg:block leading-tight">
+                        <span class="block text-[10px] text-[#636363] font-medium">Tài khoản</span>
+                        <span class="block text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8] transition-colors">Đăng nhập</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <nav class="border-t border-[#e8e8e8] hidden md:block">
+            <div class="max-w-[1280px] mx-auto px-6">
+                <ul class="flex items-center gap-8 overflow-x-auto hide-scrollbar text-sm font-bold text-[#3d3d3d]">
+                    <li><a href="home.html" class="flex items-center gap-2 py-3 hover:text-[#024ad8] whitespace-nowrap transition-colors"><i data-lucide="home" class="w-4 h-4"></i> Trang chủ</a></li>
+                    <li><a href="#" class="flex items-center py-3 text-[#024ad8] border-b-2 border-[#024ad8] whitespace-nowrap">Thuốc không kê đơn</a></li>
+                    <li><a href="#" class="flex items-center py-3 hover:text-[#024ad8] whitespace-nowrap transition-colors">Thuốc kê đơn</a></li>
+                    <li><a href="#" class="flex items-center py-3 hover:text-[#024ad8] whitespace-nowrap transition-colors">Thực phẩm chức năng</a></li>
+                    <li><a href="#" class="flex items-center py-3 hover:text-[#024ad8] whitespace-nowrap transition-colors">Dược mỹ phẩm</a></li>
+                    <li><a href="#" class="flex items-center py-3 hover:text-[#024ad8] whitespace-nowrap transition-colors">Thiết bị y tế</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 max-w-[1280px] w-full mx-auto px-6 py-6">
+
+        <!-- Breadcrumbs -->
+        <nav class="flex items-center gap-2 text-xs font-medium text-[#636363] mb-6">
+            <a href="home.html" class="hover:text-[#024ad8] transition-colors">Trang chủ</a>
+            <i data-lucide="chevron-right" class="w-3 h-3"></i>
+            <a href="#" class="hover:text-[#024ad8] transition-colors">Thuốc không kê đơn</a>
+            <i data-lucide="chevron-right" class="w-3 h-3"></i>
+            <a href="#" class="hover:text-[#024ad8] transition-colors">Thuốc giảm đau, hạ sốt</a>
+            <i data-lucide="chevron-right" class="w-3 h-3"></i>
+            <span class="text-[#1a1a1a] font-bold truncate max-w-[300px]">Panadol Extra 500mg</span>
+        </nav>
+
+        <!-- TOP SECTION: Product Summary -->
+        <div class="bg-white rounded-[16px] border border-[#e8e8e8] p-6 lg:p-8 flex flex-col lg:flex-row gap-10 shadow-[0_4px_16px_rgba(26,26,26,0.04)] mb-8">
+            
+            <!-- Product Images Gallery -->
+            <div class="w-full lg:w-[450px] shrink-0">
+                <div class="aspect-square bg-[#f7f7f7] rounded-[12px] mb-4 flex items-center justify-center border border-[#e8e8e8] relative overflow-hidden group cursor-zoom-in">
+                    <div class="absolute top-4 left-4 bg-[#b3262b] text-white text-[10px] font-bold px-2.5 py-1 rounded-[4px] z-10">-15%</div>
+                    <i data-lucide="image" class="w-24 h-24 text-[#c2c2c2] group-hover:scale-110 transition-transform duration-300"></i>
+                </div>
+                <!-- Thumbnails -->
+                <div class="grid grid-cols-4 gap-3">
+                    <button class="aspect-square bg-white border-2 border-[#024ad8] rounded-[8px] flex items-center justify-center">
+                        <i data-lucide="image" class="w-8 h-8 text-[#c2c2c2]"></i>
+                    </button>
+                    <button class="aspect-square bg-[#f7f7f7] border border-[#e8e8e8] rounded-[8px] flex items-center justify-center hover:border-[#c2c2c2] transition-colors">
+                        <i data-lucide="image" class="w-8 h-8 text-[#c2c2c2]"></i>
+                    </button>
+                    <button class="aspect-square bg-[#f7f7f7] border border-[#e8e8e8] rounded-[8px] flex items-center justify-center hover:border-[#c2c2c2] transition-colors">
+                        <i data-lucide="image" class="w-8 h-8 text-[#c2c2c2]"></i>
+                    </button>
+                    <button class="aspect-square bg-[#f7f7f7] border border-[#e8e8e8] rounded-[8px] flex items-center justify-center hover:border-[#c2c2c2] transition-colors">
+                        <i data-lucide="image" class="w-8 h-8 text-[#c2c2c2]"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product Info -->
+            <div class="flex-1 flex flex-col">
+                <div class="mb-4">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="bg-[#c9e0fc] text-[#024ad8] text-[10px] font-bold px-2.5 py-1 rounded-[4px] uppercase tracking-wider">Không kê đơn</span>
+                        <a href="#" class="text-xs font-bold text-[#024ad8] hover:underline">GlaxoSmithKline</a>
+                    </div>
+                    <h1 class="text-2xl lg:text-3xl font-extrabold text-[#1a1a1a] leading-tight mb-3">Thuốc giảm đau, hạ sốt Panadol Extra 500mg/65mg (Hộp 15 vỉ x 12 viên)</h1>
+                    
+                    <div class="flex items-center gap-4 text-sm font-medium text-[#636363]">
+                        <div class="flex items-center gap-1 text-[#d97706]">
+                            <i data-lucide="star" class="w-4 h-4 fill-[#d97706]"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-[#d97706]"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-[#d97706]"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-[#d97706]"></i>
+                            <i data-lucide="star-half" class="w-4 h-4 fill-[#d97706]"></i>
+                            <span class="text-[#3d3d3d] ml-1 font-bold">4.8</span>
+                        </div>
+                        <div class="w-1 h-1 rounded-full bg-[#c2c2c2]"></div>
+                        <span>124 Đánh giá</span>
+                        <div class="w-1 h-1 rounded-full bg-[#c2c2c2]"></div>
+                        <span>Đã bán 2.4k+</span>
+                    </div>
+                </div>
+
+                <div class="h-px bg-[#e8e8e8] my-6"></div>
+
+                <div class="mb-6">
+                    <div class="flex items-end gap-3 mb-2">
+                        <span class="text-3xl font-black text-[#b3262b]">125.000đ</span>
+                        <span class="text-base text-[#c2c2c2] line-through font-bold mb-1">145.000đ</span>
+                    </div>
+                    <p class="text-[11px] text-[#636363] font-medium bg-[#f7f7f7] px-2 py-1 rounded-[4px] inline-block">Giá đã bao gồm Thuế. <span class="font-bold text-[#059669]">Còn hàng.</span></p>
+                </div>
+
+                <ul class="space-y-2 mb-8 text-sm text-[#3d3d3d] font-medium">
+                    <li class="flex items-start gap-2">
+                        <i data-lucide="check" class="w-4 h-4 text-[#059669] shrink-0 mt-0.5"></i>
+                        Hoạt chất: <span class="font-bold text-[#1a1a1a]">Paracetamol 500mg, Caffeine 65mg</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i data-lucide="check" class="w-4 h-4 text-[#059669] shrink-0 mt-0.5"></i>
+                        Công dụng: <span class="font-bold text-[#1a1a1a]">Giảm đau nhẹ đến vừa, hạ sốt hiệu quả.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i data-lucide="check" class="w-4 h-4 text-[#059669] shrink-0 mt-0.5"></i>
+                        Quy cách: <span class="font-bold text-[#1a1a1a]">Hộp 15 vỉ x 12 viên</span>
+                    </li>
+                </ul>
+
+                <!-- Add to Cart actions -->
+                <div class="mt-auto bg-[#f7f7f7] p-5 rounded-[12px] border border-[#e8e8e8]">
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <!-- Quantity Selector -->
+                        <div class="flex items-center h-12 bg-white border border-[#c2c2c2] rounded-[6px] overflow-hidden w-full sm:w-32 shrink-0">
+                            <button onclick="updateQty(-1)" class="w-10 h-full flex items-center justify-center text-[#636363] hover:bg-[#f7f7f7] hover:text-[#024ad8] transition-colors"><i data-lucide="minus" class="w-4 h-4"></i></button>
+                            <input type="number" id="qty-input" value="1" min="1" max="99" class="flex-1 h-full text-center text-sm font-bold text-[#1a1a1a] focus:outline-none border-x border-[#e8e8e8]">
+                            <button onclick="updateQty(1)" class="w-10 h-full flex items-center justify-center text-[#636363] hover:bg-[#f7f7f7] hover:text-[#024ad8] transition-colors"><i data-lucide="plus" class="w-4 h-4"></i></button>
+                        </div>
+                        
+                        <!-- Buttons -->
+                        <div class="flex-1 flex gap-3">
+                            <button class="flex-1 h-12 border-2 border-[#024ad8] text-[#024ad8] bg-white rounded-[6px] text-sm font-bold uppercase tracking-wide hover:bg-[#f0f5ff] transition-colors flex items-center justify-center gap-2">
+                                <i data-lucide="shopping-cart" class="w-5 h-5"></i> Thêm vào giỏ
+                            </button>
+                            <button class="flex-1 h-12 bg-[#b3262b] text-white rounded-[6px] text-sm font-bold uppercase tracking-wide hover:bg-[#8e1c21] transition-colors flex items-center justify-center shadow-md shadow-[#b3262b]/20">
+                                Mua ngay
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BOTTOM SECTION: Product Details & Reviews Tabs -->
+        <div class="bg-white rounded-[16px] border border-[#e8e8e8] shadow-[0_4px_16px_rgba(26,26,26,0.04)] overflow-hidden mb-12">
+            <!-- Tab Headers -->
+            <div class="flex border-b border-[#e8e8e8] px-6 bg-[#f7f7f7]">
+                <button class="tab-btn active px-6 py-4 text-sm font-bold text-[#636363] border-b-2 border-transparent hover:text-[#024ad8] transition-colors" onclick="switchTab(this, 'desc')">Mô tả sản phẩm</button>
+                <button class="tab-btn px-6 py-4 text-sm font-bold text-[#636363] border-b-2 border-transparent hover:text-[#024ad8] transition-colors" onclick="switchTab(this, 'usage')">Hướng dẫn sử dụng</button>
+                <button class="tab-btn px-6 py-4 text-sm font-bold text-[#636363] border-b-2 border-transparent hover:text-[#024ad8] transition-colors" onclick="switchTab(this, 'reviews')">Đánh giá (124)</button>
+            </div>
+
+            <!-- Tab Content: Description -->
+            <div id="desc" class="tab-content active p-6 lg:p-8">
+                <div class="max-w-3xl prose prose-sm text-[#3d3d3d] space-y-4 leading-relaxed">
+                    <h3 class="text-lg font-bold text-[#1a1a1a]">Thông tin chi tiết</h3>
+                    <p>Panadol Extra với thành phần kết hợp giữa Paracetamol và Caffeine giúp tăng cường hiệu quả giảm đau, mang lại tác dụng nhanh chóng đối với các cơn đau nhẹ đến vừa.</p>
+                    
+                    <h4 class="font-bold text-[#1a1a1a] mt-6">Thành phần</h4>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li><strong>Paracetamol (500mg):</strong> Hoạt chất giảm đau, hạ sốt mạnh mẽ.</li>
+                        <li><strong>Caffeine (65mg):</strong> Chất kích thích nhẹ giúp tăng tốc độ hấp thu Paracetamol, tăng cường hiệu quả giảm đau.</li>
+                        <li>Tá dược vừa đủ 1 viên.</li>
+                    </ul>
+
+                    <h4 class="font-bold text-[#1a1a1a] mt-6">Chỉ định</h4>
+                    <p>Được chỉ định để điều trị các chứng đau và/hoặc sốt nhẹ đến vừa như:</p>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>Đau đầu, đau nửa đầu</li>
+                        <li>Đau cơ, đau khớp</li>
+                        <li>Đau bụng kinh</li>
+                        <li>Đau răng, đau họng</li>
+                        <li>Sốt do cảm cúm, tiêm chủng</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Tab Content: Usage -->
+            <div id="usage" class="tab-content p-6 lg:p-8">
+                <div class="max-w-3xl text-[#3d3d3d] space-y-4 leading-relaxed text-sm">
+                    <div class="bg-amber-50 border border-amber-200 rounded-[8px] p-4 flex gap-3 text-amber-800 mb-6">
+                        <i data-lucide="alert-triangle" class="w-5 h-5 shrink-0"></i>
+                        <div>
+                            <h4 class="font-bold text-sm mb-1">Lưu ý quan trọng</h4>
+                            <p class="text-xs">Không dùng chung với bất kỳ sản phẩm nào khác có chứa paracetamol. Tham khảo ý kiến bác sĩ nếu triệu chứng không giảm sau 3 ngày.</p>
+                        </div>
+                    </div>
+                    
+                    <h4 class="font-bold text-[#1a1a1a]">Liều dùng và cách dùng</h4>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li><strong>Người lớn và trẻ em trên 12 tuổi:</strong> 1 - 2 viên/lần. Có thể lặp lại sau mỗi 4 - 6 giờ nếu cần thiết. Không dùng quá 8 viên/ngày.</li>
+                        <li><strong>Trẻ em dưới 12 tuổi:</strong> Không khuyến cáo dùng Panadol Extra cho trẻ dưới 12 tuổi. Nên dùng các sản phẩm Panadol dành riêng cho trẻ em.</li>
+                        <li><strong>Cách dùng:</strong> Uống nguyên viên với một ly nước lọc. Tránh uống cùng lúc với trà, cà phê do chứa quá nhiều caffeine.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Tab Content: Reviews -->
+            <div id="reviews" class="tab-content p-6 lg:p-8">
+                <div class="max-w-3xl">
+                    <!-- Review Summary -->
+                    <div class="flex items-center gap-8 mb-8 pb-8 border-b border-[#e8e8e8]">
+                        <div class="text-center">
+                            <div class="text-5xl font-black text-[#1a1a1a] mb-2">4.8</div>
+                            <div class="flex items-center justify-center gap-1 text-[#d97706] mb-1">
+                                <i data-lucide="star" class="w-4 h-4 fill-[#d97706]"></i>
+                                <i data-lucide="star" class="w-4 h-4 fill-[#d97706]"></i>
+                                <i data-lucide="star" class="w-4 h-4 fill-[#d97706]"></i>
+                                <i data-lucide="star" class="w-4 h-4 fill-[#d97706]"></i>
+                                <i data-lucide="star-half" class="w-4 h-4 fill-[#d97706]"></i>
+                            </div>
+                            <div class="text-xs text-[#636363]">Dựa trên 124 đánh giá</div>
+                        </div>
+                        <div class="flex-1 space-y-2">
+                            <div class="flex items-center gap-2 text-xs text-[#636363]">
+                                <span class="w-3">5</span> <i data-lucide="star" class="w-3 h-3 text-[#c2c2c2]"></i>
+                                <div class="flex-1 h-2 bg-[#e8e8e8] rounded-full overflow-hidden"><div class="h-full bg-[#d97706]" style="width: 85%"></div></div>
+                                <span class="w-6 text-right">85%</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs text-[#636363]">
+                                <span class="w-3">4</span> <i data-lucide="star" class="w-3 h-3 text-[#c2c2c2]"></i>
+                                <div class="flex-1 h-2 bg-[#e8e8e8] rounded-full overflow-hidden"><div class="h-full bg-[#d97706]" style="width: 10%"></div></div>
+                                <span class="w-6 text-right">10%</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs text-[#636363]">
+                                <span class="w-3">3</span> <i data-lucide="star" class="w-3 h-3 text-[#c2c2c2]"></i>
+                                <div class="flex-1 h-2 bg-[#e8e8e8] rounded-full overflow-hidden"><div class="h-full bg-[#d97706]" style="width: 3%"></div></div>
+                                <span class="w-6 text-right">3%</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs text-[#636363]">
+                                <span class="w-3">2</span> <i data-lucide="star" class="w-3 h-3 text-[#c2c2c2]"></i>
+                                <div class="flex-1 h-2 bg-[#e8e8e8] rounded-full overflow-hidden"><div class="h-full bg-[#d97706]" style="width: 1%"></div></div>
+                                <span class="w-6 text-right">1%</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs text-[#636363]">
+                                <span class="w-3">1</span> <i data-lucide="star" class="w-3 h-3 text-[#c2c2c2]"></i>
+                                <div class="flex-1 h-2 bg-[#e8e8e8] rounded-full overflow-hidden"><div class="h-full bg-[#d97706]" style="width: 1%"></div></div>
+                                <span class="w-6 text-right">1%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Review List -->
+                    <div class="space-y-6">
+                        <!-- Review Item -->
+                        <div>
+                            <div class="flex items-start justify-between mb-2">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-[#024ad8] text-white flex items-center justify-center font-bold text-xs">HN</div>
+                                    <div>
+                                        <div class="font-bold text-sm text-[#1a1a1a]">Hoàng Nam</div>
+                                        <div class="text-[10px] text-[#636363]">20/05/2026</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-1 text-[#d97706]">
+                                    <i data-lucide="star" class="w-4 h-4 fill-[#d97706]"></i>
+                                    <i data-lucide="star" class="w-4 h-4 fill-[#d97706]"></i>
+                                    <i data-lucide="star" class="w-4 h-4 fill-[#d97706]"></i>
+                                    <i data-lucide="star" class="w-4 h-4 fill-[#d97706]"></i>
+                                    <i data-lucide="star" class="w-4 h-4 fill-[#d97706]"></i>
+                                </div>
+                            </div>
+                            <div class="text-xs text-[#059669] font-bold flex items-center gap-1 mb-2"><i data-lucide="check-circle-2" class="w-3 h-3"></i> Đã mua hàng</div>
+                            <p class="text-sm text-[#3d3d3d] leading-relaxed">Thuốc chính hãng, giao hàng rất nhanh trong vòng 2 tiếng. Đóng gói cẩn thận, hạn sử dụng còn xa.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER (Reused from Home) -->
+    <footer class="bg-white border-t border-[#e8e8e8] pt-12 pb-6 mt-auto">
+        <div class="max-w-[1280px] mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+                <div>
+                    <a href="home.html" class="flex items-center gap-2 mb-4">
+                        <div class="bg-[#024ad8] text-white p-2 rounded-[6px]"><i data-lucide="sparkles" class="w-4 h-4"></i></div>
+                        <span class="text-lg font-black tracking-tight text-[#1a1a1a]">Pharma<span class="text-[#024ad8]">Assist</span></span>
+                    </a>
+                    <p class="text-xs text-[#636363] leading-relaxed mb-4">Hệ thống nhà thuốc uy tín, cung cấp các sản phẩm chăm sóc sức khỏe chính hãng 100%.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-[#1a1a1a] mb-4">Về chúng tôi</h4>
+                    <ul class="space-y-3 text-sm text-[#636363]">
+                        <li><a href="#" class="hover:text-[#024ad8] transition-colors">Giới thiệu PharmaAssist</a></li>
+                        <li><a href="#" class="hover:text-[#024ad8] transition-colors">Hệ thống cửa hàng</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-[#1a1a1a] mb-4">Hỗ trợ khách hàng</h4>
+                    <ul class="space-y-3 text-sm text-[#636363]">
+                        <li><a href="#" class="hover:text-[#024ad8] transition-colors">Chính sách đổi trả</a></li>
+                        <li><a href="#" class="hover:text-[#024ad8] transition-colors">Chính sách bảo mật</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-[#1a1a1a] mb-4">Liên hệ</h4>
+                    <ul class="space-y-3 text-sm text-[#636363]">
+                        <li class="flex items-center gap-2"><i data-lucide="phone" class="w-4 h-4 text-[#c2c2c2]"></i><span class="font-bold text-[#024ad8]">1900 1234</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-[#e8e8e8] pt-6 flex justify-between items-center text-[11px] text-[#c2c2c2]">
+                <p>© 2026 PharmaAssist. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // Quantity logic
+        function updateQty(change) {
+            const input = document.getElementById('qty-input');
+            let val = parseInt(input.value) || 1;
+            val += change;
+            if(val < 1) val = 1;
+            if(val > 99) val = 99;
+            input.value = val;
+        }
+
+        // Tabs logic
+        function switchTab(btn, tabId) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            btn.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+    </script>
+</body>
+</html>

@@ -16,6 +16,7 @@ PharmaAssist-Figma-Design/
     auth/
             forgot-password.html
             login.html
+            register.html
     customers/
             customer-detail.html
             customer-purchase-history.html

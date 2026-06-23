@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PharmaAssist — Nhà thuốc trực tuyến</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        html { -webkit-font-smoothing: antialiased; }
+        body { font-family: 'Inter', sans-serif; background-color: #f7f7f7; color: #1a1a1a; }
+        
+        /* Custom Scrollbar for horizontal lists */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Animations */
+        .hover-scale { transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .hover-scale:hover { transform: translateY(-4px); }
+        
+        .product-card {
+            transition: all 0.2s ease-in-out;
+        }
+        .product-card:hover {
+            box-shadow: 0 12px 24px -4px rgba(26,26,26,0.1);
+            border-color: #024ad8;
+        }
+        .product-card:hover .add-to-cart-btn {
+            background-color: #024ad8;
+            color: white;
+            border-color: #024ad8;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- TOP ANNOUNCEMENT BAR -->
+    <div class="bg-[#024ad8] text-white text-xs font-bold py-2 text-center tracking-wide">
+        <span class="opacity-90">Giao hàng miễn phí cho đơn hàng từ 300.000đ khu vực nội thành</span>
+    </div>
+
+    <!-- HEADER -->
+    <header class="bg-white border-b border-[#e8e8e8] sticky top-0 z-40 shadow-sm">
+        <div class="max-w-[1280px] mx-auto px-6 py-4 flex items-center justify-between gap-8">
+            
+            <!-- Logo -->
+            <a href="home.html" class="flex items-center gap-2 shrink-0 group">
+                <div class="bg-[#024ad8] text-white p-2 rounded-[8px] shadow-md group-hover:scale-105 transition-transform">
+                    <i data-lucide="sparkles" class="w-5 h-5"></i>
+                </div>
+                <div class="leading-tight">
+                    <span class="text-xl font-black tracking-tight text-[#1a1a1a]">Pharma<span class="text-[#024ad8]">Assist</span></span>
+                </div>
+            </a>
+
+            <!-- Search Bar -->
+            <div class="flex-1 max-w-2xl relative hidden md:block">
+                <div class="relative flex items-center">
+                    <div class="absolute left-4 text-[#636363]">
+                        <i data-lucide="search" class="w-5 h-5"></i>
+                    </div>
+                    <input type="text" placeholder="Tìm kiếm tên thuốc, triệu chứng, hoạt chất..." 
+                           class="w-full pl-12 pr-24 h-11 border border-[#c2c2c2] rounded-full text-sm focus:outline-none focus:border-[#024ad8] focus:ring-1 focus:ring-[#024ad8] transition-all bg-[#f7f7f7] focus:bg-white">
+                    <button class="absolute right-1 top-1 bottom-1 bg-[#024ad8] text-white px-5 rounded-full text-xs font-bold hover:bg-[#0e3191] transition-colors">
+                        TÌM KIẾM
+                    </button>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-6 shrink-0">
+                <a href="#" class="flex flex-col items-center gap-1 text-[#636363] hover:text-[#024ad8] transition-colors">
+                    <i data-lucide="phone-call" class="w-6 h-6"></i>
+                    <span class="text-[10px] font-bold">1900 1234</span>
+                </a>
+                
+                <a href="cart.html" class="flex flex-col items-center gap-1 text-[#636363] hover:text-[#024ad8] transition-colors relative">
+                    <div class="relative">
+                        <i data-lucide="shopping-cart" class="w-6 h-6"></i>
+                        <span class="absolute -top-1.5 -right-2 bg-[#b3262b] text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center border-2 border-white">3</span>
+                    </div>
+                    <span class="text-[10px] font-bold">Giỏ hàng</span>
+                </a>
+
+                <div class="w-px h-8 bg-[#e8e8e8]"></div>
+
+                <a href="../auth/login.html" class="flex items-center gap-3 group">
+                    <div class="w-9 h-9 rounded-full border border-[#e8e8e8] bg-[#f7f7f7] flex items-center justify-center text-[#636363] group-hover:bg-[#c9e0fc] group-hover:text-[#024ad8] transition-colors">
+                        <i data-lucide="user" class="w-5 h-5"></i>
+                    </div>
+                    <div class="hidden lg:block leading-tight">
+                        <span class="block text-[10px] text-[#636363] font-medium">Tài khoản</span>
+                        <span class="block text-xs font-bold text-[#1a1a1a] group-hover:text-[#024ad8] transition-colors">Đăng nhập</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Navigation Categories -->
+        <nav class="border-t border-[#e8e8e8] hidden md:block">
+            <div class="max-w-[1280px] mx-auto px-6">
+                <ul class="flex items-center gap-8 overflow-x-auto hide-scrollbar text-sm font-bold text-[#3d3d3d]">
+                    <li>
+                        <a href="#" class="flex items-center gap-2 py-3 text-[#024ad8] border-b-2 border-[#024ad8] whitespace-nowrap">
+                            <i data-lucide="home" class="w-4 h-4"></i> Trang chủ
+                        </a>
+                    </li>
+                    <li><a href="#" class="flex items-center py-3 hover:text-[#024ad8] whitespace-nowrap transition-colors">Thuốc kê đơn</a></li>
+                    <li><a href="#" class="flex items-center py-3 hover:text-[#024ad8] whitespace-nowrap transition-colors">Thuốc không kê đơn</a></li>
+                    <li><a href="#" class="flex items-center py-3 hover:text-[#024ad8] whitespace-nowrap transition-colors">Thực phẩm chức năng</a></li>
+                    <li><a href="#" class="flex items-center py-3 hover:text-[#024ad8] whitespace-nowrap transition-colors">Dược mỹ phẩm</a></li>
+                    <li><a href="#" class="flex items-center py-3 hover:text-[#024ad8] whitespace-nowrap transition-colors">Thiết bị y tế</a></li>
+                    <li><a href="#" class="flex items-center py-3 hover:text-[#024ad8] whitespace-nowrap transition-colors">Chăm sóc cá nhân</a></li>
+                    <li><a href="#" class="flex items-center gap-1 py-3 text-[#b3262b] hover:text-[#f9d4d2] whitespace-nowrap transition-colors"><i data-lucide="percent" class="w-4 h-4"></i> Khuyến mãi</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 max-w-[1280px] w-full mx-auto px-6 py-8 space-y-12">
+
+        <!-- 1. HERO BANNER -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Main Slider -->
+            <div class="lg:col-span-2 relative rounded-[16px] overflow-hidden bg-gradient-to-r from-[#024ad8] to-[#035ff0] text-white flex items-center min-h-[320px]">
+                <!-- Abstract BG -->
+                <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4"></div>
+                <div class="relative z-10 p-10 max-w-lg">
+                    <span class="inline-block px-3 py-1 bg-white/20 rounded-full text-xs font-bold uppercase tracking-wider mb-4 border border-white/30 backdrop-blur-sm">Siêu sale mùa hè</span>
+                    <h2 class="text-3xl font-extrabold leading-tight mb-4">Bảo vệ sức khỏe cả gia đình<br>Giảm ngay 20% TPCN</h2>
+                    <p class="text-blue-100 text-sm mb-8 font-medium">Nhập mã SUMMER20 để nhận ưu đãi. Áp dụng cho các sản phẩm vitamin và khoáng chất.</p>
+                    <a href="#" class="inline-flex items-center gap-2 bg-white text-[#024ad8] px-6 py-3 rounded-full text-sm font-bold uppercase tracking-wide hover:bg-blue-50 transition-colors shadow-lg">
+                        Mua ngay <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+                <!-- Pagination dots -->
+                <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                    <button class="w-6 h-1.5 rounded-full bg-white"></button>
+                    <button class="w-1.5 h-1.5 rounded-full bg-white/40"></button>
+                    <button class="w-1.5 h-1.5 rounded-full bg-white/40"></button>
+                </div>
+            </div>
+            <!-- Side Banners -->
+            <div class="flex flex-col gap-6">
+                <a href="#" class="flex-1 rounded-[16px] overflow-hidden bg-gradient-to-br from-[#c9e0fc] to-[#e8f1ff] p-6 relative hover-scale flex flex-col justify-center border border-[#024ad8]/10">
+                    <h3 class="text-lg font-bold text-[#0e3191] mb-1">Tư vấn trực tuyến</h3>
+                    <p class="text-xs text-[#024ad8] font-medium">Kết nối với Dược sĩ 24/7</p>
+                    <div class="absolute right-4 bottom-4 w-12 h-12 bg-white rounded-full flex items-center justify-center text-[#024ad8] shadow-sm">
+                        <i data-lucide="message-circle" class="w-6 h-6"></i>
+                    </div>
+                </a>
+                <a href="#" class="flex-1 rounded-[16px] overflow-hidden bg-gradient-to-br from-[#f9d4d2] to-[#fff0f0] p-6 relative hover-scale flex flex-col justify-center border border-[#b3262b]/10">
+                    <h3 class="text-lg font-bold text-[#b3262b] mb-1">Tra cứu toa thuốc</h3>
+                    <p class="text-xs text-[#b3262b]/80 font-medium">Tải ảnh toa thuốc lên ngay</p>
+                    <div class="absolute right-4 bottom-4 w-12 h-12 bg-white rounded-full flex items-center justify-center text-[#b3262b] shadow-sm">
+                        <i data-lucide="camera" class="w-6 h-6"></i>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- 2. QUICK CATEGORIES -->
+        <section>
+            <h2 class="text-lg font-extrabold text-[#1a1a1a] mb-6 flex items-center gap-2">
+                <i data-lucide="grid-3x3" class="w-5 h-5 text-[#024ad8]"></i> Danh mục nổi bật
+            </h2>
+            <div class="grid grid-cols-4 md:grid-cols-8 gap-4">
+                <!-- Cat item -->
+                <a href="#" class="flex flex-col items-center gap-3 group">
+                    <div class="w-20 h-20 rounded-[16px] bg-white border border-[#e8e8e8] shadow-sm flex items-center justify-center text-[#024ad8] group-hover:border-[#024ad8] group-hover:shadow-md transition-all">
+                        <i data-lucide="pill" class="w-8 h-8"></i>
+                    </div>
+                    <span class="text-[11px] font-bold text-[#3d3d3d] text-center group-hover:text-[#024ad8]">Thuốc không kê đơn</span>
+                </a>
+                <a href="#" class="flex flex-col items-center gap-3 group">
+                    <div class="w-20 h-20 rounded-[16px] bg-white border border-[#e8e8e8] shadow-sm flex items-center justify-center text-[#d97706] group-hover:border-[#d97706] group-hover:shadow-md transition-all">
+                        <i data-lucide="heart-pulse" class="w-8 h-8"></i>
+                    </div>
+                    <span class="text-[11px] font-bold text-[#3d3d3d] text-center group-hover:text-[#d97706]">Thực phẩm chức năng</span>
+                </a>
+                <a href="#" class="flex flex-col items-center gap-3 group">
+                    <div class="w-20 h-20 rounded-[16px] bg-white border border-[#e8e8e8] shadow-sm flex items-center justify-center text-[#059669] group-hover:border-[#059669] group-hover:shadow-md transition-all">
+                        <i data-lucide="baby" class="w-8 h-8"></i>
+                    </div>
+                    <span class="text-[11px] font-bold text-[#3d3d3d] text-center group-hover:text-[#059669]">Mẹ & Bé</span>
+                </a>
+                <a href="#" class="flex flex-col items-center gap-3 group">
+                    <div class="w-20 h-20 rounded-[16px] bg-white border border-[#e8e8e8] shadow-sm flex items-center justify-center text-[#db2777] group-hover:border-[#db2777] group-hover:shadow-md transition-all">
+                        <i data-lucide="sparkles" class="w-8 h-8"></i>
+                    </div>
+                    <span class="text-[11px] font-bold text-[#3d3d3d] text-center group-hover:text-[#db2777]">Dược mỹ phẩm</span>
+                </a>
+                <a href="#" class="flex flex-col items-center gap-3 group">
+                    <div class="w-20 h-20 rounded-[16px] bg-white border border-[#e8e8e8] shadow-sm flex items-center justify-center text-[#4f46e5] group-hover:border-[#4f46e5] group-hover:shadow-md transition-all">
+                        <i data-lucide="stethoscope" class="w-8 h-8"></i>
+                    </div>
+                    <span class="text-[11px] font-bold text-[#3d3d3d] text-center group-hover:text-[#4f46e5]">Thiết bị y tế</span>
+                </a>
+                <a href="#" class="flex flex-col items-center gap-3 group">
+                    <div class="w-20 h-20 rounded-[16px] bg-white border border-[#e8e8e8] shadow-sm flex items-center justify-center text-[#0891b2] group-hover:border-[#0891b2] group-hover:shadow-md transition-all">
+                        <i data-lucide="droplets" class="w-8 h-8"></i>
+                    </div>
+                    <span class="text-[11px] font-bold text-[#3d3d3d] text-center group-hover:text-[#0891b2]">Chăm sóc cá nhân</span>
+                </a>
+                <a href="#" class="flex flex-col items-center gap-3 group">
+                    <div class="w-20 h-20 rounded-[16px] bg-white border border-[#e8e8e8] shadow-sm flex items-center justify-center text-[#16a34a] group-hover:border-[#16a34a] group-hover:shadow-md transition-all">
+                        <i data-lucide="leaf" class="w-8 h-8"></i>
+                    </div>
+                    <span class="text-[11px] font-bold text-[#3d3d3d] text-center group-hover:text-[#16a34a]">Thảo dược</span>
+                </a>
+                <a href="#" class="flex flex-col items-center gap-3 group">
+                    <div class="w-20 h-20 rounded-[16px] bg-white border border-[#e8e8e8] shadow-sm flex items-center justify-center text-[#1a1a1a] group-hover:border-[#1a1a1a] group-hover:shadow-md transition-all">
+                        <i data-lucide="layout-grid" class="w-8 h-8"></i>
+                    </div>
+                    <span class="text-[11px] font-bold text-[#3d3d3d] text-center group-hover:text-[#1a1a1a]">Xem tất cả</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- 3. BEST SELLERS -->
+        <section>
+            <div class="flex items-end justify-between mb-6">
+                <div>
+                    <h2 class="text-xl font-extrabold text-[#1a1a1a] flex items-center gap-2">
+                        <i data-lucide="flame" class="w-6 h-6 text-[#b3262b] fill-[#b3262b]/20"></i> Sản phẩm bán chạy
+                    </h2>
+                    <p class="text-sm text-[#636363] mt-1">Được nhiều khách hàng tin dùng nhất tuần qua</p>
+                </div>
+                <a href="#" class="text-sm font-bold text-[#024ad8] hover:underline flex items-center gap-1">Xem tất cả <i data-lucide="chevron-right" class="w-4 h-4"></i></a>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-5">
+                <!-- Product Card 1 -->
+                <div class="bg-white rounded-[12px] border border-[#e8e8e8] p-4 flex flex-col product-card relative">
+                    <div class="absolute top-3 left-3 bg-[#b3262b] text-white text-[10px] font-bold px-2 py-0.5 rounded-[4px] z-10">-15%</div>
+                    <a href="product-detail.html" class="block aspect-square bg-[#f7f7f7] rounded-[8px] mb-4 flex items-center justify-center relative overflow-hidden group">
+                        <i data-lucide="image" class="w-12 h-12 text-[#c2c2c2] group-hover:scale-110 transition-transform"></i>
+                    </a>
+                    <div class="flex-1 flex flex-col">
+                        <a href="product-detail.html" class="text-sm font-bold text-[#1a1a1a] line-clamp-2 hover:text-[#024ad8] mb-1">Panadol Extra 500mg (Hộp 15 vỉ x 12 viên)</a>
+                        <p class="text-[11px] text-[#636363] mb-3">GlaxoSmithKline</p>
+                        
+                        <div class="mt-auto">
+                            <div class="flex items-baseline gap-2 mb-3">
+                                <span class="text-base font-black text-[#b3262b]">125.000đ</span>
+                                <span class="text-xs text-[#c2c2c2] line-through">145.000đ</span>
+                            </div>
+                            <button class="w-full h-9 rounded-[6px] border border-[#c2c2c2] text-[#3d3d3d] font-bold text-xs uppercase tracking-wide flex items-center justify-center gap-2 add-to-cart-btn">
+                                <i data-lucide="shopping-cart" class="w-4 h-4"></i> Chọn mua
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 2 -->
+                <div class="bg-white rounded-[12px] border border-[#e8e8e8] p-4 flex flex-col product-card relative">
+                    <a href="product-detail.html" class="block aspect-square bg-[#f7f7f7] rounded-[8px] mb-4 flex items-center justify-center relative overflow-hidden group">
+                        <i data-lucide="image" class="w-12 h-12 text-[#c2c2c2] group-hover:scale-110 transition-transform"></i>
+                    </a>
+                    <div class="flex-1 flex flex-col">
+                        <a href="product-detail.html" class="text-sm font-bold text-[#1a1a1a] line-clamp-2 hover:text-[#024ad8] mb-1">Nước muối sinh lý Vĩnh Phúc (Natri Clorid 0.9%) 500ml</a>
+                        <p class="text-[11px] text-[#636363] mb-3">Vĩnh Phúc</p>
+                        
+                        <div class="mt-auto">
+                            <div class="flex items-baseline gap-2 mb-3">
+                                <span class="text-base font-black text-[#024ad8]">5.000đ</span>
+                            </div>
+                            <button class="w-full h-9 rounded-[6px] border border-[#c2c2c2] text-[#3d3d3d] font-bold text-xs uppercase tracking-wide flex items-center justify-center gap-2 add-to-cart-btn">
+                                <i data-lucide="shopping-cart" class="w-4 h-4"></i> Chọn mua
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 3 -->
+                <div class="bg-white rounded-[12px] border border-[#e8e8e8] p-4 flex flex-col product-card relative">
+                    <a href="product-detail.html" class="block aspect-square bg-[#f7f7f7] rounded-[8px] mb-4 flex items-center justify-center relative overflow-hidden group">
+                        <i data-lucide="image" class="w-12 h-12 text-[#c2c2c2] group-hover:scale-110 transition-transform"></i>
+                    </a>
+                    <div class="flex-1 flex flex-col">
+                        <a href="product-detail.html" class="text-sm font-bold text-[#1a1a1a] line-clamp-2 hover:text-[#024ad8] mb-1">Viên uống Vitamin C DHC 60 ngày (120 viên)</a>
+                        <p class="text-[11px] text-[#636363] mb-3">DHC Nhật Bản</p>
+                        
+                        <div class="mt-auto">
+                            <div class="flex items-baseline gap-2 mb-3">
+                                <span class="text-base font-black text-[#024ad8]">185.000đ</span>
+                            </div>
+                            <button class="w-full h-9 rounded-[6px] border border-[#c2c2c2] text-[#3d3d3d] font-bold text-xs uppercase tracking-wide flex items-center justify-center gap-2 add-to-cart-btn">
+                                <i data-lucide="shopping-cart" class="w-4 h-4"></i> Chọn mua
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 4 -->
+                <div class="bg-white rounded-[12px] border border-[#e8e8e8] p-4 flex flex-col product-card relative">
+                    <div class="absolute top-3 left-3 bg-[#d97706] text-white text-[10px] font-bold px-2 py-0.5 rounded-[4px] z-10">Bán chạy</div>
+                    <a href="product-detail.html" class="block aspect-square bg-[#f7f7f7] rounded-[8px] mb-4 flex items-center justify-center relative overflow-hidden group">
+                        <i data-lucide="image" class="w-12 h-12 text-[#c2c2c2] group-hover:scale-110 transition-transform"></i>
+                    </a>
+                    <div class="flex-1 flex flex-col">
+                        <a href="product-detail.html" class="text-sm font-bold text-[#1a1a1a] line-clamp-2 hover:text-[#024ad8] mb-1">Siro ho Prospan cho trẻ sơ sinh và trẻ nhỏ (100ml)</a>
+                        <p class="text-[11px] text-[#636363] mb-3">Engelhard Arzneimittel</p>
+                        
+                        <div class="mt-auto">
+                            <div class="flex items-baseline gap-2 mb-3">
+                                <span class="text-base font-black text-[#024ad8]">82.000đ</span>
+                            </div>
+                            <button class="w-full h-9 rounded-[6px] border border-[#c2c2c2] text-[#3d3d3d] font-bold text-xs uppercase tracking-wide flex items-center justify-center gap-2 add-to-cart-btn">
+                                <i data-lucide="shopping-cart" class="w-4 h-4"></i> Chọn mua
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 5 (Hidden on MD) -->
+                <div class="hidden lg:flex bg-white rounded-[12px] border border-[#e8e8e8] p-4 flex-col product-card relative">
+                    <a href="product-detail.html" class="block aspect-square bg-[#f7f7f7] rounded-[8px] mb-4 flex items-center justify-center relative overflow-hidden group">
+                        <i data-lucide="image" class="w-12 h-12 text-[#c2c2c2] group-hover:scale-110 transition-transform"></i>
+                    </a>
+                    <div class="flex-1 flex flex-col">
+                        <a href="product-detail.html" class="text-sm font-bold text-[#1a1a1a] line-clamp-2 hover:text-[#024ad8] mb-1">Khẩu trang y tế 4 lớp kháng khuẩn (Hộp 50 cái)</a>
+                        <p class="text-[11px] text-[#636363] mb-3">PharmaAssist</p>
+                        
+                        <div class="mt-auto">
+                            <div class="flex items-baseline gap-2 mb-3">
+                                <span class="text-base font-black text-[#024ad8]">35.000đ</span>
+                            </div>
+                            <button class="w-full h-9 rounded-[6px] border border-[#c2c2c2] text-[#3d3d3d] font-bold text-xs uppercase tracking-wide flex items-center justify-center gap-2 add-to-cart-btn">
+                                <i data-lucide="shopping-cart" class="w-4 h-4"></i> Chọn mua
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. BANNER MỸ PHẨM -->
+        <section class="rounded-[16px] overflow-hidden bg-gradient-to-r from-[#db2777] to-[#f472b6] text-white flex items-center justify-between p-8 relative">
+            <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 20% 50%, white 0%, transparent 40%);"></div>
+            <div class="relative z-10">
+                <h2 class="text-2xl font-extrabold mb-2">Tháng Dược Mỹ Phẩm</h2>
+                <p class="text-pink-100 font-medium mb-6">Chăm sóc làn da nhạy cảm từ các thương hiệu Pháp: La Roche-Posay, Vichy, Bioderma</p>
+                <a href="#" class="inline-flex items-center gap-2 bg-white text-[#db2777] px-5 py-2.5 rounded-full text-sm font-bold uppercase tracking-wide hover:scale-105 transition-transform shadow-md">
+                    Khám phá ngay
+                </a>
+            </div>
+            <div class="hidden md:block relative z-10 w-32 h-32 bg-white/20 rounded-full blur-xl"></div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-[#e8e8e8] pt-12 pb-6 mt-12">
+        <div class="max-w-[1280px] mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+                <!-- Col 1 -->
+                <div>
+                    <a href="home.html" class="flex items-center gap-2 mb-4">
+                        <div class="bg-[#024ad8] text-white p-2 rounded-[6px]">
+                            <i data-lucide="sparkles" class="w-4 h-4"></i>
+                        </div>
+                        <span class="text-lg font-black tracking-tight text-[#1a1a1a]">Pharma<span class="text-[#024ad8]">Assist</span></span>
+                    </a>
+                    <p class="text-xs text-[#636363] leading-relaxed mb-4">Hệ thống nhà thuốc uy tín, cung cấp các sản phẩm chăm sóc sức khỏe chính hãng 100% với giá tốt nhất.</p>
+                    <div class="flex items-center gap-3">
+                        <a href="#" class="w-8 h-8 rounded-full bg-[#f7f7f7] flex items-center justify-center text-[#636363] hover:bg-[#024ad8] hover:text-white transition-colors"><i data-lucide="facebook" class="w-4 h-4"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-[#f7f7f7] flex items-center justify-center text-[#636363] hover:bg-[#024ad8] hover:text-white transition-colors"><i data-lucide="youtube" class="w-4 h-4"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-[#f7f7f7] flex items-center justify-center text-[#636363] hover:bg-[#024ad8] hover:text-white transition-colors"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+                    </div>
+                </div>
+
+                <!-- Col 2 -->
+                <div>
+                    <h4 class="font-bold text-[#1a1a1a] mb-4">Về chúng tôi</h4>
+                    <ul class="space-y-3 text-sm text-[#636363]">
+                        <li><a href="#" class="hover:text-[#024ad8] transition-colors">Giới thiệu PharmaAssist</a></li>
+                        <li><a href="#" class="hover:text-[#024ad8] transition-colors">Hệ thống cửa hàng</a></li>
+                        <li><a href="#" class="hover:text-[#024ad8] transition-colors">Giấy phép kinh doanh</a></li>
+                        <li><a href="#" class="hover:text-[#024ad8] transition-colors">Tin tức y tế</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3 -->
+                <div>
+                    <h4 class="font-bold text-[#1a1a1a] mb-4">Hỗ trợ khách hàng</h4>
+                    <ul class="space-y-3 text-sm text-[#636363]">
+                        <li><a href="#" class="hover:text-[#024ad8] transition-colors">Chính sách đổi trả</a></li>
+                        <li><a href="#" class="hover:text-[#024ad8] transition-colors">Chính sách bảo mật</a></li>
+                        <li><a href="#" class="hover:text-[#024ad8] transition-colors">Chính sách giao hàng</a></li>
+                        <li><a href="#" class="hover:text-[#024ad8] transition-colors">Câu hỏi thường gặp</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4 -->
+                <div>
+                    <h4 class="font-bold text-[#1a1a1a] mb-4">Liên hệ</h4>
+                    <ul class="space-y-3 text-sm text-[#636363]">
+                        <li class="flex items-start gap-2">
+                            <i data-lucide="map-pin" class="w-4 h-4 shrink-0 mt-0.5 text-[#c2c2c2]"></i>
+                            <span>123 Nguyễn Văn Cừ, Quận 5, TP.HCM</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i data-lucide="phone" class="w-4 h-4 text-[#c2c2c2]"></i>
+                            <span class="font-bold text-[#024ad8]">1900 1234</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i data-lucide="mail" class="w-4 h-4 text-[#c2c2c2]"></i>
+                            <span>support@pharmaassist.vn</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-[#e8e8e8] pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="text-[11px] text-[#c2c2c2] font-medium">© 2026 PharmaAssist. All rights reserved.</p>
+                <div class="flex items-center gap-2 text-[#c2c2c2]">
+                    <i data-lucide="credit-card" class="w-8 h-8"></i>
+                    <i data-lucide="banknote" class="w-8 h-8"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
